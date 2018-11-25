@@ -68,7 +68,7 @@ void CETCONGView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
-	SetTimer(0, 400, NULL);
+	SetTimer(0, 1000, NULL);
 	drawBackground();
 	m_player.drawMove(pDC);
 
@@ -133,6 +133,16 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		drawBackground();
 		m_player.drawMove(pDC);
 
+		////////////////////////
+		CImage move;
+		HRESULT hResult = move.Load(_T("res\\player.png"));
+		if (FAILED(hResult)) {
+			AfxMessageBox(_T("Img ERROR"));
+			return;
+		}
+		move.BitBlt(pDC->m_hDC, 0, 0);
+		////////////////////////
+
 		m_nTimerFlag = AFTER_MOVE;
 	}
 	else if (m_nTimerFlag == ATTACK) {
@@ -176,6 +186,26 @@ void CETCONGView::OnTimer(UINT_PTR nIDEvent)
 		m_nTimerFlag = MOVE;
 	else if (m_nTimerFlag == AFTER_MOVE || m_nTimerFlag == MOVE)
 		m_nTimerFlag = ATTACK;
+
+	CDC *pDC = GetDC();
+	if (m_nTimerFlag == MOVE) {
+		CImage move;
+		HRESULT hResult = move.Load(_T("res\\player.png"));
+		if (FAILED(hResult)) {
+			AfxMessageBox(_T("Img ERROR"));
+			return;
+		}
+		move.BitBlt(pDC->m_hDC, 0, 0);
+	}
+	else if (m_nTimerFlag == ATTACK) {
+		CImage attack;
+		HRESULT hResult = attack.Load(_T("res\\attack.png"));
+		if (FAILED(hResult)) {
+			AfxMessageBox(_T("Img ERROR"));
+			return;
+		}
+		attack.BitBlt(pDC->m_hDC, 0, 0);
+	}
 
 	CView::OnTimer(nIDEvent);
 }
