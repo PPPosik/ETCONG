@@ -1,19 +1,8 @@
-﻿빌드 시작: 2018-11-25 오후 10:02:17
-     1>2 노드의 "C:\Users\khj_pc\Documents\Visual Studio 2015\Projects\ETCONG\ETCONG\ETCONG.vcxproj" 프로젝트(Build 대상)입니다.
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\ETCONG.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ETCONGView.cpp
-         ETCONGView.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\khj_pc\Documents\Visual Studio 2015\Projects\ETCONG\Debug\ETCONG.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\Include\Manifest\dpiaware.manifest" /Debug /PDB:"C:\Users\khj_pc\Documents\Visual Studio 2015\Projects\ETCONG\Debug\ETCONG.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\khj_pc\Documents\Visual Studio 2015\Projects\ETCONG\Debug\ETCONG.lib" /MACHINE:X86 Debug\ETCONG.res
-         Debug\ETCONG.obj
-         Debug\ETCONGDoc.obj
-         Debug\ETCONGView.obj
-         Debug\MainFrm.obj
-         Debug\Player.obj
-         Debug\stdafx.obj
-         ETCONG.vcxproj -> C:\Users\khj_pc\Documents\Visual Studio 2015\Projects\ETCONG\Debug\ETCONG.exe
-     1>"C:\Users\khj_pc\Documents\Visual Studio 2015\Projects\ETCONG\ETCONG\ETCONG.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+﻿빌드 시작: 2018-11-25 오후 11:18:03
+     1>2 노드의 "C:\Users\khj_pc\documents\visual studio 2015\Projects\ETCONG\ETCONG\ETCONG.vcxproj" 프로젝트(Clean 대상)입니다.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : 'c:\users\khj_pc\documents\visual studio 2015\projects\etcong\debug\etcong.pdb' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+     1>"C:\Users\khj_pc\documents\visual studio 2015\Projects\ETCONG\ETCONG\ETCONG.vcxproj" 프로젝트를 빌드했습니다(Clean 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:00.62
+경과 시간: 00:00:00.04

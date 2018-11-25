@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "atlimage.h"
 #include "atltypes.h"
+#include "SoundPlayer.h"
 
 
 class CETCONGView : public CView
@@ -48,6 +49,7 @@ public:
 	void drawBackground();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	int m_nTimerFlag;
+	CSoundPlayer m_sound;
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전

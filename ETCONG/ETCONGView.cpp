@@ -40,6 +40,7 @@ CETCONGView::CETCONGView()
 	m_player = CPlayer();
 	m_pBackgroundPos = CPoint(0, 0);
 	m_nTimerFlag = AFTER_ATTACK;
+	m_sound = CSoundPlayer();
 
 	// 수정 필요
 	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
@@ -67,9 +68,11 @@ void CETCONGView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
-	SetTimer(0, 500, NULL);
+	SetTimer(0, 400, NULL);
 	drawBackground();
 	m_player.drawMove(pDC);
+
+	m_sound.stage1Play();
 }
 
 
