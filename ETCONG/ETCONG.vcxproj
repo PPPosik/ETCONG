@@ -222,6 +222,7 @@
   <ItemGroup>
     <Image Include="res\attack.png" />
     <Image Include="res\background.png" />
+    <Image Include="res\error.png" />
     <Image Include="res\ETCONG.ico" />
     <Image Include="res\ETCONGDoc.ico" />
     <Image Include="res\player.png" />

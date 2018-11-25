@@ -24,6 +24,7 @@ public:
 	void setLife(int life);
 	void drawMove(CDC *pDC);
 	void drawAttack(CDC *pDC);
+	void drawError(CDC *pDC);
 	CPoint getPos();
 	void setPos(int x, int y);
 };

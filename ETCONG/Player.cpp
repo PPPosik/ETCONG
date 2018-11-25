@@ -72,6 +72,19 @@ void CPlayer::drawAttack(CDC *pDC) {
 }
 
 
+void CPlayer::drawError(CDC *pDC) {
+	m_Img.Destroy();
+	HRESULT hResult = m_Img.Load(_T("res\\error.png"));
+	m_nWidth = m_Img.GetWidth();
+	m_nHeight = m_Img.GetHeight();
+	if (FAILED(hResult)) {
+		AfxMessageBox(_T("Img ERROR"));
+		return;
+	}
+	m_Img.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+}
+
+
 CPoint CPlayer::getPos() {
 	return m_Ppos;
 }
