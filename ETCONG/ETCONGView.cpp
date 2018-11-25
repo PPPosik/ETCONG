@@ -45,15 +45,17 @@ CETCONGView::CETCONGView()
 	, m_nClick(0)
 	, m_bClickable(false)
 	, m_nDelay(0)
+	, m_nInit(0)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_player = CPlayer();
 	m_pBackgroundPos = CPoint(0, 0);
-	m_nTimerFlag = AFTER_ATTACK;
+	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
 	m_nTime = 400;
 	m_nClick = 200;
 	m_nDelay = 200;
+	m_nInit = 300;
 	m_bClickable = false;
 
 	// 수정 필요
@@ -85,7 +87,8 @@ void CETCONGView::OnDraw(CDC* pDC)
 	drawBackground();
 	m_player.drawMove(pDC);
 
-	StartTimer();
+	// StartTimer();
+	StartThread();
 	m_sound.stage1Play();
 }
 
@@ -251,8 +254,8 @@ void CETCONGView::OnTimer(UINT_PTR nIDEvent)
 
 void CETCONGView::StartTimer()
 {
-	SetTimer(RYTHME_TIMER, m_nTime, NULL);
-	SetTimer(INIT_TIMER, 300, NULL);
+	// SetTimer(RYTHME_TIMER, m_nTime, NULL);
+	SetTimer(INIT_TIMER, m_nInit, NULL);
 }
 
 
@@ -272,3 +275,114 @@ void CETCONGView::OnDestroy()
 	m_sound.stop();
 	EndTimer();
 }
+
+
+UINT CETCONGView::ThreadFirst(LPVOID _mothod)
+{
+	CETCONGView *pView = (CETCONGView*)_mothod;
+
+	while (1)
+	{
+		Sleep(pView->m_nTime);
+
+		if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
+			pView->m_nTimerFlag = MOVE;
+		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
+			pView->m_nTimerFlag = ATTACK;
+		
+		CDC *pDC = pView->GetDC();
+		if (pView->m_nTimerFlag == MOVE) {
+			CImage move;
+			HRESULT hResult = move.Load(_T("res\\player.png"));
+			if (FAILED(hResult)) {
+				AfxMessageBox(_T("Img ERROR"));
+				return -1;
+			}
+			move.BitBlt(pDC->m_hDC, 0, 0);
+		}
+		else if (pView->m_nTimerFlag == ATTACK) {
+			CImage attack;
+			HRESULT hResult = attack.Load(_T("res\\attack.png"));
+			if (FAILED(hResult)) {
+				AfxMessageBox(_T("Img ERROR"));
+				return -1;
+			}
+			attack.BitBlt(pDC->m_hDC, 0, 0);
+		}
+	}
+	return 0;
+}
+
+
+UINT CETCONGView::ThreadSecond(LPVOID _mothod)
+{
+	CETCONGView *pView = (CETCONGView*)_mothod;
+
+	Sleep(pView->m_nDelay);
+	pView->m_bClickable = false;
+
+	CWinThread *p3 = NULL;
+	p3 = AfxBeginThread(ThreadThird, pView);
+	if (p3 == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(p3);
+
+	return 0;
+}
+
+
+UINT CETCONGView::ThreadThird(LPVOID _mothod)
+{
+	CETCONGView *pView = (CETCONGView*)_mothod;
+
+	Sleep(pView->m_nClick);
+	pView->m_bClickable = true;
+
+	CWinThread *p2 = NULL;
+	p2 = AfxBeginThread(ThreadSecond, pView);
+	if (p2 == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(p2);
+
+	return 0;
+}
+
+
+UINT CETCONGView::ThreadFourth(LPVOID _mothod)
+{
+	CETCONGView *pView = (CETCONGView*)_mothod;
+
+	Sleep(pView->m_nInit);
+	pView->m_bClickable = true;
+
+	CWinThread *p2 = NULL;
+	p2 = AfxBeginThread(ThreadSecond, pView);
+	if (p2 == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(p2);
+
+	return 0;
+}
+
+
+void CETCONGView::StartThread()
+{
+	CWinThread *p1 = NULL;
+	CWinThread *p4 = NULL;
+
+	p1 = AfxBeginThread(ThreadFirst, this);
+	if (p1 == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(p1);
+
+	p4 = AfxBeginThread(ThreadFourth, this);
+	if (p4 == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(p4);
+}
+

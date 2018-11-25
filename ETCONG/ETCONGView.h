@@ -53,10 +53,16 @@ public:
 	int m_nTime;
 	int m_nClick;
 	int m_nDelay;
+	int m_nInit;
 	bool m_bClickable;
 	void StartTimer();
 	void EndTimer();
 	afx_msg void OnDestroy();
+	static UINT ThreadFirst(LPVOID _mothod);
+	static UINT ThreadSecond(LPVOID _mothod);
+	static UINT ThreadThird(LPVOID _mothod);
+	static UINT ThreadFourth(LPVOID _mothod);
+	void StartThread();
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전
