@@ -50,6 +50,13 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	int m_nTimerFlag;
 	CSoundPlayer m_sound;
+	int m_nTime;
+	int m_nClick;
+	int m_nDelay;
+	bool m_bClickable;
+	void StartTimer();
+	void EndTimer();
+	afx_msg void OnDestroy();
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전

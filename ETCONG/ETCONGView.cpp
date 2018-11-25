@@ -16,6 +16,11 @@
 #define new DEBUG_NEW
 #endif
 
+#define RYTHME_TIMER 104
+#define CLICK_TIMER 105
+#define DELAY_TIMER 106
+#define INIT_TIMER 107
+
 #define MOVE 100
 #define ATTACK 101
 #define AFTER_MOVE 102
@@ -28,6 +33,7 @@ IMPLEMENT_DYNCREATE(CETCONGView, CView)
 BEGIN_MESSAGE_MAP(CETCONGView, CView)
 	ON_WM_KEYDOWN()
 	ON_WM_TIMER()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 // CETCONGView 생성/소멸
@@ -35,12 +41,20 @@ END_MESSAGE_MAP()
 CETCONGView::CETCONGView()
 	: m_pBackgroundPos(0)
 	, m_nTimerFlag(0)
+	, m_nTime(0)
+	, m_nClick(0)
+	, m_bClickable(false)
+	, m_nDelay(0)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_player = CPlayer();
 	m_pBackgroundPos = CPoint(0, 0);
 	m_nTimerFlag = AFTER_ATTACK;
 	m_sound = CSoundPlayer();
+	m_nTime = 400;
+	m_nClick = 200;
+	m_nDelay = 200;
+	m_bClickable = false;
 
 	// 수정 필요
 	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
@@ -68,10 +82,10 @@ void CETCONGView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
-	SetTimer(0, 1000, NULL);
 	drawBackground();
 	m_player.drawMove(pDC);
 
+	StartTimer();
 	m_sound.stage1Play();
 }
 
@@ -109,49 +123,56 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	int widthBias = m_player.getWidth();
 	int heightBias = m_player.getHeight();
 
-	if (m_nTimerFlag == MOVE) {
-		switch (nChar) {
-		case VK_LEFT:
-			x = x + widthBias;
-			break;
-		case VK_RIGHT:
-			x = x - widthBias;
-			break;
-		case VK_UP:
-			y = y + heightBias;
-			break;
-		case VK_DOWN:
-			y = y - heightBias;
-			break;
-		default:
+	if (m_bClickable) {
+		if (m_nTimerFlag == MOVE) {
+			switch (nChar) {
+			case VK_LEFT:
+				x = x + widthBias;
+				break;
+			case VK_RIGHT:
+				x = x - widthBias;
+				break;
+			case VK_UP:
+				y = y + heightBias;
+				break;
+			case VK_DOWN:
+				y = y - heightBias;
+				break;
+			default:
+				// disadvantage
+				m_player.drawError(pDC);
+				;
+			}
+			m_pBackgroundPos.x = x;
+			m_pBackgroundPos.y = y;
+
+			drawBackground();
+			m_player.drawMove(pDC);
+
+			////////////////////////
+			CImage move;
+			HRESULT hResult = move.Load(_T("res\\player.png"));
+			if (FAILED(hResult)) {
+				AfxMessageBox(_T("Img ERROR"));
+				return;
+			}
+			move.BitBlt(pDC->m_hDC, 0, 0);
+			////////////////////////
+
+			m_nTimerFlag = AFTER_MOVE;
+		}
+		else if (m_nTimerFlag == ATTACK) {
+			// 공격 키 아닌 키 누르면 disadvantage
+			m_player.drawAttack(pDC);
+			m_nTimerFlag = AFTER_ATTACK;
+		}
+		else {
 			// disadvantage
-			;
+			m_player.drawError(pDC);
 		}
-		m_pBackgroundPos.x = x;
-		m_pBackgroundPos.y = y;
-
-		drawBackground();
-		m_player.drawMove(pDC);
-
-		////////////////////////
-		CImage move;
-		HRESULT hResult = move.Load(_T("res\\player.png"));
-		if (FAILED(hResult)) {
-			AfxMessageBox(_T("Img ERROR"));
-			return;
-		}
-		move.BitBlt(pDC->m_hDC, 0, 0);
-		////////////////////////
-
-		m_nTimerFlag = AFTER_MOVE;
-	}
-	else if (m_nTimerFlag == ATTACK) {
-		// 공격 키 아닌 키 누르면 disadvantage
-		m_player.drawAttack(pDC);
-		m_nTimerFlag = AFTER_ATTACK;
 	}
 	else {
-		// disadvantage
+		m_player.drawError(pDC);
 	}
 
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
@@ -182,30 +203,72 @@ void CETCONGView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
-	if (m_nTimerFlag == AFTER_ATTACK || m_nTimerFlag == ATTACK)
-		m_nTimerFlag = MOVE;
-	else if (m_nTimerFlag == AFTER_MOVE || m_nTimerFlag == MOVE)
-		m_nTimerFlag = ATTACK;
+	if (nIDEvent == RYTHME_TIMER) {
+		if (m_nTimerFlag == AFTER_ATTACK || m_nTimerFlag == ATTACK)
+			m_nTimerFlag = MOVE;
+		else if (m_nTimerFlag == AFTER_MOVE || m_nTimerFlag == MOVE)
+			m_nTimerFlag = ATTACK;
 
-	CDC *pDC = GetDC();
-	if (m_nTimerFlag == MOVE) {
-		CImage move;
-		HRESULT hResult = move.Load(_T("res\\player.png"));
-		if (FAILED(hResult)) {
-			AfxMessageBox(_T("Img ERROR"));
-			return;
+		CDC *pDC = GetDC();
+		if (m_nTimerFlag == MOVE) {
+			CImage move;
+			HRESULT hResult = move.Load(_T("res\\player.png"));
+			if (FAILED(hResult)) {
+				AfxMessageBox(_T("Img ERROR"));
+				return;
+			}
+			move.BitBlt(pDC->m_hDC, 0, 0);
 		}
-		move.BitBlt(pDC->m_hDC, 0, 0);
+		else if (m_nTimerFlag == ATTACK) {
+			CImage attack;
+			HRESULT hResult = attack.Load(_T("res\\attack.png"));
+			if (FAILED(hResult)) {
+				AfxMessageBox(_T("Img ERROR"));
+				return;
+			}
+			attack.BitBlt(pDC->m_hDC, 0, 0);
+		}
 	}
-	else if (m_nTimerFlag == ATTACK) {
-		CImage attack;
-		HRESULT hResult = attack.Load(_T("res\\attack.png"));
-		if (FAILED(hResult)) {
-			AfxMessageBox(_T("Img ERROR"));
-			return;
-		}
-		attack.BitBlt(pDC->m_hDC, 0, 0);
+	else if (nIDEvent == CLICK_TIMER) {
+		SetTimer(DELAY_TIMER, m_nDelay, NULL);
+		m_bClickable = false;
+		KillTimer(CLICK_TIMER);
+	}
+	else if (nIDEvent == DELAY_TIMER) {
+		SetTimer(CLICK_TIMER, m_nClick, NULL);
+		m_bClickable = true;
+		KillTimer(DELAY_TIMER);
+	}
+	else if (nIDEvent == INIT_TIMER) {
+		SetTimer(CLICK_TIMER, m_nClick, NULL);
+		m_bClickable = true;
+		KillTimer(INIT_TIMER);
 	}
 
 	CView::OnTimer(nIDEvent);
+}
+
+
+void CETCONGView::StartTimer()
+{
+	SetTimer(RYTHME_TIMER, m_nTime, NULL);
+	SetTimer(INIT_TIMER, 300, NULL);
+}
+
+
+void CETCONGView::EndTimer()
+{
+	KillTimer(RYTHME_TIMER);
+	KillTimer(CLICK_TIMER);
+	KillTimer(DELAY_TIMER);
+}
+
+
+void CETCONGView::OnDestroy()
+{
+	CView::OnDestroy();
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	m_sound.stop();
+	EndTimer();
 }
