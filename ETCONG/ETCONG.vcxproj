@@ -189,6 +189,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CustomThread.h" />
     <ClInclude Include="ETCONG.h" />
     <ClInclude Include="ETCONGDoc.h" />
     <ClInclude Include="ETCONGView.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CustomThread.cpp" />
     <ClCompile Include="ETCONG.cpp" />
     <ClCompile Include="ETCONGDoc.cpp" />
     <ClCompile Include="ETCONGView.cpp" />

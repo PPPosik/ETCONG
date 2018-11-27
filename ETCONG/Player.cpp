@@ -48,10 +48,7 @@ void CPlayer::setLife(int life) {
 void CPlayer::drawMove(CDC *pDC) {
 	m_nWidth = m_ImgMove.GetWidth();
 	m_nHeight = m_ImgMove.GetHeight();
-	/*if (FAILED(hResult)) {
-		AfxMessageBox(_T("Img ERROR"));
-		return;
-	}*/
+
 	m_ImgMove.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
 }
 
@@ -59,10 +56,7 @@ void CPlayer::drawMove(CDC *pDC) {
 void CPlayer::drawAttack(CDC *pDC) {
 	m_nWidth = m_ImgAttack.GetWidth();
 	m_nHeight = m_ImgAttack.GetHeight();
-	/*if (FAILED(hResult)) {
-		AfxMessageBox(_T("Img ERROR"));
-		return;
-	}*/
+
 	m_ImgAttack.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
 }
 
@@ -70,10 +64,7 @@ void CPlayer::drawAttack(CDC *pDC) {
 void CPlayer::drawError(CDC *pDC) {
 	m_nWidth = m_ImgError.GetWidth();
 	m_nHeight = m_ImgError.GetHeight();
-	/*if (FAILED(hResult)) {
-		AfxMessageBox(_T("Img ERROR"));
-		return;
-	}*/
+
 	m_ImgError.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
 }
 

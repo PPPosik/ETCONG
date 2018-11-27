@@ -7,6 +7,7 @@
 #include "atlimage.h"
 #include "atltypes.h"
 #include "SoundPlayer.h"
+#include "CustomThread.h"
 
 
 class CETCONGView : public CView
@@ -42,27 +43,25 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-	CPlayer m_player;
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnDestroy();
+	
+	CPlayer m_player;
 	CPoint m_pBackgroundPos;
 	CImage backgroundImg;
-	void drawBackground();
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	int m_nTimerFlag;
+	CImage m_ImgBackground;
 	CSoundPlayer m_sound;
+	CCustomThread m_customThread;
+
+	void drawBackground();
+	
+	int m_nTimerFlag;
 	int m_nTime;
 	int m_nClick;
 	int m_nDelay;
 	int m_nInit;
 	bool m_bClickable;
-	void StartTimer();
-	void EndTimer();
-	afx_msg void OnDestroy();
-	static UINT ThreadAbsolute(LPVOID _mothod);
-	static UINT ThreadClickDelay(LPVOID _mothod);
-	static UINT ThreadInitial(LPVOID _mothod);
-	void StartThread();
-	CImage m_ImgBackground;
+	
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전
