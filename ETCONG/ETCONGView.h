@@ -58,11 +58,11 @@ public:
 	void StartTimer();
 	void EndTimer();
 	afx_msg void OnDestroy();
-	static UINT ThreadFirst(LPVOID _mothod);
-	static UINT ThreadSecond(LPVOID _mothod);
-	static UINT ThreadThird(LPVOID _mothod);
-	static UINT ThreadFourth(LPVOID _mothod);
+	static UINT ThreadAbsolute(LPVOID _mothod);
+	static UINT ThreadClickDelay(LPVOID _mothod);
+	static UINT ThreadInitial(LPVOID _mothod);
 	void StartThread();
+	CImage m_ImgBackground;
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전

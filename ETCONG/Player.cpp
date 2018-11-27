@@ -4,7 +4,6 @@
 
 CPlayer::CPlayer() {
 	m_nLife = 3;
-	m_Img.Load(_T("res\player.png"));
 	m_nWidth = 100;
 	m_nHeight = 100;
 	m_Ppos = CPoint(100, 100);
@@ -47,41 +46,35 @@ void CPlayer::setLife(int life) {
 
 
 void CPlayer::drawMove(CDC *pDC) {
-	m_Img.Destroy();
-	HRESULT hResult = m_Img.Load(_T("res\\player.png"));
-	m_nWidth = m_Img.GetWidth();
-	m_nHeight = m_Img.GetHeight();
-	if (FAILED(hResult)) {
+	m_nWidth = m_ImgMove.GetWidth();
+	m_nHeight = m_ImgMove.GetHeight();
+	/*if (FAILED(hResult)) {
 		AfxMessageBox(_T("Img ERROR"));
 		return;
-	}
-	m_Img.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+	}*/
+	m_ImgMove.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
 }
 
 
 void CPlayer::drawAttack(CDC *pDC) {
-	m_Img.Destroy();
-	HRESULT hResult = m_Img.Load(_T("res\\attack.png"));
-	m_nWidth = m_Img.GetWidth();
-	m_nHeight = m_Img.GetHeight();
-	if (FAILED(hResult)) {
+	m_nWidth = m_ImgAttack.GetWidth();
+	m_nHeight = m_ImgAttack.GetHeight();
+	/*if (FAILED(hResult)) {
 		AfxMessageBox(_T("Img ERROR"));
 		return;
-	}
-	m_Img.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+	}*/
+	m_ImgAttack.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
 }
 
 
 void CPlayer::drawError(CDC *pDC) {
-	m_Img.Destroy();
-	HRESULT hResult = m_Img.Load(_T("res\\error.png"));
-	m_nWidth = m_Img.GetWidth();
-	m_nHeight = m_Img.GetHeight();
-	if (FAILED(hResult)) {
+	m_nWidth = m_ImgError.GetWidth();
+	m_nHeight = m_ImgError.GetHeight();
+	/*if (FAILED(hResult)) {
 		AfxMessageBox(_T("Img ERROR"));
 		return;
-	}
-	m_Img.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+	}*/
+	m_ImgError.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
 }
 
 
@@ -94,3 +87,11 @@ void CPlayer::setPos(int x, int y) {
 	m_Ppos = CPoint(x, y);
 }
 
+
+
+void CPlayer::ImageInit()
+{
+	m_ImgMove.Load(_T("res\\player.png"));
+	m_ImgAttack.Load(_T("res\\attack.png"));
+	m_ImgError.Load(_T("res\\error.png"));
+}

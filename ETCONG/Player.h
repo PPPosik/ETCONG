@@ -7,7 +7,9 @@ private:
 	int m_nLife;
 	int m_nWidth;
 	int m_nHeight;
-	CImage m_Img;
+	CImage m_ImgMove;
+	CImage m_ImgAttack;
+	CImage m_ImgError;
 	CPoint m_Ppos;
 
 public:
@@ -27,5 +29,6 @@ public:
 	void drawError(CDC *pDC);
 	CPoint getPos();
 	void setPos(int x, int y);
+	void ImageInit();
 };
 
