@@ -23,7 +23,7 @@ CCustomThread::~CCustomThread()
 UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
-
+	CDC *pDC = pView->GetDC();
 	CImage move, attack;
 	HRESULT hResultMove = move.Load(_T("res\\player.png"));
 	HRESULT hResultAttack = attack.Load(_T("res\\attack.png"));
@@ -37,7 +37,6 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
 			pView->m_nTimerFlag = ATTACK;
 
-		CDC *pDC = pView->GetDC();
 		if (pView->m_nTimerFlag == MOVE) {
 			move.BitBlt(pDC->m_hDC, 0, 0);
 		}
@@ -45,6 +44,7 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 			attack.BitBlt(pDC->m_hDC, 0, 0);
 		}
 	}
+	
 	return 0;
 }
 
@@ -104,3 +104,4 @@ void CCustomThread::StartThread()
 	}
 	CloseHandle(pAbsolute);
 }
+

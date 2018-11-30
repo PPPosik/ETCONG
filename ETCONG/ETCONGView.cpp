@@ -21,6 +21,8 @@
 #define AFTER_MOVE 102
 #define AFTER_ATTACK 103
 
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+
 // CETCONGView
 
 IMPLEMENT_DYNCREATE(CETCONGView, CView)
@@ -55,9 +57,12 @@ CETCONGView::CETCONGView()
 	m_bClickable = false;
 	m_ImgBackground.Load(_T("res\\background.png"));
 	m_customThread = CCustomThread();
+	m_animation = CMyAnimation();
+	m_animation.InitAnimation();
 
 	// 수정 필요
 	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
+	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 120);
 }
 
 CETCONGView::~CETCONGView()
@@ -144,7 +149,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
-
 			drawBackground();
 
 			m_nTimerFlag = AFTER_MOVE;
@@ -171,8 +175,9 @@ void CETCONGView::drawBackground()
 {
 	CDC* pDC = GetDC();
 
-	m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	m_player.drawMove(pDC);
+	 m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
+	//m_player.drawMove(pDC);
+	m_animation.StartThread();
 
 	ReleaseDC(pDC);
 }

@@ -48,6 +48,9 @@
     <ClInclude Include="CustomThread.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MyAnimation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ETCONG.cpp">
@@ -72,6 +75,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CustomThread.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MyAnimation.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,6 +8,7 @@
 #include "atltypes.h"
 #include "SoundPlayer.h"
 #include "CustomThread.h"
+#include "MyAnimation.h"
 
 
 class CETCONGView : public CView
@@ -62,6 +63,7 @@ public:
 	int m_nInit;
 	bool m_bClickable;
 	
+	CMyAnimation m_animation;
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전

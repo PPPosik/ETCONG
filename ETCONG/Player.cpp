@@ -2,11 +2,12 @@
 #include "Player.h"
 
 
-CPlayer::CPlayer() {
+CPlayer::CPlayer()
+{
 	m_nLife = 3;
 	m_nWidth = 100;
 	m_nHeight = 100;
-	m_Ppos = CPoint(100, 100);
+	m_pPos = CPoint(100, 100);
 }
 
 
@@ -49,7 +50,7 @@ void CPlayer::drawMove(CDC *pDC) {
 	m_nWidth = m_ImgMove.GetWidth();
 	m_nHeight = m_ImgMove.GetHeight();
 
-	m_ImgMove.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+	m_ImgMove.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
 }
 
 
@@ -57,7 +58,7 @@ void CPlayer::drawAttack(CDC *pDC) {
 	m_nWidth = m_ImgAttack.GetWidth();
 	m_nHeight = m_ImgAttack.GetHeight();
 
-	m_ImgAttack.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+	m_ImgAttack.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
 }
 
 
@@ -65,19 +66,18 @@ void CPlayer::drawError(CDC *pDC) {
 	m_nWidth = m_ImgError.GetWidth();
 	m_nHeight = m_ImgError.GetHeight();
 
-	m_ImgError.BitBlt(pDC->m_hDC, m_Ppos.x, m_Ppos.y);
+	m_ImgError.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
 }
 
 
 CPoint CPlayer::getPos() {
-	return m_Ppos;
+	return m_pPos;
 }
 
 
 void CPlayer::setPos(int x, int y) {
-	m_Ppos = CPoint(x, y);
+	m_pPos = CPoint(x, y);
 }
-
 
 
 void CPlayer::ImageInit()

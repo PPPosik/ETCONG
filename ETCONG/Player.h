@@ -10,7 +10,7 @@ private:
 	CImage m_ImgMove;
 	CImage m_ImgAttack;
 	CImage m_ImgError;
-	CPoint m_Ppos;
+	CPoint m_pPos;
 
 public:
 
