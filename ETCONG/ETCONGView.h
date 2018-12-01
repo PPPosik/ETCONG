@@ -61,6 +61,8 @@ public:
 	int m_nClick;
 	int m_nDelay;
 	int m_nInit;
+	int m_nBackgroundWidth;
+	int m_nBackgroundHeight;
 	bool m_bClickable;
 	bool m_bError;
 	

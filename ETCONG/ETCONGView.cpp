@@ -59,6 +59,8 @@ CETCONGView::CETCONGView()
 	m_bClickable = false;
 	m_bError = false;
 	m_ImgBackground.Load(_T("res\\background.png"));
+	m_nBackgroundWidth = m_ImgBackground.GetWidth();
+	m_nBackgroundHeight = m_ImgBackground.GetHeight();
 	m_customThread = CCustomThread();
 	m_animation = CMyAnimation();
 	m_animation.InitAnimation();
@@ -132,25 +134,37 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if (m_nTimerFlag == MOVE) {
 			switch (nChar) {
 			case VK_LEFT:
-				x = x + widthBias;
+				if (1) {
+					// 500
+					x = x + widthBias;
+				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
 				m_animation.StartThread();
 				break;
 			case VK_RIGHT:
-				x = x - widthBias;
+				if (1) {
+					// -2800
+					x = x - widthBias;
+				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
 				m_animation.StartThread();
 				break;
 			case VK_UP:
-				y = y + heightBias;
+				if (1) {
+					// 200
+					y = y + heightBias;
+				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
 				m_animation.StartThread();
 				break;
 			case VK_DOWN:
-				y = y - heightBias;
+				if (1) {
+					// -3100
+					y = y - heightBias;
+				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
 				m_animation.StartThread();
@@ -162,6 +176,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
+			printf("/// %d %d\n", x, y);
 		}
 		else if (m_nTimerFlag == ATTACK) {
 			// m_player.drawAttack(pDC);
@@ -202,7 +217,7 @@ void CETCONGView::drawBackground()
 	}
 	m_bError = false;
 
-	printf("///////////// %d\n", m_nTimerFlag);
+	// printf("///////////// %d\n", m_nTimerFlag);
 	ReleaseDC(pDC);
 }
 

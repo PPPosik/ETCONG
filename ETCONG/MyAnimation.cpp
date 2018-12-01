@@ -56,7 +56,7 @@ void CMyAnimation::PlayAnimation(CDC *pDC, LPVOID view)
 	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
 
 	for (int i = 0; i < MAX_MOVE_CNT; i++) {
-		printf("%d ", i);
+		// printf("%d ", i);
 	
 		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 
