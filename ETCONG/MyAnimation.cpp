@@ -30,73 +30,45 @@ CMyAnimation::~CMyAnimation()
 
 void CMyAnimation::InitAnimation()
 {
-	m_ImgMove1.Load(_T("res\\1.png"));
-	m_ImgMove2.Load(_T("res\\2.png"));
-	m_ImgMove3.Load(_T("res\\3.png"));
-	m_ImgMove4.Load(_T("res\\4.png"));
-	m_ImgMove5.Load(_T("res\\5.png"));
-	m_ImgMove6.Load(_T("res\\6.png"));
-	m_ImgMove7.Load(_T("res\\7.png"));
-	m_ImgMove8.Load(_T("res\\8.png"));
-	m_ImgMove9.Load(_T("res\\9.png"));
+	CString str;
+	for (int i = 1; i <= MAX_MOVE_CNT; i++) {
+		str.Format(_T("res\\%d.png"), i);
+		m_ImgMove[i - 1].Load(str);
+	}
+	m_ImgBackground.Load(_T("res\\background.png"));
 
-	m_nWidth = m_ImgMove1.GetWidth();
-	m_nHeight = m_ImgMove1.GetHeight();
+	m_nWidth = m_ImgMove[0].GetWidth();
+	m_nHeight = m_ImgMove[0].GetHeight();
 }
 
 
-void CMyAnimation::PlayAnimation(CDC *pDC)
-{	
-	printf("%d %d\n", m_pPos.x, m_pPos.y);
+void CMyAnimation::PlayAnimation(CDC *pDC, LPVOID view)
+{
+	CETCONGView *pView = (CETCONGView*)view;
+	
+	CRect rect;
+	pView->GetClientRect(rect);
+	CDC memDC;
+	CBitmap* pOldBitmap;
+	CBitmap bmp;
 
-	m_ImgMove1.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove2.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove3.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove4.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove5.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove6.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove7.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove8.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
-	m_ImgMove9.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	memDC.CreateCompatibleDC(pDC);
+	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
 
-	//CImage i1, i2, i3, i4, i5, i6, i7, i8, i9;
-	//
-	//i1.Load(_T("res\\1.png"));
-	//i1.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i2.Load(_T("res\\2.png"));
-	//i2.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i3.Load(_T("res\\3.png"));
-	//i3.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i4.Load(_T("res\\4.png"));
-	//i4.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i5.Load(_T("res\\5.png"));
-	//i5.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i6.Load(_T("res\\6.png"));
-	//i6.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i7.Load(_T("res\\7.png"));
-	//i7.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i8.Load(_T("res\\8.png"));
-	//i8.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
-	//i9.Load(_T("res\\9.png"));
-	//i9.BitBlt(pDC->m_hDC, 100, 100);
-	//Sleep(40);
+	for (int i = 0; i < MAX_MOVE_CNT; i++) {
+		printf("%d ", i);
+	
+		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
+
+		m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+		m_ImgMove[i].TransparentBlt(memDC.m_hDC, m_pPos.x, m_pPos.y, m_nWidth, m_nHeight, RGB(255, 255, 255));
+		pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
+		
+		memDC.SelectObject(pOldBitmap);
+		Sleep(20);
+	}
+
+	memDC.DeleteDC();
 }
 
 
@@ -116,8 +88,8 @@ UINT CMyAnimation::ThreadAnimation(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
 	CDC *pDC = pView->GetDC();
-
-	PlayAnimation(pDC);
+	
+	PlayAnimation(pDC, pView);
 
 	return 0;
 }
@@ -126,10 +98,8 @@ UINT CMyAnimation::ThreadAnimation(LPVOID _mothod)
 UINT CMyAnimation::ThreadStaticAnimation(LPVOID _mothod)
 {
 	STRUCT* pStruct = (STRUCT*)_mothod;
-	CETCONGView* pView = pStruct->pView;
-	CMyAnimation* self = pStruct->self;
 
-	return self->ThreadAnimation(pView);
+	return pStruct->self->ThreadAnimation(pStruct->pView);
 }
 
 

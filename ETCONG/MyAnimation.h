@@ -2,6 +2,7 @@
 
 #include "atlImage.h"
 
+#define MAX_MOVE_CNT 9
 
 class CMyAnimation
 {
@@ -9,18 +10,11 @@ public:
 	CMyAnimation();
 	~CMyAnimation();
 	void InitAnimation();
-	void PlayAnimation(CDC *pDC);
+	void PlayAnimation(CDC *pDC, LPVOID view);
 
 	CPoint m_pPos;
-	CImage m_ImgMove1;
-	CImage m_ImgMove2;
-	CImage m_ImgMove3;
-	CImage m_ImgMove4;
-	CImage m_ImgMove5;
-	CImage m_ImgMove6;
-	CImage m_ImgMove7;
-	CImage m_ImgMove8;
-	CImage m_ImgMove9;
+	CImage m_ImgMove[MAX_MOVE_CNT];
+	CImage m_ImgBackground;
 	int m_nWidth;
 	int m_nHeight;
 

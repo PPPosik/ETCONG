@@ -62,8 +62,11 @@ public:
 	int m_nDelay;
 	int m_nInit;
 	bool m_bClickable;
+	bool m_bError;
 	
 	CMyAnimation m_animation;
+	virtual void OnInitialUpdate();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전

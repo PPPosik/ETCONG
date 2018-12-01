@@ -31,6 +31,8 @@ BEGIN_MESSAGE_MAP(CETCONGView, CView)
 	ON_WM_KEYDOWN()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
+	ON_WM_CREATE()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CETCONGView 생성/소멸
@@ -55,6 +57,7 @@ CETCONGView::CETCONGView()
 	m_nDelay = 200;
 	m_nInit = 200;
 	m_bClickable = false;
+	m_bError = false;
 	m_ImgBackground.Load(_T("res\\background.png"));
 	m_customThread = CCustomThread();
 	m_animation = CMyAnimation();
@@ -88,9 +91,7 @@ void CETCONGView::OnDraw(CDC* pDC)
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 	drawBackground();
-
-	m_sound.stage1Play();
-	m_customThread.StartThread();
+	
 }
 
 
@@ -132,41 +133,55 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			switch (nChar) {
 			case VK_LEFT:
 				x = x + widthBias;
+				m_bClickable = false;
+				m_nTimerFlag = AFTER_MOVE;
+				m_animation.StartThread();
 				break;
 			case VK_RIGHT:
 				x = x - widthBias;
+				m_bClickable = false;
+				m_nTimerFlag = AFTER_MOVE;
+				m_animation.StartThread();
 				break;
 			case VK_UP:
 				y = y + heightBias;
+				m_bClickable = false;
+				m_nTimerFlag = AFTER_MOVE;
+				m_animation.StartThread();
 				break;
 			case VK_DOWN:
 				y = y - heightBias;
+				m_bClickable = false;
+				m_nTimerFlag = AFTER_MOVE;
+				m_animation.StartThread();
 				break;
 			default:
 				// disadvantage
-				m_player.drawError(pDC);
-				;
+				// m_player.drawError(pDC);
+				m_bError = true;
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
-			drawBackground();
-
-			m_nTimerFlag = AFTER_MOVE;
 		}
 		else if (m_nTimerFlag == ATTACK) {
-			// 공격 키 아닌 키 누르면 disadvantage
-			m_player.drawAttack(pDC);
+			// m_player.drawAttack(pDC);
+			// m_bError = true;
 			m_nTimerFlag = AFTER_ATTACK;
+			m_bClickable = false;
 		}
 		else {
 			// disadvantage
+			m_bError = true;
 			m_player.drawError(pDC);
 		}
 	}
 	else {
-		m_player.drawError(pDC);
+		// m_player.drawError(pDC);
+		m_bError = true;
 	}
 
+	ReleaseDC(pDC);
+	Invalidate(TRUE);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
@@ -175,10 +190,19 @@ void CETCONGView::drawBackground()
 {
 	CDC* pDC = GetDC();
 
-	 m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	//m_player.drawMove(pDC);
-	m_animation.StartThread();
+	m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
+	if (m_bError) {
+		m_player.drawError(pDC);
+	}
+	else if (m_nTimerFlag == AFTER_MOVE || m_nTimerFlag == MOVE) {
+		m_player.drawMove(pDC);
+	}
+	else if (m_nTimerFlag == AFTER_ATTACK || m_nTimerFlag == ATTACK) {
+		m_player.drawAttack(pDC);
+	}
+	m_bError = false;
 
+	printf("///////////// %d\n", m_nTimerFlag);
 	ReleaseDC(pDC);
 }
 
@@ -192,3 +216,19 @@ void CETCONGView::OnDestroy()
 }
 
 
+void CETCONGView::OnInitialUpdate()
+{
+	CView::OnInitialUpdate();
+
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	m_sound.stage1Play();
+	m_customThread.StartThread();
+}
+
+
+BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	return TRUE;
+	// return CView::OnEraseBkgnd(pDC);
+}
