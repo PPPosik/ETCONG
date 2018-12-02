@@ -1,5 +1,12 @@
-﻿빌드 시작: 2018-11-30 오후 4:59:28
-
-빌드했습니다.
-
-경과 시간: 00:00:00.02
+﻿  ETCONGView.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  MyAnimation.cpp
+  ETCONG.cpp
+  CustomThread.cpp
+  BulletCalculate.cpp
+  코드를 생성하고 있습니다...
+ETCONGView.obj : warning LNK4258: '/entry:WinMainCRTStartup' 지시문은 '/ENTRY:wWinMainCRTStartup' 스위치와 호환되지 않습니다. 무시됩니다.
+MyAnimation.obj : warning LNK4258: '/entry:WinMainCRTStartup' 지시문은 '/ENTRY:wWinMainCRTStartup' 스위치와 호환되지 않습니다. 무시됩니다.
+  ETCONG.vcxproj -> D:\숭실대\windowproject\ETCONG\Debug\ETCONG.exe
+  ETCONG.vcxproj -> D:\숭실대\windowproject\ETCONG\Debug\ETCONG.pdb (Full PDB)

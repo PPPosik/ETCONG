@@ -189,7 +189,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BulletCalculate.h" />
     <ClInclude Include="CustomThread.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ETCONG.h" />
     <ClInclude Include="ETCONGDoc.h" />
     <ClInclude Include="ETCONGView.h" />
@@ -202,7 +204,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BulletCalculate.cpp" />
     <ClCompile Include="CustomThread.cpp" />
+    <ClCompile Include="Enemy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ETCONG.cpp" />
     <ClCompile Include="ETCONGDoc.cpp" />
     <ClCompile Include="ETCONGView.cpp" />

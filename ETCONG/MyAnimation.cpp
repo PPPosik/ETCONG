@@ -49,24 +49,25 @@ void CMyAnimation::PlayAnimation(CDC *pDC)
 {	
 	printf("%d %d\n", m_pPos.x, m_pPos.y);
 
-	m_ImgMove1.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	//m_ImgMove1.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
+	m_ImgMove1.TransparentBlt(pDC->m_hDC, m_pPos.x, m_pPos.y, m_nWidth, m_nHeight, RGB(255, 255, 255));
+	Sleep(20);
 	m_ImgMove2.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove3.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove4.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove5.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove6.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove7.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove8.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 	m_ImgMove9.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-	Sleep(40);
+	Sleep(20);
 
 	//CImage i1, i2, i3, i4, i5, i6, i7, i8, i9;
 	//
