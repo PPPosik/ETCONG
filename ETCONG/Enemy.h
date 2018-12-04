@@ -1,3 +1,5 @@
+#pragma once
+
 
 #include "atltypes.h"
 #include "atlimage.h"
@@ -14,4 +16,5 @@ public:
 	void Dead();
 	void ImageInit();
 	CImage m_imgDefault;
+	void Imageprint();
 };

@@ -56,26 +56,30 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 			launch_Y -= 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
 			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_aEnemy.Imageprint();
 
 			break;
 		case VK_DOWN:
 			launch_Y += 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
 			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_aEnemy.Imageprint();
 			break;
 		case VK_LEFT:
 			launch_X -= 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
 			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_aEnemy.Imageprint();
 			break;
 		case VK_RIGHT:
 			launch_X += 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
 			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_aEnemy.Imageprint();
 			break;
-
+		
 		}
-
+		
 		if (launch_X == 1 || launch_Y == 2)
 		{
 			m_imgBulletPlayer.Destroy();

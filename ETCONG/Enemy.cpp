@@ -14,6 +14,7 @@ CEnemy::CEnemy()
 	m_nWidth = 100;
 	m_nHeight = 100;
 	m_pPos = CPoint(300, 100);
+	
 }
 
 
@@ -41,10 +42,19 @@ void CEnemy::Dead()
 
 void CEnemy::ImageInit()
 {
+	
+	m_imgDefault.Load(_T("res\\히오스명언.PNG"));
+	
+}
+
+
+
+
+void CEnemy::Imageprint()
+{
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 
 	CDC* pDC = pView->GetDC();
-	m_imgDefault.Load(_T("res\\error.png"));
-	m_imgDefault.BitBlt(pDC->m_hDC, m_nWidth, m_nHeight);
+	m_imgDefault.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
 }

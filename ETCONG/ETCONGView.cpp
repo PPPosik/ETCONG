@@ -47,7 +47,8 @@ CETCONGView::CETCONGView()
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_player = CPlayer();
 	m_player.ImageInit();
-	//m_aEnemy = CEnemy();
+	m_aEnemy = CEnemy();
+	m_aEnemy.ImageInit();
 	m_pBackgroundPos = CPoint(0, 0);
 	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
@@ -182,9 +183,10 @@ void CETCONGView::drawBackground()
 	CDC* pDC = GetDC();
 
 	 m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
+	 m_aEnemy.Imageprint();
 	//m_player.drawMove(pDC);
 	m_animation.StartThread();
-
+	
 	ReleaseDC(pDC);
 }
 
