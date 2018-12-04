@@ -49,6 +49,8 @@ CETCONGView::CETCONGView()
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_player = CPlayer();
 	m_player.ImageInit();
+	m_aEnemy = CEnemy();
+	m_aEnemy.ImageInit();
 	m_pBackgroundPos = CPoint(0, 0);
 	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
@@ -61,6 +63,7 @@ CETCONGView::CETCONGView()
 	m_ImgBackground.Load(_T("res\\background.png"));
 	m_nBackgroundWidth = m_ImgBackground.GetWidth();
 	m_nBackgroundHeight = m_ImgBackground.GetHeight();
+
 	m_customThread = CCustomThread();
 	m_animation = CMyAnimation();
 	m_animation.InitAnimation();
@@ -129,6 +132,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	int y = m_pBackgroundPos.y;
 	int widthBias = m_player.getWidth();
 	int heightBias = m_player.getHeight();
+	int playerPosX = m_player.getPos().x;
+	int playerPosY = m_player.getPos().y;
 
 	if (m_bClickable) {
 		if (m_nTimerFlag == MOVE) {
@@ -179,8 +184,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			printf("/// %d %d\n", x, y);
 		}
 		else if (m_nTimerFlag == ATTACK) {
-			// m_player.drawAttack(pDC);
-			// m_bError = true;
+
 			m_nTimerFlag = AFTER_ATTACK;
 			m_bClickable = false;
 		}
@@ -218,6 +222,7 @@ void CETCONGView::drawBackground()
 	m_bError = false;
 
 	// printf("///////////// %d\n", m_nTimerFlag);
+
 	ReleaseDC(pDC);
 }
 
@@ -229,6 +234,7 @@ void CETCONGView::OnDestroy()
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	m_sound.stop();
 }
+
 
 
 void CETCONGView::OnInitialUpdate()
@@ -246,4 +252,55 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	return TRUE;
 	// return CView::OnEraseBkgnd(pDC);
+}
+
+
+void CETCONGView::shootBullet(UINT nChar, int player_x, int player_y)
+{
+	/*
+	CDC* pDC = GetDC();
+	UINT KeyInput = nChar;
+	int launch_X = player_x;
+	int launch_Y = player_y;
+
+	//m_imgBulletPlayer.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
+	CBulletCalculate m_aBullet;
+	m_imgBulletPlayer.Load(_T("res\\bullet.png"));
+
+	for (int i = 0; i < 7; i++) {
+
+
+		switch (KeyInput) {
+		case 'w':
+			launch_X += 50;
+			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			break;
+		case 's':
+			launch_X -= 50;
+			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			break;
+		case 'a':
+			launch_Y += 50;
+			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			break;
+		case 'd':
+			launch_Y -= 50;
+			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			break;
+
+		}
+	}
+
+
+	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
+
+
+	
+
+	ReleaseDC(pDC);
+	*/
+	CBulletCalculate newone;
+	newone.shootBullet(nChar, player_x, player_y);
+
+
 }

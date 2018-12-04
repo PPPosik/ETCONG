@@ -9,6 +9,8 @@
 #include "SoundPlayer.h"
 #include "CustomThread.h"
 #include "MyAnimation.h"
+#include "BulletCalculate.h"
+#include "Enemy.h"
 
 
 class CETCONGView : public CView
@@ -69,6 +71,10 @@ public:
 	CMyAnimation m_animation;
 	virtual void OnInitialUpdate();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	void shootBullet(UINT, int, int);
+	CImage m_imgBulletPlayer;
+	CEnemy m_aEnemy;
+
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전
