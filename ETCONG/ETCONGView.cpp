@@ -97,6 +97,7 @@ void CETCONGView::OnDraw(CDC* pDC)
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 	drawBackground();
 	
+	
 }
 
 
@@ -134,6 +135,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	int heightBias = m_player.getHeight();
 	int playerPosX = m_player.getPos().x;
 	int playerPosY = m_player.getPos().y;
+	int enemyPosX = m_aEnemy.m_pPos.x;
+	int enemyPosY = m_aEnemy.m_pPos.y;
 
 	if (m_bClickable) {
 		if (m_nTimerFlag == MOVE) {
@@ -142,6 +145,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				if (1) {
 					// 500
 					x = x + widthBias;
+					enemyPosX = enemyPosX + widthBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
@@ -151,6 +155,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				if (1) {
 					// -2800
 					x = x - widthBias;
+					enemyPosX = enemyPosX - widthBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
@@ -160,6 +165,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				if (1) {
 					// 200
 					y = y + heightBias;
+					enemyPosY = enemyPosY + heightBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
@@ -169,6 +175,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				if (1) {
 					// -3100
 					y = y - heightBias;
+					enemyPosY = enemyPosY - heightBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
@@ -181,10 +188,12 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
+			m_aEnemy.m_pPos.x = enemyPosX;
+			m_aEnemy.m_pPos.y = enemyPosY;
 			printf("/// %d %d\n", x, y);
 		}
 		else if (m_nTimerFlag == ATTACK) {
-
+			shootBullet(nChar, playerPosX, playerPosY);
 			m_nTimerFlag = AFTER_ATTACK;
 			m_bClickable = false;
 		}
@@ -210,6 +219,10 @@ void CETCONGView::drawBackground()
 	CDC* pDC = GetDC();
 
 	m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
+	if (m_aEnemy.IsAlive) {
+		m_aEnemy.Imageprint();
+	}
+	
 	if (m_bError) {
 		m_player.drawError(pDC);
 	}
@@ -220,7 +233,7 @@ void CETCONGView::drawBackground()
 		m_player.drawAttack(pDC);
 	}
 	m_bError = false;
-
+	
 	// printf("///////////// %d\n", m_nTimerFlag);
 
 	ReleaseDC(pDC);

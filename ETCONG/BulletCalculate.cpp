@@ -4,6 +4,15 @@
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
 #include "MainFrm.h"
+#include "Enemy.h"
+
+struct Enyme {
+	CETCONGView *pView;
+	CBulletCalculate *self;
+	int aEx;
+	int aEy;
+};
+Enyme* pEnyme = new Enyme;
 
 
 CBulletCalculate::CBulletCalculate()
@@ -41,6 +50,10 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	KeyInput = nChar;
 	launch_X = player_x;
 	launch_Y = player_y;
+	enemy_x = pView->m_aEnemy.m_pPos.x;
+	enemy_y = pView->m_aEnemy.m_pPos.y;
+	enemy_w = pView->m_aEnemy.m_nWidth;
+	enemy_h = pView->m_aEnemy.m_nHeight;
 	CImage m_imgBulletPlayer;
 	m_imgBulletPlayer.Load(_T("res\\bullet.png"));
 
@@ -55,35 +68,38 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		case VK_UP:
 			launch_Y -= 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 
 			break;
 		case VK_DOWN:
 			launch_Y += 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
 		case VK_LEFT:
 			launch_X -= 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
 		case VK_RIGHT:
 			launch_X += 50;
 			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
 		
 		}
-		
-		if (launch_X == 1 || launch_Y == 2)
-		{
-			m_imgBulletPlayer.Destroy();
+		if(pView->m_aEnemy.IsAlive){
+			if (((launch_X + 25 < enemy_x + enemy_w) && (launch_X + 75 > enemy_x)) && ((launch_Y + 25 < enemy_y + enemy_h) && (launch_Y + 75 > enemy_y)))
+			{
+				pView->m_aEnemy.Ouchhurt();
+				return;
+			}
 		}
+		
 
 		Sleep(10);
 	}
@@ -91,4 +107,59 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 
 	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
 	
+}
+
+UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
+{
+	Enyme* pStruct = (Enyme*)_mothod;
+	CETCONGView *pView = (CETCONGView*)pStruct->pView;
+	CDC *pDC = pView->GetDC();
+
+
+	shootWild(pDC, pView, pStruct->aEx, pStruct->aEy);
+
+	return 0;
+}
+
+UINT CBulletCalculate::ThreadEnemyBulletTimer(LPVOID _mothod)
+{
+	Enyme* pStruct = (Enyme*)_mothod;
+
+	
+	return pStruct->self->ThreadEnemyBullet(pStruct);
+}
+
+
+void CBulletCalculate::EnemyThread()
+{
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
+	pEnyme->pView = pView;
+	pEnyme->self = this;
+	pEnyme->aEx = pView->m_aEnemy.m_pPos.x;
+	pEnyme->aEy = pView->m_aEnemy.m_pPos.y;
+
+
+	CWinThread *pEnemyAttack = NULL;
+
+	pEnemyAttack = AfxBeginThread(ThreadEnemyBulletTimer, pEnyme);
+
+	if (pEnemyAttack == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(pEnemyAttack);
+}
+
+
+void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y)
+{
+	CImage m_imgWildBoss;
+	m_imgWildBoss.Load(_T("res\\bullet.png"));
+	launch_X = enemy_x;
+	launch_Y = enemy_y;
+	//AfxMessageBox(_T("shooted"));
+	for (int at = 0; at < 15; at++)
+	{
+		AfxMessageBox(_T("shooted"));
+	}
 }

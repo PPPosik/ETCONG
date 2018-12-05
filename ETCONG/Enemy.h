@@ -3,6 +3,8 @@
 
 #include "atltypes.h"
 #include "atlimage.h"
+#include "BulletCalculate.h"
+
 class CEnemy
 {
 public:
@@ -11,10 +13,12 @@ public:
 	int m_nLife;
 	int m_nWidth;
 	int m_nHeight;
-	void COuchhurt();
+	void Ouchhurt();
 	CPoint m_pPos;
-	void Dead();
+	bool IsAlive;
 	void ImageInit();
 	CImage m_imgDefault;
 	void Imageprint();
+	void AttackTimer();
+	CBulletCalculate newtwo;
 };

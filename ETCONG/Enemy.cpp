@@ -8,12 +8,13 @@
 
 
 
+
 CEnemy::CEnemy()
 {
 	m_nLife = 3;
-	m_nWidth = 100;
-	m_nHeight = 100;
-	m_pPos = CPoint(300, 100);
+	m_nWidth = 600;
+	m_nHeight = 500;
+	IsAlive = true;
 	
 }
 
@@ -23,27 +24,25 @@ CEnemy::~CEnemy()
 }
 
 
-void CEnemy::COuchhurt()
+void CEnemy::Ouchhurt()
 {
 	m_nLife = m_nLife - 1;
 	if (m_nLife == 0)
 	{
-		Dead();
+		IsAlive = false;
 	}
+	//AttackTimer();
 }
 
-
-void CEnemy::Dead()
-{
-	m_imgDefault.Destroy();
-
-}
 
 
 void CEnemy::ImageInit()
 {
-	
+	IsAlive = true;
 	m_imgDefault.Load(_T("res\\히오스명언.PNG"));
+	m_pPos = CPoint(500, 500);
+	
+	
 	
 }
 
@@ -56,5 +55,17 @@ void CEnemy::Imageprint()
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 
 	CDC* pDC = pView->GetDC();
+
 	m_imgDefault.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
+}
+
+
+void CEnemy::AttackTimer()
+{
+
+	while (IsAlive) {
+		newtwo.EnemyThread();
+		//Sleep(1200);
+	}
+	
 }
