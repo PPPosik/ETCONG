@@ -11,7 +11,7 @@
 
 CEnemy::CEnemy()
 {
-	m_nLife = 3;
+	m_nLife = 33;
 	m_nWidth = 600;
 	m_nHeight = 500;
 	IsAlive = true;
@@ -31,7 +31,7 @@ void CEnemy::Ouchhurt()
 	{
 		IsAlive = false;
 	}
-	//AttackTimer();
+	AttackTimer();
 }
 
 
@@ -62,10 +62,9 @@ void CEnemy::Imageprint()
 
 void CEnemy::AttackTimer()
 {
-
-	while (IsAlive) {
-		newtwo.EnemyThread();
-		//Sleep(1200);
-	}
+	printf("yes");
+	
+	newtwo.EnemyThread();
+	
 	
 }

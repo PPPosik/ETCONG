@@ -11,6 +11,9 @@ struct Enyme {
 	CBulletCalculate *self;
 	int aEx;
 	int aEy;
+	int pPx;
+	int pPy;
+		
 };
 Enyme* pEnyme = new Enyme;
 
@@ -115,8 +118,8 @@ UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
 	CETCONGView *pView = (CETCONGView*)pStruct->pView;
 	CDC *pDC = pView->GetDC();
 
-
-	shootWild(pDC, pView, pStruct->aEx, pStruct->aEy);
+	//printf("yes1");
+	shootWild(pDC, pView, pStruct->aEx, pStruct->aEy, pStruct->pPy, pStruct->pPy);
 
 	return 0;
 }
@@ -125,7 +128,7 @@ UINT CBulletCalculate::ThreadEnemyBulletTimer(LPVOID _mothod)
 {
 	Enyme* pStruct = (Enyme*)_mothod;
 
-	
+	//printf("yes2");
 	return pStruct->self->ThreadEnemyBullet(pStruct);
 }
 
@@ -138,12 +141,13 @@ void CBulletCalculate::EnemyThread()
 	pEnyme->self = this;
 	pEnyme->aEx = pView->m_aEnemy.m_pPos.x;
 	pEnyme->aEy = pView->m_aEnemy.m_pPos.y;
-
+	pEnyme->pPx = (pView->m_player.getPos().x) - (pView->m_pBackgroundPos.x);
+	pEnyme->pPy = (pView->m_player.getPos().y) - (pView->m_pBackgroundPos.y);
 
 	CWinThread *pEnemyAttack = NULL;
-
+	//printf("yes3");
 	pEnemyAttack = AfxBeginThread(ThreadEnemyBulletTimer, pEnyme);
-
+	//printf("yes4");
 	if (pEnemyAttack == NULL) {
 		AfxMessageBox(L"Error");
 	}
@@ -151,15 +155,24 @@ void CBulletCalculate::EnemyThread()
 }
 
 
-void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y)
+void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y, int player_x, int player_y)
 {
 	CImage m_imgWildBoss;
 	m_imgWildBoss.Load(_T("res\\bullet.png"));
 	launch_X = enemy_x;
 	launch_Y = enemy_y;
+	target_x = player_x;
+	target_y = player_y;
+	printf("///from  %d %d    to %d %d\n", launch_X, launch_Y, target_x, target_y);
 	//AfxMessageBox(_T("shooted"));
-	for (int at = 0; at < 15; at++)
+	for (int at = 0; at < 30; at++)
 	{
-		AfxMessageBox(_T("shooted"));
+		//AfxMessageBox(_T("shooted"));
+		launch_X -= (target_y - launch_Y) / (target_x - launch_X) *50;
+		launch_Y -= (target_y - launch_Y) / (target_x - launch_X) * 50;
+		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X-50, launch_Y);
+		m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X+50, launch_Y);
 	}
+	
 }
