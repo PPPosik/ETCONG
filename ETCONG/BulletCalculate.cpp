@@ -50,6 +50,14 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 
 	CDC* pDC = pView->GetDC();
+	CRect rect;
+	pView->GetClientRect(rect);
+	CDC memDC;
+	CBitmap* pOldBitmap;
+	CBitmap bmp;
+
+	memDC.CreateCompatibleDC(pDC);
+	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
 	KeyInput = nChar;
 	launch_X = player_x;
 	launch_Y = player_y;
@@ -66,35 +74,43 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	//AfxMessageBox(_T("shooted"));
 	for (int i = 0; i < 15; i++) {
 
-
+		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 		switch (KeyInput) {
 		case VK_UP:
 			launch_Y -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			//m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
 			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 
 			break;
 		case VK_DOWN:
 			launch_Y += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			//m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
 			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
 		case VK_LEFT:
 			launch_X -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			//m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
 			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
 		case VK_RIGHT:
 			launch_X += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+			//m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
 			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
 		
 		}
+		pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+		m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
+		
+
+		pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
+
+		memDC.SelectObject(pOldBitmap);
+
 		if(pView->m_aEnemy.IsAlive){
 			if (((launch_X + 25 < enemy_x + enemy_w) && (launch_X + 75 > enemy_x)) && ((launch_Y + 25 < enemy_y + enemy_h) && (launch_Y + 75 > enemy_y)))
 			{
@@ -107,7 +123,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		Sleep(10);
 	}
 
-
+	memDC.DeleteDC();
 	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
 	
 }
@@ -157,6 +173,16 @@ void CBulletCalculate::EnemyThread()
 
 void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y, int player_x, int player_y)
 {
+	CETCONGView* pView = (CETCONGView*)view;
+	CRect rect;
+	pView->GetClientRect(rect);
+	CDC memDC;
+	CBitmap* pOldBitmap;
+	CBitmap bmp;
+
+	memDC.CreateCompatibleDC(pDC);
+	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+
 	CImage m_imgWildBoss;
 	m_imgWildBoss.Load(_T("res\\bullet.png"));
 	launch_X = enemy_x;
@@ -169,21 +195,37 @@ void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y
 	int lineary = (target_y - launch_Y) / 10;
 	printf("///from  %d %d    to %d %d\n", launch_X, launch_Y, target_x, target_y);
 	//AfxMessageBox(_T("shooted"));
+	
+	CPoint prev = pView->m_pBackgroundPos;
 	for (int at = 0; at < 30; at++)
 	{
-		if (launch_X != enemy_x || launch_Y != enemy_y) {
-			bpx = bpx + enemy_x - launch_X;
-			bpy = bpy + enemy_y - launch_Y;
+		CPoint now = pView->m_pBackgroundPos;
+		if (prev.x != now.x || prev.y != now.y) {
+			int dx = prev.x - now.x;
+			int dy = prev.y - now.y;
 
+			bpx -= dx;
+			bpy -= dy;
+
+			prev = now;
 
 		}
 		//AfxMessageBox(_T("shooted"));
 		bpx += linearx;
 		bpy += lineary;
 		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X-50, launch_Y);
-		m_imgWildBoss.BitBlt(pDC->m_hDC, bpx, bpy);
+		
+		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
+
+		//pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+		m_imgWildBoss.TransparentBlt(memDC.m_hDC, bpx, bpy, 100, 100, RGB(255, 255, 255));
+		//pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
+		pDC->TransparentBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, rect.Width(), rect.Height(), RGB(0, 0, 0));
+		memDC.SelectObject(pOldBitmap);
+		
+		//m_imgWildBoss.TransparentBlt(pDC->m_hDC, bpx, bpy, 100, 100, RGB(255, 255, 255));
 		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X+50, launch_Y);
 		Sleep(50);
 	}
-	
+	memDC.DeleteDC();
 }
