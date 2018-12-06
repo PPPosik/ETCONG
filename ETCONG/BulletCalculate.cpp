@@ -119,7 +119,7 @@ UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
 	CDC *pDC = pView->GetDC();
 
 	//printf("yes1");
-	shootWild(pDC, pView, pStruct->aEx, pStruct->aEy, pStruct->pPy, pStruct->pPy);
+	shootWild(pDC, pView, pStruct->aEx, pStruct->aEy, pStruct->pPx, pStruct->pPy);
 
 	return 0;
 }
@@ -141,8 +141,8 @@ void CBulletCalculate::EnemyThread()
 	pEnyme->self = this;
 	pEnyme->aEx = pView->m_aEnemy.m_pPos.x;
 	pEnyme->aEy = pView->m_aEnemy.m_pPos.y;
-	pEnyme->pPx = (pView->m_player.getPos().x) - (pView->m_pBackgroundPos.x);
-	pEnyme->pPy = (pView->m_player.getPos().y) - (pView->m_pBackgroundPos.y);
+	pEnyme->pPx = 1280 / 2 - 50;//- (pView->m_pBackgroundPos.x);
+	pEnyme->pPy = 720 / 2 - 70; //- (pView->m_pBackgroundPos.y);
 
 	CWinThread *pEnemyAttack = NULL;
 	//printf("yes3");
@@ -163,16 +163,27 @@ void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y
 	launch_Y = enemy_y;
 	target_x = player_x;
 	target_y = player_y;
+	int bpx = launch_X;
+	int bpy = launch_Y;
+	int linearx = (target_x - launch_X) / 10;
+	int lineary = (target_y - launch_Y) / 10;
 	printf("///from  %d %d    to %d %d\n", launch_X, launch_Y, target_x, target_y);
 	//AfxMessageBox(_T("shooted"));
 	for (int at = 0; at < 30; at++)
 	{
+		if (launch_X != enemy_x || launch_Y != enemy_y) {
+			bpx = bpx + enemy_x - launch_X;
+			bpy = bpy + enemy_y - launch_Y;
+
+
+		}
 		//AfxMessageBox(_T("shooted"));
-		launch_X -= (target_y - launch_Y) / (target_x - launch_X) *50;
-		launch_Y -= (target_y - launch_Y) / (target_x - launch_X) * 50;
+		bpx += linearx;
+		bpy += lineary;
 		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X-50, launch_Y);
-		m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X, launch_Y);
+		m_imgWildBoss.BitBlt(pDC->m_hDC, bpx, bpy);
 		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X+50, launch_Y);
+		Sleep(50);
 	}
 	
 }
