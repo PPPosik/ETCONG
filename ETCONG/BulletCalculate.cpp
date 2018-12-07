@@ -273,7 +273,7 @@ void CBulletCalculate::shootMine(CDC *pDC, LPVOID view)
 				prev = now;
 				pView->m_display.ActiveEnemyMine(at, player_x, player_y);
 			}
-			Sleep(200);
+			Sleep( ((pView->m_nTime)/2) );
 			if (at == 3) {
 				break;
 			}
