@@ -72,6 +72,8 @@ CETCONGView::CETCONGView()
 	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
 	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 120);
 
+	m_display = CGameGraphics();
+	m_display.Init();
 	
 }
 
@@ -152,7 +154,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_animation.StartThread();
+				m_display.ActiveMoveAnimation();
+				//m_animation.StartThread();
 				break;
 			case VK_RIGHT:
 				if (1) {
@@ -162,7 +165,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_animation.StartThread();
+				m_display.ActiveMoveAnimation();
+				//m_animation.StartThread();
 				break;
 			case VK_UP:
 				if (1) {
@@ -172,7 +176,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_animation.StartThread();
+				m_display.ActiveMoveAnimation();
+				//m_animation.StartThread();
 				break;
 			case VK_DOWN:
 				if (1) {
@@ -182,7 +187,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_animation.StartThread();
+				m_display.ActiveMoveAnimation();
+				//m_animation.StartThread();
 				break;
 			default:
 				// disadvantage

@@ -49,15 +49,15 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 
-	CDC* pDC = pView->GetDC();
-	CRect rect;
-	pView->GetClientRect(rect);
-	CDC memDC;
-	CBitmap* pOldBitmap;
-	CBitmap bmp;
+	//CDC* pDC = pView->GetDC();
+	//CRect rect;
+	//pView->GetClientRect(rect);
+	//CDC memDC;
+	//CBitmap* pOldBitmap;
+	//CBitmap bmp;
 
-	memDC.CreateCompatibleDC(pDC);
-	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+	//memDC.CreateCompatibleDC(pDC);
+	//bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
 	KeyInput = nChar;
 	launch_X = player_x;
 	launch_Y = player_y;
@@ -74,7 +74,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	//AfxMessageBox(_T("shooted"));
 	for (int i = 0; i < 15; i++) {
 
-		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
+		//pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 		switch (KeyInput) {
 		case VK_UP:
 			launch_Y -= 50;
@@ -103,19 +103,24 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 			break;
 		
 		}
-		pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
-		pView->m_player.drawAttack(&memDC);
-		m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
+
+		pView->m_display.ActiveBulletAnimation(launch_X, launch_Y);
+		
+		
+		//pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+		//pView->m_player.drawAttack(&memDC);
+		//m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
 		
 
-		pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
+		//pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
 
-		memDC.SelectObject(pOldBitmap);
+		//memDC.SelectObject(pOldBitmap);
 
 		if(pView->m_aEnemy.IsAlive){
 			if (((launch_X + 25 < enemy_x + enemy_w) && (launch_X + 75 > enemy_x)) && ((launch_Y + 25 < enemy_y + enemy_h) && (launch_Y + 75 > enemy_y)))
 			{
 				pView->m_aEnemy.Ouchhurt();
+				pView->m_display.EndBulletAnimation();
 				return;
 			}
 		}
@@ -123,8 +128,9 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 
 		Sleep(10);
 	}
+	pView->m_display.EndBulletAnimation();
 
-	memDC.DeleteDC();
+	//memDC.DeleteDC();
 	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
 	
 }
@@ -242,30 +248,39 @@ void CBulletCalculate::shootMine(CDC *pDC, LPVOID view)
 	CETCONGView* pView = (CETCONGView*)view;
 	CPoint prev = pView->m_pBackgroundPos;
 
-	CImage m_imgMineAttack[3];
+	//CImage m_imgMineAttack[3];
 
-	m_imgMineAttack[0].Load(_T("res\\mine4.jpg"));
-	m_imgMineAttack[1].Load(_T("res\\mine5.jpg"));
-	m_imgMineAttack[2].Load(_T("res\\mine6.jpg"));
+	//m_imgMineAttack[0].Load(_T("res\\mine4.jpg"));
+	//m_imgMineAttack[1].Load(_T("res\\mine5.jpg"));
+	//m_imgMineAttack[2].Load(_T("res\\mine6.jpg"));
 
 	int player_x = 1280 / 2 - 50 - 100;
 	int player_y = 720 / 2 - 70 - 100;
-
-	for (int at = 0; at < 3; at++)
+	CPoint now;
+	for (int at = 0; at < 4; at++)
 	{
-		CPoint now = pView->m_pBackgroundPos;
-		if (prev.x != now.x || prev.y != now.y) {
-			int dx = prev.x - now.x;
-			int dy = prev.y - now.y;
+		pView->m_display.ActiveEnemyMine(at, player_x, player_y);
 
-			player_x -= dx;
-			player_y -= dy;
+		for (int n = 0; n < 6; n++) {
+			now = pView->m_pBackgroundPos;
+			if (prev.x != now.x || prev.y != now.y) {
+				int dx = prev.x - now.x;
+				int dy = prev.y - now.y;
 
-			prev = now;
+				player_x -= dx;
+				player_y -= dy;
 
+				prev = now;
+				pView->m_display.ActiveEnemyMine(at, player_x, player_y);
+			}
+			Sleep(200);
+			if (at == 3) {
+				break;
+			}
 		}
-		m_imgMineAttack[at].BitBlt(pDC->m_hDC, player_x,player_y);
-		Sleep(800);
+			
+			//m_imgMineAttack[at].BitBlt(pDC->m_hDC, player_x,player_y);
+			
 
 	}
 
