@@ -71,6 +71,8 @@ CETCONGView::CETCONGView()
 	// 수정 필요
 	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
 	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 120);
+
+	
 }
 
 CETCONGView::~CETCONGView()
@@ -95,7 +97,8 @@ void CETCONGView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
-	drawBackground();
+	m_display.DisplayThread();
+	//drawBackground();
 	
 	
 }
@@ -257,6 +260,7 @@ void CETCONGView::OnInitialUpdate()
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	m_sound.stage1Play();
 	m_customThread.StartThread();
+	
 }
 
 

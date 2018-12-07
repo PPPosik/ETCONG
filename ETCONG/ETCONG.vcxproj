@@ -195,6 +195,7 @@
     <ClInclude Include="ETCONG.h" />
     <ClInclude Include="ETCONGDoc.h" />
     <ClInclude Include="ETCONGView.h" />
+    <ClInclude Include="GameGraphics.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyAnimation.h" />
     <ClInclude Include="Player.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="ETCONG.cpp" />
     <ClCompile Include="ETCONGDoc.cpp" />
     <ClCompile Include="ETCONGView.cpp" />
+    <ClCompile Include="GameGraphics.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyAnimation.cpp" />
     <ClCompile Include="Player.cpp" />

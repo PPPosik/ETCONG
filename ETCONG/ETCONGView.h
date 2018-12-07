@@ -11,6 +11,7 @@
 #include "MyAnimation.h"
 #include "BulletCalculate.h"
 #include "Enemy.h"
+#include "GameGraphics.h"
 
 
 class CETCONGView : public CView
@@ -74,6 +75,7 @@ public:
 	void shootBullet(UINT, int, int);
 	CImage m_imgBulletPlayer;
 	CEnemy m_aEnemy;
+	CGameGraphics m_display;
 
 };
 

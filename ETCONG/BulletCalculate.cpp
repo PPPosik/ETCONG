@@ -104,6 +104,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		
 		}
 		pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+		pView->m_player.drawAttack(&memDC);
 		m_imgBulletPlayer.TransparentBlt(memDC.m_hDC, launch_X, launch_Y, 100, 100, RGB(255, 255, 255));
 		
 
@@ -135,7 +136,8 @@ UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
 	CDC *pDC = pView->GetDC();
 
 	//printf("yes1");
-	shootWild(pDC, pView, pStruct->aEx, pStruct->aEy, pStruct->pPx, pStruct->pPy);
+	//shootWild(pDC, pView, pStruct->aEx, pStruct->aEy, pStruct->pPx, pStruct->pPy);
+	shootMine(pDC, pView);
 
 	return 0;
 }
@@ -219,13 +221,55 @@ void CBulletCalculate::shootWild(CDC *pDC, LPVOID view, int enemy_x, int enemy_y
 
 		//pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 		m_imgWildBoss.TransparentBlt(memDC.m_hDC, bpx, bpy, 100, 100, RGB(255, 255, 255));
+		DeleteObject(m_imgWildBoss);
 		//pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
 		pDC->TransparentBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, rect.Width(), rect.Height(), RGB(0, 0, 0));
 		memDC.SelectObject(pOldBitmap);
 		
+
 		//m_imgWildBoss.TransparentBlt(pDC->m_hDC, bpx, bpy, 100, 100, RGB(255, 255, 255));
 		//m_imgWildBoss.BitBlt(pDC->m_hDC, launch_X+50, launch_Y);
 		Sleep(50);
 	}
 	memDC.DeleteDC();
+}
+
+
+
+
+void CBulletCalculate::shootMine(CDC *pDC, LPVOID view)
+{
+	CETCONGView* pView = (CETCONGView*)view;
+	CPoint prev = pView->m_pBackgroundPos;
+
+	CImage m_imgMineAttack[3];
+
+	m_imgMineAttack[0].Load(_T("res\\mine4.jpg"));
+	m_imgMineAttack[1].Load(_T("res\\mine5.jpg"));
+	m_imgMineAttack[2].Load(_T("res\\mine6.jpg"));
+
+	int player_x = 1280 / 2 - 50 - 100;
+	int player_y = 720 / 2 - 70 - 100;
+
+	for (int at = 0; at < 3; at++)
+	{
+		CPoint now = pView->m_pBackgroundPos;
+		if (prev.x != now.x || prev.y != now.y) {
+			int dx = prev.x - now.x;
+			int dy = prev.y - now.y;
+
+			player_x -= dx;
+			player_y -= dy;
+
+			prev = now;
+
+		}
+		m_imgMineAttack[at].BitBlt(pDC->m_hDC, player_x,player_y);
+		Sleep(800);
+
+	}
+
+
+
+
 }
