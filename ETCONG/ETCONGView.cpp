@@ -6,12 +6,13 @@
 // SHARED_HANDLERS는 미리 보기, 축소판 그림 및 검색 필터 처리기를 구현하는 ATL 프로젝트에서 정의할 수 있으며
 // 해당 프로젝트와 문서 코드를 공유하도록 해 줍니다.
 #ifndef SHARED_HANDLERS
-#include "ETCONG.h"
+//#include "ETCONG.h"
 #endif
 
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
-
+#include "ETCONG.h"
+#include "MainFrm.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -20,6 +21,11 @@
 #define ATTACK 101
 #define AFTER_MOVE 102
 #define AFTER_ATTACK 103
+
+#define VIEW_START 1000
+#define VIEW_NAME 1001
+#define VIEW_STORY 1002
+#define VIEW_GAME 1003
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
@@ -45,12 +51,12 @@ CETCONGView::CETCONGView()
 	, m_bClickable(false)
 	, m_nDelay(0)
 	, m_nInit(0)
+	, m_bInited(false)
+	, m_bStageStart(false)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_player = CPlayer();
 	m_player.ImageInit();
-	m_aEnemy = CEnemy();
-	m_aEnemy.ImageInit();
 	m_pBackgroundPos = CPoint(0, 0);
 	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
@@ -63,7 +69,6 @@ CETCONGView::CETCONGView()
 	m_ImgBackground.Load(_T("res\\background.png"));
 	m_nBackgroundWidth = m_ImgBackground.GetWidth();
 	m_nBackgroundHeight = m_ImgBackground.GetHeight();
-
 	m_customThread = CCustomThread();
 	m_animation = CMyAnimation();
 	m_animation.InitAnimation();
@@ -71,10 +76,6 @@ CETCONGView::CETCONGView()
 	// 수정 필요
 	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
 	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 120);
-
-	m_display = CGameGraphics();
-	m_display.Init();
-	
 }
 
 CETCONGView::~CETCONGView()
@@ -93,16 +94,18 @@ BOOL CETCONGView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CETCONGView::OnDraw(CDC* pDC)
 {
-	CETCONGDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
-	m_display.DisplayThread();
-	//drawBackground();
-	
-	
+	if (!m_bStageStart) {
+		m_bStageStart = true;
+		m_sound.stage1Play();
+		m_customThread.StartThread();
+	}
+		CETCONGDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		if (!pDoc)
+			return;
+		// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+		
+		drawBackground();
 }
 
 
@@ -138,10 +141,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	int y = m_pBackgroundPos.y;
 	int widthBias = m_player.getWidth();
 	int heightBias = m_player.getHeight();
-	int playerPosX = m_player.getPos().x;
-	int playerPosY = m_player.getPos().y;
-	int enemyPosX = m_aEnemy.m_pPos.x;
-	int enemyPosY = m_aEnemy.m_pPos.y;
 
 	if (m_bClickable) {
 		if (m_nTimerFlag == MOVE) {
@@ -150,46 +149,41 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				if (1) {
 					// 500
 					x = x + widthBias;
-					enemyPosX = enemyPosX + widthBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_display.ActiveMoveAnimation();
-				//m_animation.StartThread();
+				m_animation.StartThread();
 				break;
 			case VK_RIGHT:
 				if (1) {
 					// -2800
 					x = x - widthBias;
-					enemyPosX = enemyPosX - widthBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_display.ActiveMoveAnimation();
-				//m_animation.StartThread();
+				m_animation.StartThread();
 				break;
 			case VK_UP:
 				if (1) {
 					// 200
 					y = y + heightBias;
-					enemyPosY = enemyPosY + heightBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_display.ActiveMoveAnimation();
-				//m_animation.StartThread();
+				m_animation.StartThread();
 				break;
 			case VK_DOWN:
 				if (1) {
 					// -3100
 					y = y - heightBias;
-					enemyPosY = enemyPosY - heightBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_display.ActiveMoveAnimation();
-				//m_animation.StartThread();
+				m_animation.StartThread();
 				break;
+			case VK_ADD:
+
+			break;
 			default:
 				// disadvantage
 				// m_player.drawError(pDC);
@@ -197,12 +191,11 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
-			m_aEnemy.m_pPos.x = enemyPosX;
-			m_aEnemy.m_pPos.y = enemyPosY;
 			printf("/// %d %d\n", x, y);
 		}
 		else if (m_nTimerFlag == ATTACK) {
-			shootBullet(nChar, playerPosX, playerPosY);
+			// m_player.drawAttack(pDC);
+			// m_bError = true;
 			m_nTimerFlag = AFTER_ATTACK;
 			m_bClickable = false;
 		}
@@ -228,10 +221,6 @@ void CETCONGView::drawBackground()
 	CDC* pDC = GetDC();
 
 	m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	if (m_aEnemy.IsAlive) {
-		m_aEnemy.Imageprint();
-	}
-	
 	if (m_bError) {
 		m_player.drawError(pDC);
 	}
@@ -242,10 +231,10 @@ void CETCONGView::drawBackground()
 		m_player.drawAttack(pDC);
 	}
 	m_bError = false;
-	
-	// printf("///////////// %d\n", m_nTimerFlag);
 
+	// printf("///////////// %d\n", m_nTimerFlag);
 	ReleaseDC(pDC);
+
 }
 
 
@@ -258,15 +247,11 @@ void CETCONGView::OnDestroy()
 }
 
 
-
 void CETCONGView::OnInitialUpdate()
 {
-	CView::OnInitialUpdate();
-
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	m_sound.stage1Play();
 	m_customThread.StartThread();
-	
 }
 
 
@@ -275,55 +260,4 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	return TRUE;
 	// return CView::OnEraseBkgnd(pDC);
-}
-
-
-void CETCONGView::shootBullet(UINT nChar, int player_x, int player_y)
-{
-	/*
-	CDC* pDC = GetDC();
-	UINT KeyInput = nChar;
-	int launch_X = player_x;
-	int launch_Y = player_y;
-
-	//m_imgBulletPlayer.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	CBulletCalculate m_aBullet;
-	m_imgBulletPlayer.Load(_T("res\\bullet.png"));
-
-	for (int i = 0; i < 7; i++) {
-
-
-		switch (KeyInput) {
-		case 'w':
-			launch_X += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 's':
-			launch_X -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 'a':
-			launch_Y += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 'd':
-			launch_Y -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-
-		}
-	}
-
-
-	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
-
-
-	
-
-	ReleaseDC(pDC);
-	*/
-	CBulletCalculate newone;
-	newone.shootBullet(nChar, player_x, player_y);
-
-
 }

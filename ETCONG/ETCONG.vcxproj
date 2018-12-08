@@ -189,34 +189,38 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BulletCalculate.h" />
     <ClInclude Include="CustomThread.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ETCONG.h" />
     <ClInclude Include="ETCONGDoc.h" />
     <ClInclude Include="ETCONGView.h" />
-    <ClInclude Include="GameGraphics.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyAnimation.h" />
+    <ClInclude Include="NewView.h" />
+    <ClInclude Include="OldView.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SCREEN_GAME.h" />
+    <ClInclude Include="SCREEN_NAME.h" />
+    <ClInclude Include="SCREEN_START.h" />
+    <ClInclude Include="SCREEN_STORY.h" />
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BulletCalculate.cpp" />
     <ClCompile Include="CustomThread.cpp" />
-    <ClCompile Include="Enemy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="ETCONG.cpp" />
     <ClCompile Include="ETCONGDoc.cpp" />
     <ClCompile Include="ETCONGView.cpp" />
-    <ClCompile Include="GameGraphics.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyAnimation.cpp" />
+    <ClCompile Include="NewView.cpp" />
+    <ClCompile Include="OldView.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SCREEN_GAME.cpp" />
+    <ClCompile Include="SCREEN_NAME.cpp" />
+    <ClCompile Include="SCREEN_START.cpp" />
+    <ClCompile Include="SCREEN_STORY.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -232,8 +236,13 @@
     <None Include="res\ETCONG.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Button3.png" />
     <Image Include="res\attack.png" />
     <Image Include="res\background.png" />
+    <Image Include="res\bgtest.bmp" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\Button3.png" />
     <Image Include="res\error.png" />
     <Image Include="res\ETCONG.ico" />
     <Image Include="res\ETCONGDoc.ico" />

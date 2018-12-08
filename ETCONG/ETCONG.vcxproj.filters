@@ -51,13 +51,22 @@
     <ClInclude Include="MyAnimation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BulletCalculate.h">
+    <ClInclude Include="NewView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="OldView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameGraphics.h">
+    <ClInclude Include="SCREEN_START.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCREEN_NAME.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCREEN_STORY.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCREEN_GAME.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,13 +98,22 @@
     <ClCompile Include="MyAnimation.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BulletCalculate.cpp">
+    <ClCompile Include="NewView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="OldView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameGraphics.cpp">
+    <ClCompile Include="SCREEN_START.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SCREEN_NAME.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SCREEN_STORY.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SCREEN_GAME.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,6 +144,21 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="res\error.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\Button3.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Button3.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bgtest.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

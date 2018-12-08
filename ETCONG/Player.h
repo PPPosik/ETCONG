@@ -7,7 +7,6 @@ private:
 	int m_nLife;
 	int m_nWidth;
 	int m_nHeight;
-	bool IsAlive;
 	CImage m_ImgMove;
 	CImage m_ImgAttack;
 	CImage m_ImgError;
@@ -31,6 +30,6 @@ public:
 	CPoint getPos();
 	void setPos(int x, int y);
 	void ImageInit();
-	void OuchHurt();
 };
 
+	

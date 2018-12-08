@@ -24,14 +24,16 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
 	CDC *pDC = pView->GetDC();
+	pView->SetDlgCtrlID((int)59648);
 	CImage move, attack;
+	pView->SetDlgCtrlID((int)59648);
 	HRESULT hResultMove = move.Load(_T("res\\player.png"));
+	pView->SetDlgCtrlID((int)59648);
 	HRESULT hResultAttack = attack.Load(_T("res\\attack.png"));
-
+	pView->SetDlgCtrlID((int)59648);
 	while (1)
 	{
 		Sleep(pView->m_nTime);
-
 		if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
 			pView->m_nTimerFlag = MOVE;
 		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
@@ -52,7 +54,6 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 UINT CCustomThread::ThreadClickDelay(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
-
 	while (1) {
 		pView->m_bClickable = true;
 		Sleep(pView->m_nClick);
@@ -87,7 +88,6 @@ void CCustomThread::StartThread()
 {
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
-	printf("½º·ñµå : %d\n", pView->GetDlgCtrlID());
 	CWinThread *pClick = NULL;
 	CWinThread *pAbsolute = NULL;
 
@@ -102,6 +102,7 @@ void CCustomThread::StartThread()
 	if (pAbsolute == NULL) {
 	AfxMessageBox(L"Error");
 	}
+
 	CloseHandle(pAbsolute);
 }
 
