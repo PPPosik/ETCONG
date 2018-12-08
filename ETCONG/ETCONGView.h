@@ -9,16 +9,21 @@
 #include "SoundPlayer.h"
 #include "CustomThread.h"
 #include "MyAnimation.h"
+#include "BulletCalculate.h"
+#include "Enemy.h"
+#include "GameGraphics.h"
+
 
 class CETCONGView : public CView
 {
-public: // serialization에서만 만들어집니다.
+protected: // serialization에서만 만들어집니다.
 	CETCONGView();
 	DECLARE_DYNCREATE(CETCONGView)
 
 // 특성입니다.
 public:
 	CETCONGDoc* GetDocument() const;
+
 // 작업입니다.
 public:
 
@@ -58,18 +63,19 @@ public:
 	int m_nTime;
 	int m_nClick;
 	int m_nDelay;
-	int m_nInit;	
+	int m_nInit;
 	int m_nBackgroundWidth;
 	int m_nBackgroundHeight;
-
 	bool m_bClickable;
 	bool m_bError;
-	bool m_bInited;
-	bool m_bStageStart;
-
+	
 	CMyAnimation m_animation;
 	virtual void OnInitialUpdate();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	void shootBullet(UINT, int, int);
+	CImage m_imgBulletPlayer;
+	CEnemy m_aEnemy;
+	CGameGraphics m_display;
 
 };
 
@@ -77,3 +83,4 @@ public:
 inline CETCONGDoc* CETCONGView::GetDocument() const
    { return reinterpret_cast<CETCONGDoc*>(m_pDocument); }
 #endif
+

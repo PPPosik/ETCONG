@@ -9,6 +9,7 @@
 
 #include "resource.h"       // 주 기호입니다.
 
+
 // CETCONGApp:
 // 이 클래스의 구현에 대해서는 ETCONG.cpp을 참조하십시오.
 //
@@ -24,19 +25,7 @@ public:
 	virtual BOOL InitInstance();
 
 // 구현입니다.
-public:
-	CView* m_pOldView;
-	CView* m_pNewView;
-	CView* SwitchView(int CurrentView);
 	afx_msg void OnAppAbout();
-	CView* m_pStartScreen;
-	CView* m_pNameScreen;
-	CView* m_pStoryScreen;
-	CView* m_pGameScreen;
-	int m_nCurrentView;
-	int getCurrentView();
-	void setCurrentView(int value);
-	bool m_bInited;
 	DECLARE_MESSAGE_MAP()
 };
 
