@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="res\ETCONG_STORY.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ETCONG.h">
@@ -60,6 +61,21 @@
     <ClInclude Include="GameGraphics.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SCREEN_STORY.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCREEN_GAME.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCREEN_NAME.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCREEN_START.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NewView.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ETCONG.cpp">
@@ -98,6 +114,21 @@
     <ClCompile Include="GameGraphics.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SCREEN_GAME.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SCREEN_NAME.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SCREEN_START.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SCREEN_STORY.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NewView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ETCONG.rc">
@@ -108,6 +139,7 @@
     <None Include="res\ETCONG.rc2">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="ETCONG.APS" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ETCONGDoc.ico">
@@ -128,5 +160,89 @@
     <Image Include="res\error.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\9.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\2.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\3.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\4.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\5.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\6.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\7.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\8.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\1.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\BGImage.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bgtest.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bullet.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Button3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Button3.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\foreverTest.gif">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\mine1.jpg">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\mine2.jpg">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\mine3.jpg">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\mine4.jpg">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\mine5.jpg">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\mine6.jpg">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\onceTest.gif">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\t.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\히오스명언.PNG">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\testMusic.mp3" />
+    <Media Include="res\testMusic.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
   </ItemGroup>
 </Project>

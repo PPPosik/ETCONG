@@ -16,7 +16,7 @@
 
 class CETCONGView : public CView
 {
-protected: // serialization에서만 만들어집니다.
+public: // serialization에서만 만들어집니다.
 	CETCONGView();
 	DECLARE_DYNCREATE(CETCONGView)
 
@@ -68,7 +68,8 @@ public:
 	int m_nBackgroundHeight;
 	bool m_bClickable;
 	bool m_bError;
-	
+	bool m_bStageStart;
+
 	CMyAnimation m_animation;
 	virtual void OnInitialUpdate();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);

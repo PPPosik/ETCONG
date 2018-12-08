@@ -69,7 +69,9 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\ETCONG.ico"
+
 IDR_ETCONGTYPE          ICON                    "res\\ETCONGDoc.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -143,6 +145,51 @@ BEGIN
     DEFPUSHBUTTON   "확인",IDOK,113,41,50,14,WS_GROUP
 END
 
+IDD_NEWVIEW DIALOGEX 0, 0, 320, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+END
+
+IDD_OLDVIEW DIALOGEX 0, 0, 320, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+END
+
+IDD_SCREEN_START DIALOGEX 0, 0, 720, 364
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "ETCONG! STARTING PAGE!",IDC_STATIC,269,158,93,8
+    CONTROL         "START",IDC_BUTTON_START,"Button",BS_OWNERDRAW | BS_BITMAP,294,277,50,14
+END
+
+IDD_SCREEN_NAME DIALOGEX 0, 0, 598, 353
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDIT_NAME,325,199,102,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Go to START",IDC_BUTTON_GOBACK,163,323,50,14
+    PUSHBUTTON      "GAME START!",IDC_BUTTON_START_GAME,361,322,50,14
+    LTEXT           "무엇 입니까 당신의 이름?",IDC_STATIC,134,202,170,8
+END
+
+IDD_SCREEN_STORY DIALOGEX 0, 0, 649, 338
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    PUSHBUTTON      "SKIP",IDC_BUTTON_SKIP,582,310,50,14,NOT WS_TABSTOP
+    PUSHBUTTON      "NEXT",IDC_BUTTON_NEXT,525,310,50,14
+END
+
+IDD_SCREEN_GAME DIALOGEX 0, 0, 554, 332
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "GAME SCREEN",IDC_STATIC,145,151,280,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -198,6 +245,54 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
+
+    IDD_NEWVIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_OLDVIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_SCREEN_START, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 713
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 357
+    END
+
+    IDD_SCREEN_NAME, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 591
+        VERTGUIDE, 447
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 346
+    END
+
+    IDD_SCREEN_STORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 641
+        BOTTOMMARGIN, 331
+    END
+
+    IDD_SCREEN_GAME, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 547
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 325
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -208,9 +303,15 @@ END
 //
 
 IDB_PNG2                PNG                     "res\\player.png"
+
 IDB_PNG3                PNG                     "res\\background.png"
+
 IDB_PNG4                PNG                     "res\\attack.png"
+
 IDB_PNG5                PNG                     "res\\error.png"
+
+IDB_PNG7                PNG                     "res\\Button3.png"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -221,6 +322,48 @@ IDD_ABOUTBOX AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
+
+IDD_NEWVIEW AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_OLDVIEW AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SCREEN_NAME AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SCREEN_START AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SCREEN_STORY AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SCREEN_GAME AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
+
+IDB_BITMAP2             BITMAP                  "res\\bitmap2.bmp"
+
+IDB_BITMAP3             BITMAP                  "res\\bgtest.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

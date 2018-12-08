@@ -187,6 +187,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="res\ETCONG_STORY.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BulletCalculate.h" />
@@ -198,8 +199,13 @@
     <ClInclude Include="GameGraphics.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyAnimation.h" />
+    <ClInclude Include="NewView.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SCREEN_GAME.h" />
+    <ClInclude Include="SCREEN_NAME.h" />
+    <ClInclude Include="SCREEN_START.h" />
+    <ClInclude Include="SCREEN_STORY.h" />
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -216,7 +222,12 @@
     <ClCompile Include="GameGraphics.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyAnimation.cpp" />
+    <ClCompile Include="NewView.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SCREEN_GAME.cpp" />
+    <ClCompile Include="SCREEN_NAME.cpp" />
+    <ClCompile Include="SCREEN_START.cpp" />
+    <ClCompile Include="SCREEN_STORY.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -229,15 +240,46 @@
     <ResourceCompile Include="ETCONG.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ETCONG.APS" />
     <None Include="res\ETCONG.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\1.png" />
+    <Image Include="res\2.png" />
+    <Image Include="res\3.png" />
+    <Image Include="res\4.png" />
+    <Image Include="res\5.png" />
+    <Image Include="res\6.png" />
+    <Image Include="res\7.png" />
+    <Image Include="res\8.png" />
+    <Image Include="res\9.png" />
     <Image Include="res\attack.png" />
     <Image Include="res\background.png" />
+    <Image Include="res\BGImage.bmp" />
+    <Image Include="res\bgtest.bmp" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\bullet.png" />
+    <Image Include="res\Button3.bmp" />
+    <Image Include="res\Button3.png" />
     <Image Include="res\error.png" />
     <Image Include="res\ETCONG.ico" />
     <Image Include="res\ETCONGDoc.ico" />
+    <Image Include="res\foreverTest.gif" />
+    <Image Include="res\mine1.jpg" />
+    <Image Include="res\mine2.jpg" />
+    <Image Include="res\mine3.jpg" />
+    <Image Include="res\mine4.jpg" />
+    <Image Include="res\mine5.jpg" />
+    <Image Include="res\mine6.jpg" />
+    <Image Include="res\onceTest.gif" />
     <Image Include="res\player.png" />
+    <Image Include="res\t.png" />
+    <Image Include="res\히오스명언.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\testMusic.mp3" />
+    <Media Include="res\testMusic.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

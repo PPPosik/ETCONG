@@ -10,6 +10,27 @@
 #define IDB_PNG3                        312
 #define IDB_PNG4                        313
 #define IDB_PNG5                        314
+#define IDD_NEWVIEW                     315
+#define IDD_OLDVIEW                     316
+#define IDD_SCREEN_START                317
+#define IDD_SCREEN_NAME                 318
+#define IDD_SCREEN_STORY                319
+#define IDD_SCREEN_GAME                 320
+#define IDB_BITMAP1                     322
+#define IDB_PNG6                        323
+#define IDB_PNG7                        325
+#define IDB_BITMAP2                     327
+#define IDB_BITMAP3                     328
+#define IDC_EDIT1                       1000
+#define IDC_EDIT_NAME                   1000
+#define IDC_BUTTON1                     1001
+#define IDC_BUTTON_START                1001
+#define IDC_BUTTON_GOBACK               1001
+#define IDC_BUTTON_SKIP                 1001
+#define IDC_BUTTON_START_GAME           1002
+#define IDC_EDIT2                       1003
+#define IDC_EDIT_STORY                  1004
+#define IDC_BUTTON_NEXT                 1009
 
 // Next default values for new objects
 // 

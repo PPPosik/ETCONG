@@ -25,6 +25,16 @@ public:
 	virtual BOOL InitInstance();
 
 // 구현입니다.
+	CView* m_pNewView;
+	CView* SwitchView(int CurrentView);
+	CView* m_pStartScreen;
+	CView* m_pNameScreen;
+	CView* m_pStoryScreen;
+	CView* m_pGameScreen;
+	int m_nCurrentView;
+	int getCurrentView();
+	void setCurrentView(int value);
+	bool m_bInited;
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
 };
