@@ -1,4 +1,6 @@
 #pragma once
+#include "afxext.h"
+#include "atlimage.h"
 
 
 
@@ -34,6 +36,9 @@ public:
 //	CString m_strName;
 	CString m_strName;
 	CString GetPlayerName();
+	CBitmapButton m_btnStarts;
+	virtual void OnDraw(CDC* /*pDC*/);
+	CImage m_ImageBackground;
 };
 
 
