@@ -12,6 +12,8 @@
 
 CCustomThread::CCustomThread()
 {
+	pClick = NULL;
+	pAbsolute = NULL;
 }
 
 
@@ -37,12 +39,7 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
 			pView->m_nTimerFlag = ATTACK;
 
-		if (pView->m_nTimerFlag == MOVE) {
-			move.BitBlt(pDC->m_hDC, 0, 0);
-		}
-		else if (pView->m_nTimerFlag == ATTACK) {
-			attack.BitBlt(pDC->m_hDC, 0, 0);
-		}
+		pView->Invalidate();
 	}
 	
 	return 0;
@@ -64,32 +61,11 @@ UINT CCustomThread::ThreadClickDelay(LPVOID _mothod)
 }
 
 
-UINT CCustomThread::ThreadInitial(LPVOID _mothod)
-{
-	CETCONGView *pView = (CETCONGView*)_mothod;
-
-	pView->m_bClickable = false;
-	Sleep(pView->m_nInit);
-	pView->m_bClickable = true;
-
-	CWinThread *p2 = NULL;
-	p2 = AfxBeginThread(ThreadClickDelay, pView);
-	if (p2 == NULL) {
-		AfxMessageBox(L"Error");
-	}
-	CloseHandle(p2);
-
-	return 0;
-}
-
-
 void CCustomThread::StartThread()
 {
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 	printf("½º·ñµå : %d\n", pView->GetDlgCtrlID());
-	CWinThread *pClick = NULL;
-	CWinThread *pAbsolute = NULL;
 
 	pClick = AfxBeginThread(ThreadClickDelay, pView);
 	pAbsolute = AfxBeginThread(ThreadAbsolute, pView);
@@ -105,3 +81,15 @@ void CCustomThread::StartThread()
 	CloseHandle(pAbsolute);
 }
 
+void CCustomThread::StopThread()
+{
+	pClick->SuspendThread();
+	pAbsolute->SuspendThread();
+
+	DWORD dwResult;
+	::GetExitCodeThread(pClick->m_hThread, &dwResult);
+	::GetExitCodeThread(pAbsolute->m_hThread, &dwResult);
+
+	delete pClick;
+	delete pAbsolute;
+}

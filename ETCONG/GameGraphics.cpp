@@ -124,12 +124,20 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 		}
 
 
+		/*if (pView->m_nTimerFlag == MOVE) {
+			m_ImgMove.BitBlt(memDC.m_hDC, 0, 0);
+		}
+		else if (pView->m_nTimerFlag == ATTACK) {
+			m_ImgAttack.BitBlt(memDC.m_hDC, 0, 0);
+		}*/
+
+
 		pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
 		memDC.SelectObject(pOldBitmap);
 
 		break;
 	}
-	memDC.DeleteDC();
+	// memDC.DeleteDC();
 
 	return 0;
 }

@@ -120,6 +120,7 @@ void SCREEN_STORY::drawBG()
 	m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
 	m_btnSkip.SizeToContent();
 
+	
 
 	//CDC* pDC = GetDC();
 	//m_ImgBackground = storySet[m_nStoryScene++];
@@ -179,7 +180,7 @@ void SCREEN_STORY::OnDraw(CDC* pDC)
 void SCREEN_STORY::OnBnClickedButtonNext()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	drawBG();
+	Invalidate();
 }
 
 
