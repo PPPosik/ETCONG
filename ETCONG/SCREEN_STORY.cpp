@@ -14,14 +14,20 @@ IMPLEMENT_DYNCREATE(SCREEN_STORY, CFormView)
 SCREEN_STORY::SCREEN_STORY()
 	: CFormView(IDD_SCREEN_STORY)
 	, m_strStory(_T(""))
-//	, m_pBackgroundPos(0)
-//	, m_nBackgroundWidth(0)
-//	, m_nBackgroundHeight(0)
+	//	, m_pBackgroundPos(0)
+	//	, m_nBackgroundWidth(0)
+	//	, m_nBackgroundHeight(0)
+	, m_nStoryScene(0)
+	, inited(false)
 {
-	m_ImgBackground.Load(_T("res\\bgtest.bmp"));
-//	m_nBackgroundWidth = m_ImgBackground.GetWidth();
-//	m_nBackgroundHeight = m_ImgBackground.GetHeight();
-//	m_bmpBackground.LoadBitmapW(IDB_BITMAP3);
+	//	m_ImgBackground.Load(_T("res\\bgtest.bmp"));
+	//	m_nBackgroundWidth = m_ImgBackground.GetWidth();
+	//	m_nBackgroundHeight = m_ImgBackground.GetHeight();
+	//	m_bmpBackground.LoadBitmapW(IDB_BITMAP3);
+	storySet[0].Load(_T("res\\title.bmp"));
+	storySet[1].Load(_T("res\\bgtest.bmp"));
+	storySet[2].Load(_T("res\\BGImage.bmp"));
+	storySet[3].Load(_T("res\\title.bmp"));
 }
 
 SCREEN_STORY::~SCREEN_STORY()
@@ -32,6 +38,8 @@ void SCREEN_STORY::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT_STORY, m_strStory);
+	DDX_Control(pDX, IDC_BUTTON_NEXT, m_btnNext);
+	DDX_Control(pDX, IDC_BUTTON_SKIP, m_btnSkip);
 }
 
 BEGIN_MESSAGE_MAP(SCREEN_STORY, CFormView)
@@ -90,12 +98,46 @@ void SCREEN_STORY::OnInitialUpdate()
 
 }
 
+void SCREEN_STORY::drawBG()
+{
+	if (m_nStoryScene > 3) {
+		AfxMessageBox(_T("스토리 끝이라고!"));
+		return;
+	}
+
+	ReleaseDC(GetDC());
+	CDC* pDC = GetDC();
+	m_ImgBackground = storySet[m_nStoryScene++];
+	m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
+
+	if (!inited) {
+		m_btnNext.AutoLoad(IDC_BUTTON_NEXT, this);
+		m_btnSkip.AutoLoad(IDC_BUTTON_SKIP, this);
+		inited = true;
+	}
+	m_btnNext.LoadBitmaps(IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4);
+	m_btnNext.SizeToContent();
+	m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
+	m_btnSkip.SizeToContent();
+
+
+
+	//CDC* pDC = GetDC();
+	//m_ImgBackground = storySet[m_nStoryScene++];
+	//m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
+
+	//m_btnNext.LoadBitmaps(IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4);
+	//m_btnNext.SizeToContent();
+	//m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
+	//m_btnSkip.SizeToContent();
+}
+
 
 void SCREEN_STORY::OnDraw(CDC* pDC)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 
-	drawBackground();
+	drawBG();
 
 	//printf("init call\n");
 	//CStdioFile story_text;
@@ -138,84 +180,10 @@ void SCREEN_STORY::OnDraw(CDC* pDC)
 void SCREEN_STORY::OnBnClickedButtonNext()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//while()
+	Invalidate();
 }
 
 
-void SCREEN_STORY::drawBackground()
-{
-	CDC* pDC = GetDC();
-
-	m_ImgBackground.BitBlt(pDC->m_hDC, 0,0);
-
-
-	//CFile file;
-	//BITMAPFILEHEADER bfh;
-	//BITMAPINFOHEADER bih;
-	//BYTE* bits = NULL;
-
-	//CBitmap bm;
-	//CDC *clientDC;
-	//CDC memDC;
-
-	//try
-	//{
-	//	if (!file.Open(_T("res\\bgtest.bmp"), CFile::modeRead))
-	//		throw "File not found";
-
-	//	if (file.Read(&bfh, sizeof(BITMAPFILEHEADER)) < sizeof(BITMAPFILEHEADER)) {
-	//		printf("aa");
-	//		throw "Not bmp file";
-	//	}
-	//	if (file.Read(&bih, sizeof(BITMAPINFOHEADER)) < sizeof(BITMAPINFOHEADER)) {
-	//		printf("bb");
-	//		throw "Not bmp file";
-	//	}
-	//	bits = new BYTE[bih.biSizeImage];
-	//	if (file.Read(bits, bih.biSizeImage) < bih.biSizeImage) {
-	//		printf("cc");
-	//		throw "Not bmp file";
-	//	}
-	//	if (!bm.CreateBitmap(bih.biWidth, bih.biHeight, bih.biPlanes, bih.biBitCount, bits))
-	//		throw "Could not create bitmap";
-	//	printf("dd");
-
-	//	clientDC = this->GetDC();
-	//	memDC.CreateCompatibleDC(clientDC);
-	//	memDC.SelectObject(bm);
-	//	clientDC->BitBlt(0, 0, bih.biWidth, bih.biHeight, &memDC, 0, 0, SRCCOPY);
-	//}
-	//catch (char *e)
-	//{
-	//	TRACE("%s\n", e);
-	//}
-
-
-	//CPaintDC dc(this);
-	////==========================================
-	////배경이미지 설정
-	//UINT tBG_IMAGE_ID = IDB_BITMAP3; //사용할 배경이미지 ID 지정
-	//CRect tRect;
-	//GetClientRect(&tRect);
-	////------------------------------------------
-	////배경이미지 그리기. 사용될 선언
-	//CBitmap tBitmap, *pOldBitmap;
-	//CDC tMemdc; //메모리 DC 생성
-	//			//메인 DC 와 호환 가능한 메모리 DC 생성
-	//tMemdc.CreateCompatibleDC(&dc);
-	////리소스 가져오기.
-	//tBitmap.LoadBitmap(IDB_BITMAP3);
-	//pOldBitmap = tMemdc.SelectObject(&tBitmap);
-	////이미지 뿌리기. bitblt 고속 복사
-	//dc.BitBlt(0, 0, tRect.Width(), tRect.Height(), &tMemdc, 0, 0, SRCCOPY);
-
-	////메모리 해제
-	//tMemdc.SelectObject(pOldBitmap);
-	//tBitmap.DeleteObject();
-	//tMemdc.DeleteDC();
-
-
-}
 
 
 //BOOL SCREEN_STORY::OnEraseBkgnd(CDC* pDC)

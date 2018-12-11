@@ -6,9 +6,9 @@
 // SHARED_HANDLERS는 미리 보기, 축소판 그림 및 검색 필터 처리기를 구현하는 ATL 프로젝트에서 정의할 수 있으며
 // 해당 프로젝트와 문서 코드를 공유하도록 해 줍니다.
 #ifndef SHARED_HANDLERS
-//#include "ETCONG.h"
-#endif
 #include "ETCONG.h"
+#endif
+//#include "ETCONG.h"
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
 
@@ -52,7 +52,7 @@ CETCONGView::CETCONGView()
 	m_player.ImageInit();
 	m_aEnemy = CEnemy();
 	m_aEnemy.ImageInit();
-	m_pBackgroundPos = CPoint(0, 0);
+	m_pBackgroundPos = CPoint(-40, -10);
 	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
 	m_nTime = 400;
@@ -70,8 +70,8 @@ CETCONGView::CETCONGView()
 	m_animation.InitAnimation();
 
 	// 수정 필요
-	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
-	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 120);
+	m_player.setPos(1280 / 2 - 50, 720 / 2 - 50);
+	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 100);
 
 	m_display = CGameGraphics();
 	m_display.Init();
@@ -261,6 +261,9 @@ void CETCONGView::OnDestroy()
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	m_sound.stop();
+	m_customThread.StopThread();
+	m_display.pDisplay = NULL;
+	
 }
 
 

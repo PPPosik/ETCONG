@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "atlimage.h"
 
 
 
@@ -35,6 +36,6 @@ public:
 	virtual void OnInitialUpdate();
 
 
+	virtual void OnDraw(CDC* /*pDC*/);
+	CImage m_ImgBackground;
 };
-
-

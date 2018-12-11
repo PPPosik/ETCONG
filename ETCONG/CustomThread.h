@@ -7,7 +7,10 @@ public:
 
 	static UINT ThreadAbsolute(LPVOID _mothod);
 	static UINT ThreadClickDelay(LPVOID _mothod);
-	static UINT ThreadInitial(LPVOID _mothod);
 	void StartThread();
+	void StopThread();
+
+	CWinThread *pClick;
+	CWinThread *pAbsolute;
 };
 

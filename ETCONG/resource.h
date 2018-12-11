@@ -12,7 +12,9 @@
 #define IDB_PNG5                        314
 #define IDD_NEWVIEW                     315
 #define IDD_OLDVIEW                     316
+#define IDB_BITMAP4                     316
 #define IDD_SCREEN_START                317
+#define IDB_BITMAP5                     317
 #define IDD_SCREEN_NAME                 318
 #define IDD_SCREEN_STORY                319
 #define IDD_SCREEN_GAME                 320
@@ -36,7 +38,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310

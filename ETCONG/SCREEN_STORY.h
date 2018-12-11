@@ -2,6 +2,7 @@
 #include "atlimage.h"
 #include "atltypes.h"
 #include "afxwin.h"
+#include "afxext.h"
 
 
 
@@ -32,19 +33,22 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonSkip();
-	
+
 	CString m_strStory;
 	afx_msg void OnEnChangeEditStory();
 	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* /*pDC*/);
 	afx_msg void OnBnClickedButtonNext();
 	CImage m_ImgBackground;
-	void drawBackground();
-//	CPoint m_pBackgroundPos;
-//	int m_nBackgroundWidth;
-//	int m_nBackgroundHeight;
-//	CBitmap m_bmpBackground;
-//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	void drawBG();
+	CImage storySet[4];
+	bool inited;
+	//	CPoint m_pBackgroundPos;
+	//	int m_nBackgroundWidth;
+	//	int m_nBackgroundHeight;
+	//	CBitmap m_bmpBackground;
+	//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	int m_nStoryScene;
+	CBitmapButton m_btnNext;
+	CBitmapButton m_btnSkip;
 };
-
-

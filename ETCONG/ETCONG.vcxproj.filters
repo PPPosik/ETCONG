@@ -238,6 +238,12 @@
     <Image Include="res\히오스명언.PNG">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\bitmap4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap5.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\testMusic.mp3" />

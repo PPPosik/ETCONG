@@ -28,5 +28,8 @@ public:
 	void shootMine(CDC *pDC, LPVOID view);
 	void shootVoid(LPVOID view);
 	void disableVoid(LPVOID view);
+	CWinThread *pEnemyAttack;
+	void stopThread();
+	void shootCrossWild(CDC *pDC, LPVOID view);
 };
 
