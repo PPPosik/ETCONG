@@ -292,6 +292,6 @@ void CETCONGView::shootBullet(UINT nChar, int player_x, int player_y)
 	
 	CBulletCalculate newone;
 	newone.shootBullet(nChar, player_x, player_y);
-
+	//ddsadsadadwasd
 
 }
