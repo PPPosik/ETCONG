@@ -63,7 +63,7 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 
 	memDC.CreateCompatibleDC(pDC);
 	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
-
+	printf("you son");
 	while (1) {
 		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 		m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
@@ -80,6 +80,11 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 
 		if (pView->m_bError) {
 			//m_ImgError.BitBlt(memDC.m_hDC, pView->m_player.getPos().x , pView->m_player.getPos().y);
+		}
+
+		if (DoesEnemyBlined)
+		{
+			m_imgBlind.TransparentBlt(memDC.m_hDC, 0, 0, 1280, 720, RGB(255, 255, 255));
 		}
 		
 		if(IsMoveActivated)
@@ -140,6 +145,7 @@ void CGameGraphics::Init()
 	IsMoveActivated = false;
 	IsBulletShooted = false;
 	DoesEnemyaMined = false;
+	DoesEnemyBlined = false;
 	m_ImgBackground.Load(_T("res\\background.png"));
 	m_ImgMove.Load(_T("res\\player.png"));
 	m_ImgAttack.Load(_T("res\\attack.png"));
@@ -149,6 +155,7 @@ void CGameGraphics::Init()
 	m_imgMineAttack[0].Load(_T("res\\mine4.jpg"));
 	m_imgMineAttack[1].Load(_T("res\\mine5.jpg"));
 	m_imgMineAttack[2].Load(_T("res\\mine6.jpg"));
+	m_imgBlind.Load(_T("res\\Blind2.png"));
 
 	CString str;
 	for (int i = 1; i <= 9; i++) {
@@ -188,4 +195,16 @@ void CGameGraphics::ActiveEnemyMine(int lv, int x, int y)
 	m_nEnemyMinePos.x = x;
 	m_nEnemyMinePos.y = y;
 	
+}
+
+
+void CGameGraphics::ActiveEnemyBlind()
+{
+	DoesEnemyBlined = true;
+}
+
+
+void CGameGraphics::RevealedPlayerBling()
+{
+	DoesEnemyBlined = false;
 }

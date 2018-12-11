@@ -13,6 +13,7 @@ public:
 	int m_nLife;
 	int m_nWidth;
 	int m_nHeight;
+	int m_nLoopLife;
 	void Ouchhurt();
 	CPoint m_pPos;
 	bool IsAlive;

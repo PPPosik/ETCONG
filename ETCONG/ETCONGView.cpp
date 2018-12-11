@@ -286,48 +286,7 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 
 void CETCONGView::shootBullet(UINT nChar, int player_x, int player_y)
 {
-	/*
-	CDC* pDC = GetDC();
-	UINT KeyInput = nChar;
-	int launch_X = player_x;
-	int launch_Y = player_y;
-
-	//m_imgBulletPlayer.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	CBulletCalculate m_aBullet;
-	m_imgBulletPlayer.Load(_T("res\\bullet.png"));
-
-	for (int i = 0; i < 7; i++) {
-
-
-		switch (KeyInput) {
-		case 'w':
-			launch_X += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 's':
-			launch_X -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 'a':
-			launch_Y += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 'd':
-			launch_Y -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-
-		}
-	}
-
-
-	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
-
-
 	
-
-	ReleaseDC(pDC);
-	*/
 	CBulletCalculate newone;
 	newone.shootBullet(nChar, player_x, player_y);
 

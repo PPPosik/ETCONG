@@ -20,7 +20,7 @@ Enyme* pEnyme = new Enyme;
 
 CBulletCalculate::CBulletCalculate()
 {
-	//new CImage.Load(_T("res\\bullet.png"));
+	
 	
 }
 
@@ -65,8 +65,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	enemy_y = pView->m_aEnemy.m_pPos.y;
 	enemy_w = pView->m_aEnemy.m_nWidth;
 	enemy_h = pView->m_aEnemy.m_nHeight;
-	CImage m_imgBulletPlayer;
-	m_imgBulletPlayer.Load(_T("res\\bullet.png"));
+	
 
 	//m_imgBulletPlayer.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
 	//CBulletCalculate m_aBullet;
@@ -143,7 +142,15 @@ UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
 
 	//printf("yes1");
 	//shootWild(pDC, pView, pStruct->aEx, pStruct->aEy, pStruct->pPx, pStruct->pPy);
-	shootMine(pDC, pView);
+
+	
+
+	while (pView->m_aEnemy.IsAlive)
+	{
+		
+		shootMine(pDC, pView);
+		Sleep( (pView->m_nTime)*16 );
+	}
 
 	return 0;
 }
@@ -248,11 +255,6 @@ void CBulletCalculate::shootMine(CDC *pDC, LPVOID view)
 	CETCONGView* pView = (CETCONGView*)view;
 	CPoint prev = pView->m_pBackgroundPos;
 
-	//CImage m_imgMineAttack[3];
-
-	//m_imgMineAttack[0].Load(_T("res\\mine4.jpg"));
-	//m_imgMineAttack[1].Load(_T("res\\mine5.jpg"));
-	//m_imgMineAttack[2].Load(_T("res\\mine6.jpg"));
 
 	int player_x = 1280 / 2 - 50 - 100;
 	int player_y = 720 / 2 - 70 - 100;
@@ -260,7 +262,7 @@ void CBulletCalculate::shootMine(CDC *pDC, LPVOID view)
 	for (int at = 0; at < 4; at++)
 	{
 		pView->m_display.ActiveEnemyMine(at, player_x, player_y);
-
+		pView->Invalidate(TRUE);
 		for (int n = 0; n < 6; n++) {
 			now = pView->m_pBackgroundPos;
 			if (prev.x != now.x || prev.y != now.y) {
@@ -273,18 +275,40 @@ void CBulletCalculate::shootMine(CDC *pDC, LPVOID view)
 				prev = now;
 				pView->m_display.ActiveEnemyMine(at, player_x, player_y);
 			}
+			if ( ((at == 0) || (at == 1)) && ((player_x <= 1280 / 2 - 50) && (player_x >= 1280 / 2 - 50 - 200)) && ((player_y <= 720 / 2 - 70) && (player_y >= 720 / 2 - 70 - 200))) {
+				shootVoid(pView);
+			}
+			else
+			{
+				disableVoid(pView);
+			}
+			if ( (at == 2) && ((player_x <= 1280 / 2 - 50) && (player_x >= 1280 / 2 - 50 - 200)) && ((player_y <= 720 / 2 - 70) && (player_y >= 720 / 2 - 70 - 200))) {
+				pView->m_player.OuchHurt();
+			}
+			
 			Sleep( ((pView->m_nTime)/2) );
 			if (at == 3) {
+				
 				break;
 			}
-		}
-			
-			//m_imgMineAttack[at].BitBlt(pDC->m_hDC, player_x,player_y);
-			
 
+		}	
 	}
+	disableVoid(pView);
+}
 
 
+void CBulletCalculate::shootVoid(LPVOID view)
+{
+	CETCONGView* pView = (CETCONGView*)view;
+	pView->m_display.ActiveEnemyBlind();
 
 
+}
+
+
+void CBulletCalculate::disableVoid(LPVOID view)
+{
+	CETCONGView* pView = (CETCONGView*)view;
+	pView->m_display.RevealedPlayerBling();
 }

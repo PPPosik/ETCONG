@@ -8,7 +8,7 @@ CPlayer::CPlayer()
 	m_nWidth = 100;
 	m_nHeight = 100;
 	m_pPos = CPoint(100, 100);
-	
+	IsAlive = true;
 }
 
 
@@ -106,5 +106,6 @@ void CPlayer::OuchHurt()
 	if (m_nLife == 0)
 	{
 		IsAlive = false;
+		printf("\nYOUDEAD\n");
 	}
 }

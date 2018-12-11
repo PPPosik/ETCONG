@@ -11,11 +11,11 @@
 
 CEnemy::CEnemy()
 {
-	m_nLife = 103;
+	m_nLife = 3;
 	m_nWidth = 600;
 	m_nHeight = 500;
 	IsAlive = true;
-	
+	m_nLoopLife = 0;
 }
 
 
@@ -27,11 +27,17 @@ CEnemy::~CEnemy()
 void CEnemy::Ouchhurt()
 {
 	m_nLife = m_nLife - 1;
+	if (m_nLoopLife == 0)
+	{
+		AttackTimer();
+	}
+	m_nLoopLife++;
 	if (m_nLife == 0)
 	{
 		IsAlive = false;
 	}
-	AttackTimer();
+	
+	
 }
 
 

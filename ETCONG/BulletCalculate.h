@@ -26,5 +26,7 @@ public:
 	void shootWild(CDC * pDC, LPVOID view, int enemy_x, int enemy_y, int player_x, int player_y);
 	
 	void shootMine(CDC *pDC, LPVOID view);
+	void shootVoid(LPVOID view);
+	void disableVoid(LPVOID view);
 };
 

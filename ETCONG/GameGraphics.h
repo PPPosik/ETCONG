@@ -17,6 +17,8 @@ public:
 	CImage m_ImgMoveAni[9];
 	CImage m_imgBulletfromUser;
 	CImage m_imgMineAttack[3];
+	CImage m_imgBlind;
+	
 
 	bool IsMoveActivated;
 	int MotionCount;
@@ -25,10 +27,13 @@ public:
 	bool DoesEnemyaMined;
 	CPoint m_nEnemyMinePos;
 	int m_nEnemyMineLevel;
+	bool DoesEnemyBlined;
 
 	void Init();
 	void ActiveMoveAnimation();
 	void ActiveBulletAnimation(int x, int y);
 	void EndBulletAnimation();
 	void ActiveEnemyMine(int lv, int x, int y);
+	void ActiveEnemyBlind();
+	void RevealedPlayerBling();
 };
