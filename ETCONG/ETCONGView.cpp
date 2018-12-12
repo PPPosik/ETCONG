@@ -52,7 +52,7 @@ CETCONGView::CETCONGView()
 	m_player.ImageInit();
 	m_aEnemy = CEnemy();
 	m_aEnemy.ImageInit();
-	m_pBackgroundPos = CPoint(0,-40);
+	m_pBackgroundPos = CPoint(-800,-340);
 	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
 	m_nTime = 400;

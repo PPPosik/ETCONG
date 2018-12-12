@@ -192,7 +192,7 @@ void CGameGraphics::Init()
 	DoesEnemyBlined = false;
 	IsWildvxCrossed = false;
 	IsWildvyCrossed = false;
-	m_ImgBackground.Load(_T("res\\map.png"));
+	m_ImgBackground.Load(_T("res\\map4.png"));
 	m_ImgMove.Load(_T("res\\playerright.png"));
 	m_ImgAttack.Load(_T("res\\playerrightatt.png"));
 	m_ImgError.Load(_T("res\\error.png"));
