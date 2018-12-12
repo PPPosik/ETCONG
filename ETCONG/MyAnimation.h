@@ -10,7 +10,7 @@ public:
 	CMyAnimation();
 	~CMyAnimation();
 	void InitAnimation();
-	void PlayAnimation(CDC *pDC, LPVOID view);
+	void PlayAnimation(LPVOID view);
 
 	CPoint m_pPos;
 	CImage m_ImgMove[MAX_MOVE_CNT];

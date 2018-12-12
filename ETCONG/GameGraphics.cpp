@@ -69,7 +69,7 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 	memDC.CreateCompatibleDC(pDC);
 	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
 	//printf("you son");
-	while (1) {
+	
 		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 		m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 		
@@ -112,13 +112,17 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 			
 		}
 
-		m_imgPlayerHP[0].TransparentBlt(memDC.m_hDC, 0, 570, 100, 100, RGB(255, 255, 255));
-		m_imgPlayerHP[1].TransparentBlt(memDC.m_hDC, 100, 570, 100, 100, RGB(255, 255, 255));
-		m_imgPlayerHP[2].TransparentBlt(memDC.m_hDC, 200, 570, 100, 100, RGB(255, 255, 255));
+		
+		for (int hpp = 0; hpp < m_nPlayerLifeLeft; hpp++) {
+			m_imgPlayerHP[hpp].TransparentBlt(memDC.m_hDC, 100 * hpp, 570, 100, 100, RGB(255, 255, 255));
+		}
+		for (int hppp = 2; hppp >= m_nPlayerLifeLeft; hppp--) {
+			m_imgHurt[hppp].TransparentBlt(memDC.m_hDC, 100 * hppp, 570, 100, 100, RGB(255, 255, 255));
+		}
 		
 		if(IsMoveActivated)
 		{
-			
+			/*
 			if (MotionCount == 9) {
 				IsMoveActivated = false;
 
@@ -133,6 +137,8 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 
 				continue;
 			}
+			*/
+			m_ImgMoveAni[MotionCount].TransparentBlt(memDC.m_hDC, pView->m_player.getPos().x, pView->m_player.getPos().y - 50, m_ImgMoveAni[0].GetWidth(), m_ImgMoveAni[0].GetHeight(), RGB(255, 255, 255));
 
 		}
 		if (!IsMoveActivated) {
@@ -167,8 +173,8 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 		pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
 		memDC.SelectObject(pOldBitmap);
 
-		break;
-	}
+		
+	
 	memDC.DeleteDC();
 
 	return 0;
@@ -199,7 +205,8 @@ void CGameGraphics::Init()
 	m_imgWIld[3].Load(_T("res\\bullet.png"));
 	m_imgWIld[4].Load(_T("res\\bullet.png"));
 	m_imgWIld[5].Load(_T("res\\bullet.png"));
-	m_imgHurt.Load(_T("res\\player.png"));
+	
+
 
 
 	CString str;
@@ -210,25 +217,29 @@ void CGameGraphics::Init()
 	for (int i = 0; i <= 2; i++) {
 		str.Format(_T("res\\error.png"));
 		m_imgPlayerHP[i].Load(str);
+		m_imgHurt[i].Load(_T("res\\player.png"));
 	}
 	MotionCount = 0;
 	m_nPlayerLifeLeft = 3;
 }
 
-void CGameGraphics::ActiveMoveAnimation()
+void CGameGraphics::ActiveMoveAnimation(int count)
 {
 	IsMoveActivated = true;
-	MotionCount = 0;
+	MotionCount = count;
 }
 
 
 void CGameGraphics::ActiveBulletAnimation(int x, int y)
 {
+	//CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	//CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 	IsBulletShooted = true;
 	m_nPlayerBulletPos.x = x;
 	m_nPlayerBulletPos.y = y;
-	DisplayThread();
+	//DisplayThread();
 	//pBulletView->Invalidate();
+	//Display(pView);
 	
 }
 
@@ -305,6 +316,12 @@ void CGameGraphics::PlayerHurt()
 	//m_imgPlayerHP[m_nPlayerLifeLeft].Destroy();
 
 	//m_imgPlayerHP[m_nPlayerLifeLeft] = m_imgHurt;
-	m_imgPlayerHP[m_nPlayerLifeLeft].Load(_T("res\\player.png"));
+	//m_imgPlayerHP[m_nPlayerLifeLeft].Load(_T("res\\player.png"));
 	
+}
+
+
+void CGameGraphics::EndMoveAnimation()
+{
+	IsMoveActivated = false;
 }

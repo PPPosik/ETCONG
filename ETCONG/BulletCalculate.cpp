@@ -150,9 +150,15 @@ UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
 	while (pView->m_aEnemy.IsAlive)
 	{
 		shootCrossWild(pDC, pView);
+		if (!(pView->m_aEnemy.IsAlive)) {
+			break;
+		}
 		Sleep((pView->m_nTime) * 8);
 		
 		shootMine(pDC, pView);
+		if (!(pView->m_aEnemy.IsAlive)) {
+			break;
+		}
 		Sleep( (pView->m_nTime)*8 );
 		
 	}

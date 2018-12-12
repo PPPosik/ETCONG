@@ -21,7 +21,7 @@ public:
 	CImage m_imgBlind;
 	CImage m_imgWIld[6];
 	CImage m_imgPlayerHP[3];
-	CImage m_imgHurt;
+	CImage m_imgHurt[3];
 	
 	CWinThread *pDisplay;
 
@@ -40,7 +40,7 @@ public:
 	int m_nPlayerLifeLeft;
 
 	void Init();
-	void ActiveMoveAnimation();
+	void ActiveMoveAnimation(int count);
 	void ActiveBulletAnimation(int x, int y);
 	void EndBulletAnimation();
 	void ActiveEnemyMine(int lv, int x, int y);
@@ -51,4 +51,5 @@ public:
 	void EndWildtoX();
 	void EndWildtoY();
 	void PlayerHurt();
+	void EndMoveAnimation();
 };

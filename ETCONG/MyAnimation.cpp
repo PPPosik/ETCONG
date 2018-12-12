@@ -30,6 +30,7 @@ CMyAnimation::~CMyAnimation()
 
 void CMyAnimation::InitAnimation()
 {
+	/*
 	CString str;
 	for (int i = 1; i <= MAX_MOVE_CNT; i++) {
 		str.Format(_T("res\\%d.png"), i);
@@ -39,36 +40,32 @@ void CMyAnimation::InitAnimation()
 
 	m_nWidth = m_ImgMove[0].GetWidth();
 	m_nHeight = m_ImgMove[0].GetHeight();
+	*/
 }
 
 
-void CMyAnimation::PlayAnimation(CDC *pDC, LPVOID view)
+void CMyAnimation::PlayAnimation(LPVOID view)
 {
 	CETCONGView *pView = (CETCONGView*)view;
 	
-	CRect rect;
-	pView->GetClientRect(rect);
-	CDC memDC;
-	CBitmap* pOldBitmap;
-	CBitmap bmp;
-
-	memDC.CreateCompatibleDC(pDC);
-	bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+	
 
 	for (int i = 0; i < MAX_MOVE_CNT; i++) {
 		// printf("%d ", i);
 	
-		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
-
-		m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
-		m_ImgMove[i].TransparentBlt(memDC.m_hDC, m_pPos.x, m_pPos.y, m_nWidth, m_nHeight, RGB(255, 255, 255));
-		pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
 		
-		memDC.SelectObject(pOldBitmap);
+		pView->m_display.ActiveMoveAnimation(i);
+		pView->Invalidate(TRUE);
+		//m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
+		//m_ImgMove[i].TransparentBlt(memDC.m_hDC, m_pPos.x, m_pPos.y, m_nWidth, m_nHeight, RGB(255, 255, 255));
+		
 		Sleep(20);
 	}
 
-	memDC.DeleteDC();
+	pView->m_display.EndMoveAnimation();
+	pView->Invalidate(TRUE);
+
+	
 }
 
 
@@ -87,9 +84,9 @@ void CMyAnimation::setPos(int x, int y)
 UINT CMyAnimation::ThreadAnimation(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
-	CDC *pDC = pView->GetDC();
 	
-	PlayAnimation(pDC, pView);
+	
+	PlayAnimation(pView);
 
 	return 0;
 }
