@@ -72,15 +72,14 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 	
 		pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 		m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
-		
-
-		if (pView->m_aEnemy.IsAlive) {
-			m_imgEnemyDefault.BitBlt(memDC.m_hDC, pView->m_aEnemy.m_pPos.x, pView->m_aEnemy.m_pPos.y);
-		}
 
 		if (DoesEnemyaMined && m_nEnemyMineLevel < 3 ) {
 			
-			m_imgMineAttack[m_nEnemyMineLevel].BitBlt(memDC.m_hDC, m_nEnemyMinePos.x, m_nEnemyMinePos.y);
+			m_imgMineAttack[m_nEnemyMineLevel].TransparentBlt(memDC.m_hDC, m_nEnemyMinePos.x, m_nEnemyMinePos.y, 300, 300, RGB(255, 255, 255));
+		}
+
+		if (pView->m_aEnemy.IsAlive) {
+			m_imgEnemyDefault.TransparentBlt(memDC.m_hDC, pView->m_aEnemy.m_pPos.x, pView->m_aEnemy.m_pPos.y, 300, 300, RGB(255, 0, 0));
 		}
 
 		if (pView->m_bError) {
@@ -93,22 +92,22 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 		}
 		if (IsWildvxCrossed)
 		{
-			m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 251));
-			m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 100, 100, 100, RGB(255, 255, 251));
-			m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 200, 100, 100, RGB(255, 255, 251));
-			m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
-			m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 100, 100, 100, RGB(255, 251, 255));
-			m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 200, 100, 100, RGB(255, 251, 255));
+			//m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 251));
+			//m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 100, 100, 100, RGB(255, 255, 251));
+			//m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 200, 100, 100, RGB(255, 255, 251));
+			//m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
+			//m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 100, 100, 100, RGB(255, 251, 255));
+			//m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 200, 100, 100, RGB(255, 251, 255));
 			
 		}
 		if (IsWildvyCrossed)
 		{
-			m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 215));
-			m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 100, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
-			m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 200, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
-			m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
-			m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 100, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
-			m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 200, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
+			//m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 215));
+			//m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 100, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
+			//m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 200, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
+			//m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
+			//m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 100, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
+			//m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 200, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
 			
 		}
 
@@ -143,10 +142,10 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 		}
 		if (!IsMoveActivated) {
 			if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE) {
-				m_ImgMove.BitBlt(memDC.m_hDC, pView->m_player.getPos().x, pView->m_player.getPos().y);
+				m_ImgMove.TransparentBlt(memDC.m_hDC, pView->m_player.getPos().x, pView->m_player.getPos().y, 100, 100, RGB(255, 0, 0));
 			}
 			else if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK) {
-				m_ImgAttack.BitBlt(memDC.m_hDC, pView->m_player.getPos().x, pView->m_player.getPos().y);
+				m_ImgAttack.TransparentBlt(memDC.m_hDC, pView->m_player.getPos().x, pView->m_player.getPos().y, 100, 100, RGB(255, 0, 0));
 			}
 		}
 		if (IsBulletShooted) {
@@ -189,15 +188,15 @@ void CGameGraphics::Init()
 	DoesEnemyBlined = false;
 	IsWildvxCrossed = false;
 	IsWildvyCrossed = false;
-	m_ImgBackground.Load(_T("res\\background.png"));
-	m_ImgMove.Load(_T("res\\player.png"));
-	m_ImgAttack.Load(_T("res\\attack.png"));
+	m_ImgBackground.Load(_T("res\\map.png"));
+	m_ImgMove.Load(_T("res\\playerright.png"));
+	m_ImgAttack.Load(_T("res\\playerrightatt.png"));
 	m_ImgError.Load(_T("res\\error.png"));
-	m_imgEnemyDefault.Load(_T("res\\히오스명언.PNG"));
+	m_imgEnemyDefault.Load(_T("res\\boss.png"));
 	m_imgBulletfromUser.Load(_T("res\\bullet.png"));
-	m_imgMineAttack[0].Load(_T("res\\mine4.jpg"));
-	m_imgMineAttack[1].Load(_T("res\\mine5.jpg"));
-	m_imgMineAttack[2].Load(_T("res\\mine6.jpg"));
+	m_imgMineAttack[0].Load(_T("res\\saturdat.png"));
+	m_imgMineAttack[1].Load(_T("res\\sundat.png"));
+	m_imgMineAttack[2].Load(_T("res\\deleteday.png"));
 	m_imgBlind.Load(_T("res\\Blind2.png"));
 	m_imgWIld[0].Load(_T("res\\bullet.png"));
 	m_imgWIld[1].Load(_T("res\\bullet.png"));

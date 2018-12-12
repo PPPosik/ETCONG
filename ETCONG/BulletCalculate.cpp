@@ -354,8 +354,8 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 	int LY = pView->m_aEnemy.m_pPos.y;
 	int bex1 = LX+200;
 	int bex2 = LX-100;
-	int bey1 = LX+200;
-	int bey2 = LY;
+	int bey1 = LY+200;
+	int bey2 = LY-100;
 	int player_x = 1280 / 2 - 50;
 	int player_y = 720 / 2 - 50;
 

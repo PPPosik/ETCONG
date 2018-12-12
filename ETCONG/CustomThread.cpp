@@ -29,16 +29,28 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 	CImage move, attack;
 	HRESULT hResultMove = move.Load(_T("res\\player.png"));
 	HRESULT hResultAttack = attack.Load(_T("res\\attack.png"));
+	int beat = 0;
+	
 
 	while (1)
 	{
 		Sleep(pView->m_nTime);
-
+		/*
+		Sleep(10);
+		beat += 10;
+		pView->m_display.DisplayThread();
+		if (beat == pView->m_nTime) {
+			beat = 0;
+			if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
+				pView->m_nTimerFlag = MOVE;
+			else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
+				pView->m_nTimerFlag = ATTACK;
+		}
+		*/
 		if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
 			pView->m_nTimerFlag = MOVE;
 		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
 			pView->m_nTimerFlag = ATTACK;
-
 		pView->Invalidate();
 	}
 

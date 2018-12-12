@@ -46,7 +46,7 @@ void CEnemy::ImageInit()
 {
 	IsAlive = true;
 	m_imgDefault.Load(_T("res\\히오스명언.PNG"));
-	m_pPos = CPoint(1290, 710);
+	m_pPos = CPoint(1090, 610);
 	
 	
 	
