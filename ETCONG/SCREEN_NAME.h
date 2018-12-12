@@ -33,12 +33,10 @@ public:
 	afx_msg void OnEnChangeEdit1();
 	afx_msg void OnBnClickedButtonGoback();
 	afx_msg void OnBnClickedButtonStartGame();
-//	CString m_strName;
+	//	CString m_strName;
 	CString m_strName;
 	CString GetPlayerName();
 	CBitmapButton m_btnStarts;
 	virtual void OnDraw(CDC* /*pDC*/);
 	CImage m_ImageBackground;
 };
-
-

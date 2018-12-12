@@ -39,5 +39,3 @@ public:
 	virtual void OnDraw(CDC* /*pDC*/);
 	CImage m_ImgBackground;
 };
-
-

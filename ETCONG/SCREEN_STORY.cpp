@@ -14,16 +14,16 @@ IMPLEMENT_DYNCREATE(SCREEN_STORY, CFormView)
 SCREEN_STORY::SCREEN_STORY()
 	: CFormView(IDD_SCREEN_STORY)
 	, m_strStory(_T(""))
-//	, m_pBackgroundPos(0)
-//	, m_nBackgroundWidth(0)
-//	, m_nBackgroundHeight(0)
-, m_nStoryScene(0)
-, inited(false)
+	//	, m_pBackgroundPos(0)
+	//	, m_nBackgroundWidth(0)
+	//	, m_nBackgroundHeight(0)
+	, m_nStoryScene(0)
+	, inited(false)
 {
-//	m_ImgBackground.Load(_T("res\\bgtest.bmp"));
-//	m_nBackgroundWidth = m_ImgBackground.GetWidth();
-//	m_nBackgroundHeight = m_ImgBackground.GetHeight();
-//	m_bmpBackground.LoadBitmapW(IDB_BITMAP3);
+	//	m_ImgBackground.Load(_T("res\\bgtest.bmp"));
+	//	m_nBackgroundWidth = m_ImgBackground.GetWidth();
+	//	m_nBackgroundHeight = m_ImgBackground.GetHeight();
+	//	m_bmpBackground.LoadBitmapW(IDB_BITMAP3);
 	storySet[0].Load(_T("res\\title.bmp"));
 	storySet[1].Load(_T("res\\bgtest.bmp"));
 	storySet[2].Load(_T("res\\BGImage.bmp"));
@@ -112,7 +112,7 @@ void SCREEN_STORY::drawBG()
 
 	if (!inited) {
 		m_btnNext.AutoLoad(IDC_BUTTON_NEXT, this);
-	    m_btnSkip.AutoLoad(IDC_BUTTON_SKIP, this);
+		m_btnSkip.AutoLoad(IDC_BUTTON_SKIP, this);
 		inited = true;
 	}
 	m_btnNext.LoadBitmaps(IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4);
@@ -120,7 +120,7 @@ void SCREEN_STORY::drawBG()
 	m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
 	m_btnSkip.SizeToContent();
 
-	
+
 
 	//CDC* pDC = GetDC();
 	//m_ImgBackground = storySet[m_nStoryScene++];

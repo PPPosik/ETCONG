@@ -41,7 +41,7 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 
 		pView->Invalidate();
 	}
-	
+
 	return 0;
 }
 
@@ -65,7 +65,7 @@ void CCustomThread::StartThread()
 {
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
-	printf("½º·ñµå : %d\n", pView->GetDlgCtrlID());
+	printf("¾²·ñµå : %d\n", pView->GetDlgCtrlID());
 
 	pClick = AfxBeginThread(ThreadClickDelay, pView);
 	pAbsolute = AfxBeginThread(ThreadAbsolute, pView);
@@ -76,7 +76,7 @@ void CCustomThread::StartThread()
 	CloseHandle(pClick);
 
 	if (pAbsolute == NULL) {
-	AfxMessageBox(L"Error");
+		AfxMessageBox(L"Error");
 	}
 	CloseHandle(pAbsolute);
 }

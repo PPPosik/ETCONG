@@ -52,7 +52,7 @@ CETCONGView::CETCONGView()
 	m_player.ImageInit();
 	m_aEnemy = CEnemy();
 	m_aEnemy.ImageInit();
-	m_pBackgroundPos = CPoint(0, 0);
+	m_pBackgroundPos = CPoint(-40, -10);
 	m_nTimerFlag = AFTER_MOVE;
 	m_sound = CSoundPlayer();
 	m_nTime = 400;
@@ -70,8 +70,8 @@ CETCONGView::CETCONGView()
 	m_animation.InitAnimation();
 
 	// 수정 필요
-	m_player.setPos(1280 / 2 - 50, 720 / 2 - 70);
-	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 120);
+	m_player.setPos(1280 / 2 - 50, 720 / 2 - 50);
+	m_animation.setPos(1280 / 2 - 50, 720 / 2 - 100);
 
 	m_display = CGameGraphics();
 	m_display.Init();
@@ -223,7 +223,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		m_bError = true;
 	}
 
-	// ReleaseDC(pDC);
+	ReleaseDC(pDC);
 	Invalidate(TRUE);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
@@ -262,6 +262,8 @@ void CETCONGView::OnDestroy()
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	m_sound.stop();
 	m_customThread.StopThread();
+	m_display.pDisplay = NULL;
+	
 }
 
 
@@ -287,50 +289,9 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 
 void CETCONGView::shootBullet(UINT nChar, int player_x, int player_y)
 {
-	/*
-	CDC* pDC = GetDC();
-	UINT KeyInput = nChar;
-	int launch_X = player_x;
-	int launch_Y = player_y;
-
-	//m_imgBulletPlayer.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	CBulletCalculate m_aBullet;
-	m_imgBulletPlayer.Load(_T("res\\bullet.png"));
-
-	for (int i = 0; i < 7; i++) {
-
-
-		switch (KeyInput) {
-		case 'w':
-			launch_X += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 's':
-			launch_X -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 'a':
-			launch_Y += 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-		case 'd':
-			launch_Y -= 50;
-			m_imgBulletPlayer.BitBlt(pDC->m_hDC, launch_X, launch_Y);
-			break;
-
-		}
-	}
-
-
-	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
-
-
 	
-
-	ReleaseDC(pDC);
-	*/
 	CBulletCalculate newone;
 	newone.shootBullet(nChar, player_x, player_y);
-
+	//ddsadsadadwasd
 
 }

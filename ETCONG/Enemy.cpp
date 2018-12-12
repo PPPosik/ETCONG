@@ -11,11 +11,11 @@
 
 CEnemy::CEnemy()
 {
-	m_nLife = 103;
-	m_nWidth = 600;
-	m_nHeight = 500;
+	m_nLife = 10;
+	m_nWidth = 300;
+	m_nHeight = 300;
 	IsAlive = true;
-	
+	m_nLoopLife = 0;
 }
 
 
@@ -27,11 +27,17 @@ CEnemy::~CEnemy()
 void CEnemy::Ouchhurt()
 {
 	m_nLife = m_nLife - 1;
+	if (m_nLoopLife == 0)
+	{
+		AttackTimer();
+	}
+	m_nLoopLife++;
 	if (m_nLife == 0)
 	{
 		IsAlive = false;
 	}
-	AttackTimer();
+	
+	
 }
 
 
@@ -40,7 +46,7 @@ void CEnemy::ImageInit()
 {
 	IsAlive = true;
 	m_imgDefault.Load(_T("res\\히오스명언.PNG"));
-	m_pPos = CPoint(500, 500);
+	m_pPos = CPoint(1290, 710);
 	
 	
 	
