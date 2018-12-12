@@ -120,7 +120,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 			{
 				pView->m_aEnemy.Ouchhurt();
 				pView->m_display.EndBulletAnimation();
-				pView->Invalidate(TRUE);
+				//pView->Invalidate(TRUE);
 				return;
 			}
 		}
@@ -129,7 +129,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		Sleep(10);
 	}
 	pView->m_display.EndBulletAnimation();
-	pView->Invalidate(TRUE);
+	//pView->Invalidate(TRUE);
 
 	//memDC.DeleteDC();
 	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
@@ -383,7 +383,7 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		bex1 += m_nWildVelocity;
 		bex2 -= m_nWildVelocity;
 		pView->m_display.ActiveWildtoX(LY, bex1, bex2);
-		pView->Invalidate(TRUE);
+		//pView->Invalidate(TRUE);
 
 		
 			if ( ( (bex1 == player_x) || (bex2 == player_x) ) && (( player_y >= LY ) && (player_y <= LY+200) ))
@@ -399,7 +399,7 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		Sleep(100);
 	}
 	pView->m_display.EndWildtoX();
-	pView->Invalidate(TRUE);
+	//pView->Invalidate(TRUE);
 
 	for (int at = 0; at < 30; at++)
 	{
@@ -422,7 +422,7 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		bey1 += m_nWildVelocity;
 		bey2 -= m_nWildVelocity;
 		pView->m_display.ActiveWildtoY(LX, bey1, bey2);
-		pView->Invalidate();
+		//pView->Invalidate();
 
 		
 			if (((bey1 == player_y) || (bey2 == player_y)) && ((player_x >= LX) && (player_x <= LX + 200)))
@@ -438,6 +438,6 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		Sleep(100);
 	}
 	pView->m_display.EndWildtoY();
-	pView->Invalidate();
+	//pView->Invalidate();
 
 }

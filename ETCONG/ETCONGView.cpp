@@ -224,7 +224,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 
 	ReleaseDC(pDC);
-	Invalidate(TRUE);
+	//Invalidate(TRUE);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
@@ -273,8 +273,8 @@ void CETCONGView::OnInitialUpdate()
 	CView::OnInitialUpdate();
 
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	m_sound.stage1Play();
-	m_customThread.StartThread();
+	//m_sound.stage1Play();
+	//m_customThread.StartThread();
 	
 }
 

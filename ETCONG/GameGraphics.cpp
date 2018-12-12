@@ -35,17 +35,21 @@ void CGameGraphics::DisplayThread()
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
 	pStruct->pView = pView;
 	pStruct->self = this;
-
+	pDisplay = NULL;
 	pDisplay = AfxBeginThread(DisplayStatic, pStruct);
 	
 
 	if (pDisplay == NULL) {
 		AfxMessageBox(L"Error");
-		pDisplay->SuspendThread();
-		DWORD dwResult;
-		::GetExitCodeThread(pDisplay->m_hThread, &dwResult);
+		
 	}
-	CloseHandle(pDisplay);
+	if (pDisplay != NULL) {
+		//pDisplay->SuspendThread();
+		//DWORD dwResult;
+		//::GetExitCodeThread(pDisplay->m_hThread, &dwResult);
+	}
+	CloseHandle(pDisplay->m_hThread);
+	pDisplay->m_hThread = NULL;
 }
 
 UINT CGameGraphics::DisplayStatic(LPVOID _mothod) {
@@ -92,22 +96,22 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 		}
 		if (IsWildvxCrossed)
 		{
-			//m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 251));
-			//m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 100, 100, 100, RGB(255, 255, 251));
-			//m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 200, 100, 100, RGB(255, 255, 251));
-			//m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
-			//m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 100, 100, 100, RGB(255, 251, 255));
-			//m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 200, 100, 100, RGB(255, 251, 255));
+			m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 251));
+			m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 100, 100, 100, RGB(255, 255, 251));
+			m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y + 200, 100, 100, RGB(255, 255, 251));
+			m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
+			m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 100, 100, 100, RGB(255, 251, 255));
+			m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y + 200, 100, 100, RGB(255, 251, 255));
 			
 		}
 		if (IsWildvyCrossed)
 		{
-			//m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 215));
-			//m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 100, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
-			//m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 200, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
-			//m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
-			//m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 100, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
-			//m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 200, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
+			m_imgWIld[0].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x, m_nEnemyWildPos1.y, 100, 100, RGB(255, 255, 215));
+			m_imgWIld[1].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 100, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
+			m_imgWIld[2].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos1.x + 200, m_nEnemyWildPos1.y, 100, 100, RGB(255, 215, 255));
+			m_imgWIld[3].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x, m_nEnemyWildPos2.y, 100, 100, RGB(255, 255, 251));
+			m_imgWIld[4].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 100, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
+			m_imgWIld[5].TransparentBlt(memDC.m_hDC, m_nEnemyWildPos2.x + 200, m_nEnemyWildPos2.y, 100, 100, RGB(255, 215, 255));
 			
 		}
 
