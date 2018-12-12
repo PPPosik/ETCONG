@@ -11,7 +11,6 @@
 #define IDB_PNG4                        313
 #define IDB_PNG5                        314
 #define IDD_NEWVIEW                     315
-#define IDD_OLDVIEW                     316
 #define IDB_BITMAP4                     316
 #define IDD_SCREEN_START                317
 #define IDB_BITMAP5                     317

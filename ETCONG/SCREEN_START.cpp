@@ -13,7 +13,7 @@ IMPLEMENT_DYNCREATE(SCREEN_START, CFormView)
 SCREEN_START::SCREEN_START()
 	: CFormView(IDD_SCREEN_START)
 {
-	m_ImgBackground.Load(_T("res\\title.bmp"));
+	m_ImgBackground.Load(_T("res\\ETCONG_Start.png"));
 }
 
 SCREEN_START::~SCREEN_START()

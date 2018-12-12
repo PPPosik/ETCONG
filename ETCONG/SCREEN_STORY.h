@@ -33,22 +33,23 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonSkip();
-
-	CString m_strStory;
 	afx_msg void OnEnChangeEditStory();
+	afx_msg void OnBnClickedButtonNext();
+
 	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* /*pDC*/);
-	afx_msg void OnBnClickedButtonNext();
-	CImage m_ImgBackground;
+
 	void drawBG();
-	CImage storySet[4];
+
 	bool inited;
-	//	CPoint m_pBackgroundPos;
-	//	int m_nBackgroundWidth;
-	//	int m_nBackgroundHeight;
-	//	CBitmap m_bmpBackground;
-	//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	int m_nStoryScene;
+	int nStoryType;
+
 	CBitmapButton m_btnNext;
 	CBitmapButton m_btnSkip;
+	
+	CImage m_ImgBackground;
+	CImage storySet[4];
+	CImage storyEnd[8];
+	CImage storyDied[3];
 };
