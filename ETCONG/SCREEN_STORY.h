@@ -33,7 +33,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonSkip();
-	afx_msg void OnEnChangeEditStory();
 	afx_msg void OnBnClickedButtonNext();
 
 	virtual void OnInitialUpdate();
@@ -51,5 +50,7 @@ public:
 	CImage m_ImgBackground;
 	CImage storySet[4];
 	CImage storyEnd[8];
-	CImage storyDied[3];
+	CImage storyDiedEins[2];
+	CImage storyDiedZwei[2];
+	void StoryChanged(int Scene);
 };

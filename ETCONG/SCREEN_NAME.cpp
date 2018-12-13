@@ -15,7 +15,7 @@ SCREEN_NAME::SCREEN_NAME()
 	: CFormView(IDD_SCREEN_NAME)
 	, m_strName(_T(""))
 {
-	m_ImageBackground.Load(_T("res\\title.bmp"));
+	m_ImageBackground.Load(_T("res\\ETCONG_Name.jpg"));
 }
 
 SCREEN_NAME::~SCREEN_NAME()
@@ -116,5 +116,5 @@ void SCREEN_NAME::OnDraw(CDC* pDC)
 
 	pDC = GetDC();
 
-	m_ImageBackground.BitBlt(pDC->m_hDC, 0, 0);
+	m_ImageBackground.BitBlt(pDC->m_hDC, 0, -20);
 }

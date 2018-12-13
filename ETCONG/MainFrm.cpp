@@ -38,7 +38,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	//  Window 클래스 또는 스타일을 수정합니다.
 	cs.hMenu = NULL;
 	cs.style = WS_OVERLAPPED | WS_CAPTION | FWS_ADDTOTITLE
-		 | WS_THICKFRAME;
+		 | WS_THICKFRAME | WS_SYSMENU;
 
 	return TRUE;
 }

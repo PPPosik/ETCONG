@@ -7,6 +7,11 @@
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
 
+
+#define STORY_START 2001
+#define STORY_CLEAR 2002
+#define STORY_DIE_EINS 2003
+#define STORY_DIE_ZWEI 2004
 // SCREEN_STORY
 
 IMPLEMENT_DYNCREATE(SCREEN_STORY, CFormView)
@@ -15,16 +20,27 @@ SCREEN_STORY::SCREEN_STORY()
 	: CFormView(IDD_SCREEN_STORY)
 	, m_nStoryScene(0)
 	, inited(false)
-	, nStoryType(0)
+	, nStoryType(STORY_START)
 {
-	//	m_ImgBackground.Load(_T("res\\bgtest.bmp"));
-	//	m_nBackgroundWidth = m_ImgBackground.GetWidth();
-	//	m_nBackgroundHeight = m_ImgBackground.GetHeight();
-	//	m_bmpBackground.LoadBitmapW(IDB_BITMAP3);
 	storySet[0].Load(_T("res\\sceen1.png"));
 	storySet[1].Load(_T("res\\sceen2.png"));
 	storySet[2].Load(_T("res\\sceen3.png"));
 	storySet[3].Load(_T("res\\sceen4.png"));
+
+	storyEnd[0].Load(_T("res\\ETCONG_End1.jpg"));
+	storyEnd[1].Load(_T("res\\ETCONG_End2.jpg"));
+	storyEnd[2].Load(_T("res\\ETCONG_End3.jpg"));
+	storyEnd[3].Load(_T("res\\ETCONG_End3-1.jpg"));
+	storyEnd[4].Load(_T("res\\ETCONG_End4.jpg"));
+	storyEnd[5].Load(_T("res\\ETCONG_End4-1.jpg"));
+	storyEnd[6].Load(_T("res\\ETCONG_End5.jpg"));
+	storyEnd[7].Load(_T("res\\ETCONG_End2.jpg"));
+
+	storyDiedEins[0].Load(_T("res\\ETCONG_Die1.jpg"));
+	storyDiedEins[1].Load(_T("res\\ETCONG_End2.jpg"));
+
+	storyDiedZwei[0].Load(_T("res\\ETCONG_Die2.jpg"));
+	storyDiedZwei[1].Load(_T("res\\ETCONG_End2.jpg"));
 }
 
 SCREEN_STORY::~SCREEN_STORY()
@@ -40,7 +56,6 @@ void SCREEN_STORY::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(SCREEN_STORY, CFormView)
 	ON_BN_CLICKED(IDC_BUTTON_SKIP, &SCREEN_STORY::OnBnClickedButtonSkip)
-	ON_EN_CHANGE(IDC_EDIT_STORY, &SCREEN_STORY::OnEnChangeEditStory)
 	ON_BN_CLICKED(IDC_BUTTON_NEXT, &SCREEN_STORY::OnBnClickedButtonNext)
 	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
@@ -76,18 +91,6 @@ void SCREEN_STORY::OnBnClickedButtonSkip()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
-
-void SCREEN_STORY::OnEnChangeEditStory()
-{
-	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
-	// CFormView::OnInitDialog() 함수를 재지정 
-	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
-	// 이 알림 메시지를 보내지 않습니다.
-
-	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
-}
-
 void SCREEN_STORY::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
@@ -95,16 +98,59 @@ void SCREEN_STORY::OnInitialUpdate()
 }
 
 void SCREEN_STORY::drawBG()
-{
-	if (m_nStoryScene > 3) {
-		AfxMessageBox(_T("스토리 끝이라고!"));
-		return;
+{	
+	int nStorySize;
+	CImage *pStory = NULL;
+
+	switch (nStoryType) {
+	
+	case STORY_START:
+		nStorySize = 4;
+		pStory = storySet;
+		break;
+
+	case STORY_CLEAR:
+		nStorySize = 8;
+		pStory = storyEnd;
+		break;
+
+	case STORY_DIE_EINS:
+		nStorySize = 2;
+		pStory = storyDiedEins;
+		break;
+
+	case STORY_DIE_ZWEI:
+		nStorySize = 2;
+		pStory = storyDiedZwei;
+		break;
+	
+	default:
+		AfxMessageBox(_T("Undefined"));
+		break;
+	}
+	if (m_nStoryScene >= nStorySize) {
+		if (nStoryType == STORY_START) {
+			CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+			CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
+			CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
+			CView *pView = (CView*)pChild->GetActiveView();
+			pView = pApp->SwitchView(1002);
+			return;
+		}
+		else {
+			CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+			CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
+			CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
+			CView *pView = (CView*)pChild->GetActiveView();
+			pView = pApp->SwitchView(1003);
+			return;
+		}
 	}
 
 	ReleaseDC(GetDC());
 	CDC* pDC = GetDC();
-	m_ImgBackground = storySet[m_nStoryScene++];
-	m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
+	m_ImgBackground = pStory[m_nStoryScene++];
+	m_ImgBackground.BitBlt(pDC->m_hDC, 0, -20);
 
 	if (!inited) {
 		m_btnNext.AutoLoad(IDC_BUTTON_NEXT, this);
@@ -116,7 +162,7 @@ void SCREEN_STORY::drawBG()
 	m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
 	m_btnSkip.SizeToContent();
 
-}
+} 
 
 
 void SCREEN_STORY::OnDraw(CDC* pDC)
@@ -132,4 +178,11 @@ void SCREEN_STORY::OnBnClickedButtonNext()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	Invalidate();
+}
+
+
+void SCREEN_STORY::StoryChanged(int Scene)
+{
+	m_nStoryScene = 0;
+	nStoryType = Scene;
 }

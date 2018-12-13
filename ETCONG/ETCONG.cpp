@@ -224,6 +224,8 @@ CView* CETCONGApp::SwitchView(int CurrentView)
 		m_pGameScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
 		break;
 	case VIEW_GAME:
+		pNewView = m_pStartScreen;
+		m_nCurrentView = VIEW_START;
 		break;
 	default:
 		AfxMessageBox(_T("¹Ì±¸Çö"));

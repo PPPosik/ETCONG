@@ -78,4 +78,5 @@ void SCREEN_START::OnDraw(CDC* pDC)
 	pDC = GetDC();
 
 	m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
+
 }
