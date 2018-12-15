@@ -152,12 +152,14 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 				m_ImgAttack.TransparentBlt(memDC.m_hDC, pView->m_player.getPos().x, pView->m_player.getPos().y, 100, 100, RGB(255, 0, 0));
 			}
 		}
+		//printf("\n==%d==%d", m_nPlayerBulletPos.x, m_nPlayerBulletPos.y);
 		if (IsBulletShooted) {
 			
 			
 				m_imgBulletfromUser.TransparentBlt(memDC.m_hDC, m_nPlayerBulletPos.x, m_nPlayerBulletPos.y, 100, 100, RGB(255, 255, 255));
+				//printf("\n==%d==%d", m_nPlayerBulletPos.x, m_nPlayerBulletPos.y);
 				//MotionCount++;
-				printf("ihityou");
+				//printf("ÃÑ½÷ º´ÙÀÌ¸»ÀÌ¾ß\n");
 				//pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
 				//memDC.SelectObject(pOldBitmap);
 				//Sleep(10);
@@ -240,6 +242,7 @@ void CGameGraphics::ActiveBulletAnimation(int x, int y)
 	IsBulletShooted = true;
 	m_nPlayerBulletPos.x = x;
 	m_nPlayerBulletPos.y = y;
+	//printf("\n--%d--%d", m_nPlayerBulletPos.x, m_nPlayerBulletPos.y);
 	//DisplayThread();
 	//pBulletView->Invalidate();
 	//Display(pView);
@@ -327,4 +330,22 @@ void CGameGraphics::PlayerHurt()
 void CGameGraphics::EndMoveAnimation()
 {
 	IsMoveActivated = false;
+}
+
+// Â¯Áø
+void CGameGraphics::LeftPlayer() {
+	m_ImgMove.Destroy();
+	m_ImgMove.Load(_T("res\\error.png"));
+
+	m_ImgAttack.Destroy();
+	m_ImgAttack.Load(_T("res\\playerrightatt.png"));
+}
+
+
+void CGameGraphics::RightPlayer() {
+	m_ImgMove.Destroy();
+	m_ImgMove.Load(_T("res\\playerright.png"));
+
+	m_ImgAttack.Destroy();
+	m_ImgAttack.Load(_T("res\\playerrightatt.png"));
 }

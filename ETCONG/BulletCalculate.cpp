@@ -6,6 +6,16 @@
 #include "MainFrm.h"
 #include "Enemy.h"
 
+
+struct Plyear {
+	CETCONGView *pView;
+	CBulletCalculate *self;
+	UINT nchar;
+	int pPx;
+	int pPy;
+
+}; Plyear* pPlyear = new Plyear;
+
 struct Enyme {
 	CETCONGView *pView;
 	CBulletCalculate *self;
@@ -41,13 +51,53 @@ int CBulletCalculate::theBulletWay(int launch_ax)
 	
 }
 
+UINT CBulletCalculate::PistolThread(LPVOID _mothod)
+{
+	Plyear* pStruct = (Plyear*)_mothod;
+	CETCONGView *pView = (CETCONGView*)pStruct->pView;
+	
+	//printf("yes7 %d %d %d \n", pStruct->nchar, pStruct->pPx, pStruct->pPy);
+	shootBullet(pView, pStruct->nchar, pStruct->pPx, pStruct->pPy);
+	//printf("yes6");
+	return 0;
+}
+
+
+UINT CBulletCalculate::PistolThreadst(LPVOID _mothod)
+{
+	Plyear* pStruct = (Plyear*)_mothod;
+
+	//printf("yes2");
+	return pStruct->self->PistolThread(pStruct);
+}
 
 
 
-void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
+void CBulletCalculate::PlayerBulletThread(UINT nChar)
 {
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
+	pPlyear->pView = pView;
+	pPlyear->self = this;
+	pPlyear->nchar = nChar;
+	pPlyear->pPx = pView->m_player.getPos().x;//- (pView->m_pBackgroundPos.x);
+	pPlyear->pPy = pView->m_player.getPos().y; //- (pView->m_pBackgroundPos.y);
+
+	pPlayerAttack = NULL;
+	//printf("yes3");
+	pPlayerAttack = AfxBeginThread(PistolThreadst, pPlyear);
+	//printf("yes4");
+	if (pPlayerAttack == NULL) {
+		AfxMessageBox(L"Error");
+	}
+	CloseHandle(pPlayerAttack);
+}
+
+
+void CBulletCalculate::shootBullet(LPVOID View, UINT nChar, int player_x, int player_y)
+{
+	
+	CETCONGView *pView = (CETCONGView*)View;
 
 	//CDC* pDC = pView->GetDC();
 	//CRect rect;
@@ -71,6 +121,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 	//CBulletCalculate m_aBullet;
 	//m_imgBulletPlayer.Load(_T("res\\bullet.png"));
 	//AfxMessageBox(_T("shooted"));
+	//printf("yes6");
 	for (int i = 0; i < 15; i++) {
 
 		//pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
@@ -104,7 +155,8 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		}
 
 		pView->m_display.ActiveBulletAnimation(launch_X, launch_Y);
-		//pView->Invalidate(TRUE);
+		//printf("\n++%d++%d", launch_X, launch_Y);
+		pView->Invalidate(TRUE);
 		
 		//pView->m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 		//pView->m_player.drawAttack(&memDC);
@@ -118,9 +170,9 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		if(pView->m_aEnemy.IsAlive){
 			if (((launch_X + 25 < enemy_x + enemy_w) && (launch_X + 75 > enemy_x)) && ((launch_Y + 25 < enemy_y + enemy_h) && (launch_Y + 75 > enemy_y)))
 			{
-				pView->m_aEnemy.Ouchhurt();
+				pView->m_aEnemy.Ouchhurt(pView);
 				pView->m_display.EndBulletAnimation();
-				//pView->Invalidate(TRUE);
+				pView->Invalidate(TRUE);
 				return;
 			}
 		}
@@ -129,7 +181,7 @@ void CBulletCalculate::shootBullet(UINT nChar, int player_x, int player_y)
 		Sleep(10);
 	}
 	pView->m_display.EndBulletAnimation();
-	//pView->Invalidate(TRUE);
+	pView->Invalidate(TRUE);
 
 	//memDC.DeleteDC();
 	//m_aBullet.theBulletWay(KeyInput, player_x, player_y);
@@ -175,10 +227,10 @@ UINT CBulletCalculate::ThreadEnemyBulletTimer(LPVOID _mothod)
 }
 
 
-void CBulletCalculate::EnemyThread()
+void CBulletCalculate::EnemyThread(LPVOID view)
 {
-	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
+	//CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	CETCONGView *pView = (CETCONGView*)view;
 	pEnyme->pView = pView;
 	pEnyme->self = this;
 	pEnyme->aEx = pView->m_aEnemy.m_pPos.x;
@@ -383,7 +435,7 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		bex1 += m_nWildVelocity;
 		bex2 -= m_nWildVelocity;
 		pView->m_display.ActiveWildtoX(LY, bex1, bex2);
-		//pView->Invalidate(TRUE);
+		pView->Invalidate(TRUE);
 
 		
 			if ( ( (bex1 == player_x) || (bex2 == player_x) ) && (( player_y >= LY ) && (player_y <= LY+200) ))
@@ -399,7 +451,7 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		Sleep(100);
 	}
 	pView->m_display.EndWildtoX();
-	//pView->Invalidate(TRUE);
+	pView->Invalidate(TRUE);
 
 	for (int at = 0; at < 30; at++)
 	{
@@ -422,7 +474,7 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		bey1 += m_nWildVelocity;
 		bey2 -= m_nWildVelocity;
 		pView->m_display.ActiveWildtoY(LX, bey1, bey2);
-		//pView->Invalidate();
+		pView->Invalidate();
 
 		
 			if (((bey1 == player_y) || (bey2 == player_y)) && ((player_x >= LX) && (player_x <= LX + 200)))
@@ -438,6 +490,10 @@ void CBulletCalculate::shootCrossWild(CDC *pDC, LPVOID view)
 		Sleep(100);
 	}
 	pView->m_display.EndWildtoY();
-	//pView->Invalidate();
+	pView->Invalidate();
 
 }
+
+
+
+

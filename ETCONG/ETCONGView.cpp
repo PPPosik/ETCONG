@@ -153,30 +153,29 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if (m_nTimerFlag == MOVE) {
 			switch (nChar) {
 			case VK_LEFT:
-				if (1) {
-					// 500
+				if (m_pBackgroundPos.x < -200) {
 					x = x + widthBias;
 					enemyPosX = enemyPosX + widthBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
+				m_display.LeftPlayer();
 				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
 			case VK_RIGHT:
-				if (1) {
-					// -2800
+				if (m_pBackgroundPos.x > -2700) {
 					x = x - widthBias;
 					enemyPosX = enemyPosX - widthBias;
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
 				//m_display.ActiveMoveAnimation();
+				m_display.RightPlayer();
 				m_animation.StartThread();
 				break;
 			case VK_UP:
-				if (1) {
-					// 200
+				if (m_pBackgroundPos.y <= 40) {
 					y = y + heightBias;
 					enemyPosY = enemyPosY + heightBias;
 				}
@@ -186,8 +185,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				m_animation.StartThread();
 				break;
 			case VK_DOWN:
-				if (1) {
-					// -3100
+				if (m_pBackgroundPos.y > -1340) {
 					y = y - heightBias;
 					enemyPosY = enemyPosY - heightBias;
 				}
@@ -205,10 +203,10 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_pBackgroundPos.y = y;
 			m_aEnemy.m_pPos.x = enemyPosX;
 			m_aEnemy.m_pPos.y = enemyPosY;
-			printf("/// %d %d\n", x, y);
+			
 		}
 		else if (m_nTimerFlag == ATTACK) {
-			shootBullet(nChar, playerPosX, playerPosY);
+			m_newone.PlayerBulletThread(nChar);
 			m_nTimerFlag = AFTER_ATTACK;
 			m_bClickable = false;
 		}
@@ -222,9 +220,10 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		// m_player.drawError(pDC);
 		m_bError = true;
 	}
+	printf("%d %d\n", m_pBackgroundPos.x, m_pBackgroundPos.y);
 
 	ReleaseDC(pDC);
-	//Invalidate(TRUE);
+	Invalidate(TRUE);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
@@ -287,11 +286,3 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 }
 
 
-void CETCONGView::shootBullet(UINT nChar, int player_x, int player_y)
-{
-	
-	CBulletCalculate newone;
-	newone.shootBullet(nChar, player_x, player_y);
-	//ddsadsadadwasd
-
-}

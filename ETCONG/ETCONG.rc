@@ -295,6 +295,12 @@ IDB_PNG5                PNG                     "res\\error.png"
 
 IDB_PNG7                PNG                     "res\\Button3.png"
 
+IDB_PNG8                PNG                     "C:\\Users\\user\\Documents\\GitHub\\ETCONG\\ETCONG\\res\\button_start.png"
+
+IDB_PNG9                PNG                     "C:\\Users\\user\\Documents\\GitHub\\ETCONG\\ETCONG\\res\\button_ok.png"
+
+IDB_PNG10               PNG                     "res\\button_next.png"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -338,14 +344,6 @@ END
 //
 
 IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
-
-IDB_BITMAP2             BITMAP                  "res\\bitmap2.bmp"
-
-IDB_BITMAP3             BITMAP                  "res\\bgtest.bmp"
-
-IDB_BITMAP4             BITMAP                  "res\\bitmap4.bmp"
-
-IDB_BITMAP5             BITMAP                  "res\\bitmap5.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

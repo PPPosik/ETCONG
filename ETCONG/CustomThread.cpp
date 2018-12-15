@@ -35,7 +35,7 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 	while (1)
 	{
 		//Sleep(pView->m_nTime);
-		
+		/*
 		Sleep(10);
 		beat += 10;
 		//pView->m_display.DisplayThread();
@@ -48,14 +48,16 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 				pView->m_nTimerFlag = ATTACK;
 		}
 		pView->Invalidate();
+		*/
 		
-		/*
 		if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
 			pView->m_nTimerFlag = MOVE;
 		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
 			pView->m_nTimerFlag = ATTACK;
+		
 		pView->Invalidate();
-		*/
+		Sleep(400);
+
 	}
 
 	return 0;

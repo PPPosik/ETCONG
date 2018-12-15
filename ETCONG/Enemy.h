@@ -14,12 +14,12 @@ public:
 	int m_nWidth;
 	int m_nHeight;
 	int m_nLoopLife;
-	void Ouchhurt();
+	void Ouchhurt(LPVOID view);
 	CPoint m_pPos;
 	bool IsAlive;
 	void ImageInit();
 	CImage m_imgDefault;
 	void Imageprint();
-	void AttackTimer();
+	void AttackTimer(LPVOID view);
 	CBulletCalculate newtwo;
 };

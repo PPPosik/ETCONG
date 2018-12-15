@@ -83,12 +83,12 @@ void SCREEN_STORY::Dump(CDumpContext& dc) const
 
 void SCREEN_STORY::OnBnClickedButtonSkip()
 {
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
 	pView = pApp->SwitchView(1002);
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 void SCREEN_STORY::OnInitialUpdate()
