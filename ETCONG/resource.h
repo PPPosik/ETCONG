@@ -21,6 +21,7 @@
 #define IDB_PNG6                        323
 #define IDB_PNG7                        325
 #define IDB_PNG10                       327
+#define IDB_PNG11						328
 #define IDC_EDIT1                       1000
 #define IDC_EDIT_NAME                   1000
 #define IDC_BUTTON1                     1001

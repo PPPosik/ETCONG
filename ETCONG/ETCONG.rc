@@ -291,15 +291,17 @@ IDB_PNG3                PNG                     "res\\background.png"
 
 IDB_PNG4                PNG                     "res\\attack.png"
 
-IDB_PNG5                PNG                     "res\\error.png"
+IDB_PNG5                PNG                     "res\\heardt.png"
 
 IDB_PNG7                PNG                     "res\\Button3.png"
 
-IDB_PNG8                PNG                     "C:\\Users\\user\\Documents\\GitHub\\ETCONG\\ETCONG\\res\\button_start.png"
+IDB_PNG8                PNG                     "res\\button_start.png"
 
-IDB_PNG9                PNG                     "C:\\Users\\user\\Documents\\GitHub\\ETCONG\\ETCONG\\res\\button_ok.png"
+IDB_PNG9                PNG                     "res\\button_ok.png"
 
 IDB_PNG10               PNG                     "res\\button_next.png"
+
+IDB_PNG11               PNG                     "res\\button_skip.png"
 
 
 /////////////////////////////////////////////////////////////////////////////

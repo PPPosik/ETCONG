@@ -157,9 +157,9 @@ void SCREEN_STORY::drawBG()
 		m_btnSkip.AutoLoad(IDC_BUTTON_SKIP, this);
 		inited = true;
 	}
-	m_btnNext.LoadBitmaps(IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4);
+	m_btnNext.LoadBitmaps(IDB_PNG10, IDB_PNG10, IDB_PNG10, IDB_PNG10);
 	m_btnNext.SizeToContent();
-	m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
+	m_btnSkip.LoadBitmaps(IDB_PNG11, IDB_PNG11, IDB_PNG11, IDB_PNG11);
 	m_btnSkip.SizeToContent();
 
 } 
