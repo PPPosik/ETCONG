@@ -55,7 +55,7 @@ void CMyAnimation::PlayAnimation(LPVOID view)
 	
 		
 		pView->m_display.ActiveMoveAnimation(i);
-		//pView->Invalidate(TRUE);
+		pView->Invalidate(TRUE);
 		//m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 		//m_ImgMove[i].TransparentBlt(memDC.m_hDC, m_pPos.x, m_pPos.y, m_nWidth, m_nHeight, RGB(255, 255, 255));
 		
@@ -63,7 +63,7 @@ void CMyAnimation::PlayAnimation(LPVOID view)
 	}
 
 	pView->m_display.EndMoveAnimation();
-	//pView->Invalidate(TRUE);
+	pView->Invalidate(TRUE);
 
 	
 }

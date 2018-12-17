@@ -59,7 +59,7 @@ void SCREEN_START::OnBnClickedButtonStart()
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1000);
+	pView = pApp->SwitchView(1002);
 }
 
 
@@ -67,8 +67,10 @@ void SCREEN_START::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	m_btnStart.LoadBitmaps(IDB_BITMAP1, IDB_BITMAP2, IDB_BITMAP1, IDB_BITMAP2);
+//	m_btnStart.AutoLoad(IDC_BUTTON_START, this);
+	m_btnStart.LoadBitmaps(IDB_BITMAP1, IDB_BITMAP1, IDB_BITMAP1, IDB_BITMAP1);
 	m_btnStart.SizeToContent();
+	printf("size err\n");
 }
 
 

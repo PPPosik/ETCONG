@@ -111,7 +111,7 @@ void SCREEN_NAME::OnDraw(CDC* pDC)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	m_btnStarts.AutoLoad(IDC_BUTTON_START_GAME, this);
-	m_btnStarts.LoadBitmaps(IDB_BITMAP1, IDB_BITMAP2, IDB_BITMAP1, IDB_BITMAP2);
+	m_btnStarts.LoadBitmaps(IDB_PNG9, IDB_PNG9, IDB_PNG9, IDB_PNG9);
 	m_btnStarts.SizeToContent();
 
 	pDC = GetDC();

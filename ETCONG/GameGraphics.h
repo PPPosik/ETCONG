@@ -52,4 +52,6 @@ public:
 	void EndWildtoY();
 	void PlayerHurt();
 	void EndMoveAnimation();
+	void LeftPlayer();
+	void RightPlayer();
 };

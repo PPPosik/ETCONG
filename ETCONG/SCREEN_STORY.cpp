@@ -83,12 +83,12 @@ void SCREEN_STORY::Dump(CDumpContext& dc) const
 
 void SCREEN_STORY::OnBnClickedButtonSkip()
 {
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
 	pView = pApp->SwitchView(1002);
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 void SCREEN_STORY::OnInitialUpdate()
@@ -157,9 +157,9 @@ void SCREEN_STORY::drawBG()
 		m_btnSkip.AutoLoad(IDC_BUTTON_SKIP, this);
 		inited = true;
 	}
-	m_btnNext.LoadBitmaps(IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4, IDB_BITMAP4);
+	m_btnNext.LoadBitmaps(IDB_PNG10, IDB_PNG10, IDB_PNG10, IDB_PNG10);
 	m_btnNext.SizeToContent();
-	m_btnSkip.LoadBitmaps(IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5, IDB_BITMAP5);
+	m_btnSkip.LoadBitmaps(IDB_PNG11, IDB_PNG11, IDB_PNG11, IDB_PNG11);
 	m_btnSkip.SizeToContent();
 
 } 

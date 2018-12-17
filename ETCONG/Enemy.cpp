@@ -24,12 +24,13 @@ CEnemy::~CEnemy()
 }
 
 
-void CEnemy::Ouchhurt()
+void CEnemy::Ouchhurt(LPVOID view)
 {
+	
 	m_nLife = m_nLife - 1;
 	if (m_nLoopLife == 0)
 	{
-		AttackTimer();
+		AttackTimer(view);
 	}
 	m_nLoopLife++;
 	if (m_nLife == 0)
@@ -66,11 +67,14 @@ void CEnemy::Imageprint()
 }
 
 
-void CEnemy::AttackTimer()
+void CEnemy::AttackTimer(LPVOID view)
 {
-	printf("yes");
+
 	
-	newtwo.EnemyThread();
+	CETCONGView *pView = (CETCONGView*)view;
+
+	
+	newtwo.EnemyThread(pView);
 	
 	
 }

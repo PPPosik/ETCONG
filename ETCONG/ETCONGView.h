@@ -56,6 +56,7 @@ public:
 	CImage m_ImgBackground;
 	CSoundPlayer m_sound;
 	CCustomThread m_customThread;
+	CBulletCalculate m_newone;
 
 	void drawBackground();
 	
@@ -73,7 +74,7 @@ public:
 	CMyAnimation m_animation;
 	virtual void OnInitialUpdate();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	void shootBullet(UINT, int, int);
+	
 	CImage m_imgBulletPlayer;
 	CEnemy m_aEnemy;
 	CGameGraphics m_display;
