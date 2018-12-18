@@ -63,7 +63,6 @@ void CCustomThread::StartThread()
 {
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
-	printf("¾²·ñµå : %d\n", pView->GetDlgCtrlID());
 
 	pClick = AfxBeginThread(ThreadClickDelay, pView);
 	pAbsolute = AfxBeginThread(ThreadAbsolute, pView);

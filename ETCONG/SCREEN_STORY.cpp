@@ -28,22 +28,19 @@ SCREEN_STORY::SCREEN_STORY()
 	storySet[3].Load(_T("res\\sceen4.png"));
 
 	storyEnd[0].Load(_T("res\\ETCONG_End1.jpg"));
-	storyEnd[1].Load(_T("res\\ETCONG_End1.jpg"));
-	storyEnd[2].Load(_T("res\\ETCONG_End2.jpg"));
-	storyEnd[3].Load(_T("res\\ETCONG_End3.jpg"));
-	storyEnd[4].Load(_T("res\\ETCONG_End3-1.jpg"));
-	storyEnd[5].Load(_T("res\\ETCONG_End4.jpg"));
-	storyEnd[6].Load(_T("res\\ETCONG_End4-1.jpg"));
-	storyEnd[7].Load(_T("res\\ETCONG_End5.jpg"));
-	storyEnd[8].Load(_T("res\\ETCONG_End2.jpg"));
+	storyEnd[1].Load(_T("res\\ETCONG_End2.jpg"));
+	storyEnd[2].Load(_T("res\\ETCONG_End3.jpg"));
+	storyEnd[3].Load(_T("res\\ETCONG_End3-1.jpg"));
+	storyEnd[4].Load(_T("res\\ETCONG_End4.jpg"));
+	storyEnd[5].Load(_T("res\\ETCONG_End4-1.jpg"));
+	storyEnd[6].Load(_T("res\\ETCONG_End5.jpg"));
+	storyEnd[7].Load(_T("res\\ETCONG_End2.jpg"));
 
 	storyDiedEins[0].Load(_T("res\\ETCONG_Die1.jpg"));
-	storyDiedEins[1].Load(_T("res\\ETCONG_Die1.jpg"));
-	storyDiedEins[2].Load(_T("res\\ETCONG_End2.jpg"));
+	storyDiedEins[1].Load(_T("res\\ETCONG_End2.jpg"));
 
 	storyDiedZwei[0].Load(_T("res\\ETCONG_Die2.jpg"));
-	storyDiedZwei[1].Load(_T("res\\ETCONG_Die2.jpg"));
-	storyDiedZwei[2].Load(_T("res\\ETCONG_End2.jpg"));
+	storyDiedZwei[1].Load(_T("res\\ETCONG_End2.jpg"));
 }
 
 SCREEN_STORY::~SCREEN_STORY()
@@ -120,17 +117,17 @@ void SCREEN_STORY::drawBG()
 		break;
 
 	case STORY_CLEAR:
-		nStorySize = 9;
+		nStorySize = 8;
 		pStory = storyEnd;
 		break;
 
 	case STORY_DIE_EINS:
-		nStorySize = 3;
+		nStorySize = 2;
 		pStory = storyDiedEins;
 		break;
 
 	case STORY_DIE_ZWEI:
-		nStorySize = 3;
+		nStorySize = 2;
 		pStory = storyDiedZwei;
 		break;
 	
@@ -148,13 +145,7 @@ void SCREEN_STORY::drawBG()
 			return;
 		}
 		else {
-			//CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
-			//CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
-			//CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
-			//CView *pView = (CView*)pChild->GetActiveView();
-			//pView = pApp->SwitchView(1003, STORY_START);
-
-			AfxMessageBox(_T("³¡"));
+			AfxMessageBox(_T("³¡³µ´Ù!"));
 			exit(0);
 			return;
 		}

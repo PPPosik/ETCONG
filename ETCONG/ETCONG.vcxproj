@@ -199,10 +199,8 @@
     <ClInclude Include="GameGraphics.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyAnimation.h" />
-    <ClInclude Include="NewView.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SCREEN_GAME.h" />
     <ClInclude Include="SCREEN_NAME.h" />
     <ClInclude Include="SCREEN_START.h" />
     <ClInclude Include="SCREEN_STORY.h" />
@@ -222,9 +220,7 @@
     <ClCompile Include="GameGraphics.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyAnimation.cpp" />
-    <ClCompile Include="NewView.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SCREEN_GAME.cpp" />
     <ClCompile Include="SCREEN_NAME.cpp" />
     <ClCompile Include="SCREEN_START.cpp" />
     <ClCompile Include="SCREEN_STORY.cpp" />

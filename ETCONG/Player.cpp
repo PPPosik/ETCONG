@@ -44,15 +44,10 @@ void CPlayer::ImageInit()
 
 void CPlayer::OuchHurt()
 {
-	//CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	//CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
-
 	m_nLife = m_nLife - 1;
-	//pView->m_display.PlayerHurt();
 	if (m_nLife == 0)
 	{
 		IsAlive = false;
-		printf("\nYOUDEAD\n");
 		CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
 		pApp->CallDeath(true);
 		

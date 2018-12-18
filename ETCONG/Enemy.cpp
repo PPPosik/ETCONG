@@ -35,7 +35,6 @@ void CEnemy::Ouchhurt(LPVOID view)
 	m_nLoopLife++;
 	if (m_nLife == 0)
 	{
-		printf("clear\n");
 		IsAlive = false;
 		((CETCONGView*)view)->Invalidate();
 		Sleep(3000);
@@ -60,9 +59,7 @@ void CEnemy::AttackTimer(LPVOID view)
 {
 
 	
-	CETCONGView *pView = (CETCONGView*)view;
-
-	
+	CETCONGView *pView = (CETCONGView*)view;	
 	newtwo.EnemyThread(pView);
 	
 	

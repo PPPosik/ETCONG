@@ -76,10 +76,6 @@ void SCREEN_NAME::OnBnClickedButtonStartGame()
 }
 
 
-CString SCREEN_NAME::GetPlayerName()
-{
-	return m_strName;
-}
 
 
 void SCREEN_NAME::OnDraw(CDC* pDC)

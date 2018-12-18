@@ -64,16 +64,10 @@
     <ClInclude Include="SCREEN_STORY.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SCREEN_GAME.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SCREEN_NAME.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SCREEN_START.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="NewView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -114,9 +108,6 @@
     <ClCompile Include="GameGraphics.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SCREEN_GAME.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="SCREEN_NAME.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -124,9 +115,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SCREEN_STORY.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="NewView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

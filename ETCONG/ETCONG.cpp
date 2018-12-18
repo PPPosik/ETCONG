@@ -13,11 +13,9 @@
 
 #include <afxpriv.h>
 
-#include "NewView.h"
 #include "SCREEN_NAME.h"
 #include "SCREEN_START.h"
 #include "SCREEN_STORY.h"
-#include "SCREEN_GAME.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -42,8 +40,7 @@ END_MESSAGE_MAP()
 // CETCONGApp 생성
 
 CETCONGApp::CETCONGApp() : 
-  m_pNewView(NULL)
-, m_pStartScreen(NULL)
+  m_pStartScreen(NULL)
 , m_pNameScreen(NULL)
 , m_nCurrentView(VIEW_START)
 , bViewInit(false)
@@ -109,7 +106,7 @@ BOOL CETCONGApp::InitInstance()
 
 
 	CView* pActiveView = ((CFrameWnd*)m_pMainWnd)->GetActiveView();
-	m_pNewView = (CView*) new NewView();
+	//m_pNewView = (CView*) new NewView();
 	m_pStartScreen = (CView*) new SCREEN_START();
 	m_pNameScreen = (CView*) new SCREEN_NAME();
 	m_pStoryScreen = (SCREEN_STORY*) new SCREEN_STORY();
@@ -136,19 +133,17 @@ BOOL CETCONGApp::InitInstance()
 	// Create the new view. In this example, the view persists for
 	// the life of the application. The application automatically
 	// deletes the view when the application is closed.
-	m_pNewView->Create(NULL, (LPCTSTR)"AnyWindowName", WS_CHILD, rect, m_pMainWnd, IDD_NEWVIEW, &newContext);
+	//m_pNewView->Create(NULL, (LPCTSTR)"AnyWindowName", WS_CHILD, rect, m_pMainWnd, IDD_NEWVIEW, &newContext);
 	m_pStartScreen->Create(NULL, (LPCTSTR)"ETCONG Start", WS_CHILD, rect, m_pMainWnd, IDD_SCREEN_START, &newContext);
 	m_pNameScreen->Create(NULL, (LPCTSTR)"ETCONG Name", WS_CHILD, rect, m_pMainWnd, IDD_SCREEN_NAME, &newContext);
 	m_pStoryScreen->Create(NULL, (LPCTSTR)"ETCONG Story", WS_CHILD, rect, m_pMainWnd, IDD_SCREEN_STORY, &newContext);
-	m_pGameScreen->Create(NULL, (LPCTSTR)"ETCONG Game", WS_CHILD, rect, m_pMainWnd, IDD_SCREEN_GAME, &newContext);
+	m_pGameScreen->Create(NULL, (LPCTSTR)"ETCONG Game", WS_CHILD, rect, m_pMainWnd, 321, &newContext);
 	// When a document template creates a view, the WM_INITIALUPDATE
 	// message is sent automatically. However, this code must
 	// explicitly send the message, as follows.
-	//m_pNewView->SendMessage(WM_INITIALUPDATE, 0, 0);
+
 	m_pStartScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
-	//m_pNameScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
-	//m_pStoryScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
-	//m_pGameScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
+
 	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
@@ -228,7 +223,6 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 		m_pStoryScreen->StoryChanged(story);
 		pNewView = m_pStoryScreen;
 		m_nCurrentView = VIEW_STORY;
-		//m_pGameScreen->OnDestroy();
 		m_pGameScreen->m_sound.stop();
 		break;
 	default:
@@ -246,8 +240,7 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 
 	::SetWindowLong(pNewView->m_hWnd, GWL_ID, temp);
 #endif
-	//CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd(););
-	//CView *pView = (CView*)pFrame->GetActiveView();
+
 	pActiveView->ShowWindow(SW_HIDE);
 	pNewView->ShowWindow(SW_SHOW);
 
@@ -260,8 +253,6 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 	((CFrameWnd*)m_pMainWnd)->RecalcLayout();
 	pNewView->Invalidate();
 	return pActiveView;
-
-	//return nullptr;
 }
 
 
@@ -280,13 +271,9 @@ void CETCONGApp::setCurrentView(int value)
 void CETCONGApp::CallDeath(bool bWho) {
 
 	if (bWho) {
-		//m_pGameScreen->StopMember();
-		printf("CALL DEATH RUN\n");
 		SwitchView(VIEW_GAME, 2004);
 	}
 	else {
-		//m_pGameScreen->StopMember();
-		printf("CALL DEATH RUN IN BOSS\n");
 		SwitchView(VIEW_GAME, 2002);
 	}
 }

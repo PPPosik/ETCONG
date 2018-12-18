@@ -31,11 +31,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonStart();
-	CBitmap m_bmpButton;
 	CBitmapButton m_btnStart;
 	virtual void OnInitialUpdate();
-
-
 	virtual void OnDraw(CDC* /*pDC*/);
 	CImage m_ImgBackground;
 };

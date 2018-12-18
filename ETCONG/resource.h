@@ -10,13 +10,11 @@
 #define IDB_PNG3                        312
 #define IDB_PNG4                        313
 #define IDB_PNG5                        314
-#define IDD_NEWVIEW                     315
 #define IDD_SCREEN_START                317
 #define IDD_SCREEN_NAME                 318
 #define IDB_PNG8                        318
 #define IDD_SCREEN_STORY                319
 #define IDB_PNG9                        319
-#define IDD_SCREEN_GAME                 320
 #define IDB_BITMAP1                     322
 #define IDB_PNG6                        323
 #define IDB_PNG7                        325

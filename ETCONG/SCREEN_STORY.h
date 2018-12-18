@@ -49,9 +49,9 @@ public:
 	
 	CImage m_ImgBackground;
 	CImage storySet[4];
-	CImage storyEnd[9];
-	CImage storyDiedEins[3];
-	CImage storyDiedZwei[3];
+	CImage storyEnd[8];
+	CImage storyDiedEins[2];
+	CImage storyDiedZwei[2];
 	void StoryChanged(int Scene);
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
 };

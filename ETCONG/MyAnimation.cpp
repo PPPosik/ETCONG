@@ -5,9 +5,6 @@
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
 
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
-
-
 struct STRUCT {
 	CETCONGView *pView;
 	CMyAnimation *self;
@@ -30,17 +27,6 @@ CMyAnimation::~CMyAnimation()
 
 void CMyAnimation::InitAnimation()
 {
-	/*
-	CString str;
-	for (int i = 1; i <= MAX_MOVE_CNT; i++) {
-		str.Format(_T("res\\%d.png"), i);
-		m_ImgMove[i - 1].Load(str);
-	}
-	m_ImgBackground.Load(_T("res\\background.png"));
-
-	m_nWidth = m_ImgMove[0].GetWidth();
-	m_nHeight = m_ImgMove[0].GetHeight();
-	*/
 }
 
 
@@ -51,14 +37,8 @@ void CMyAnimation::PlayAnimation(LPVOID view)
 	
 
 	for (int i = 0; i < MAX_MOVE_CNT; i++) {
-		// printf("%d ", i);
-	
-		
 		pView->m_display.ActiveMoveAnimation(i);
-		pView->Invalidate(TRUE);
-		//m_ImgBackground.BitBlt(memDC.m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
-		//m_ImgMove[i].TransparentBlt(memDC.m_hDC, m_pPos.x, m_pPos.y, m_nWidth, m_nHeight, RGB(255, 255, 255));
-		
+		pView->Invalidate(TRUE);		
 		Sleep(20);
 	}
 
