@@ -58,7 +58,7 @@ void SCREEN_START::OnBnClickedButtonStart()
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1000, 0);
+	pView = pApp->SwitchView(1000, 2001);
 }
 
 
@@ -76,5 +76,6 @@ void SCREEN_START::OnDraw(CDC* pDC)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	pDC = GetDC();
-	m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
+//	m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
+	m_ImgBackground.StretchBlt(pDC->m_hDC, 0, 0, 1260, 680);
 }

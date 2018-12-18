@@ -1,5 +1,1 @@
-﻿빌드 시작: 2018-12-18 오후 10:10:36
-
-빌드했습니다.
-
-경과 시간: 00:00:00.01
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : 'c:\users\user\documents\github\etcong\x64\debug\etcong.exe' 경로에 대한 액세스가 거부되었습니다.

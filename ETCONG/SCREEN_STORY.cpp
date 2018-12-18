@@ -28,19 +28,22 @@ SCREEN_STORY::SCREEN_STORY()
 	storySet[3].Load(_T("res\\sceen4.png"));
 
 	storyEnd[0].Load(_T("res\\ETCONG_End1.jpg"));
-	storyEnd[1].Load(_T("res\\ETCONG_End2.jpg"));
-	storyEnd[2].Load(_T("res\\ETCONG_End3.jpg"));
-	storyEnd[3].Load(_T("res\\ETCONG_End3-1.jpg"));
-	storyEnd[4].Load(_T("res\\ETCONG_End4.jpg"));
-	storyEnd[5].Load(_T("res\\ETCONG_End4-1.jpg"));
-	storyEnd[6].Load(_T("res\\ETCONG_End5.jpg"));
-	storyEnd[7].Load(_T("res\\ETCONG_End2.jpg"));
+	storyEnd[1].Load(_T("res\\ETCONG_End1.jpg"));
+	storyEnd[2].Load(_T("res\\ETCONG_End2.jpg"));
+	storyEnd[3].Load(_T("res\\ETCONG_End3.jpg"));
+	storyEnd[4].Load(_T("res\\ETCONG_End3-1.jpg"));
+	storyEnd[5].Load(_T("res\\ETCONG_End4.jpg"));
+	storyEnd[6].Load(_T("res\\ETCONG_End4-1.jpg"));
+	storyEnd[7].Load(_T("res\\ETCONG_End5.jpg"));
+	storyEnd[8].Load(_T("res\\ETCONG_End2.jpg"));
 
 	storyDiedEins[0].Load(_T("res\\ETCONG_Die1.jpg"));
-	storyDiedEins[1].Load(_T("res\\ETCONG_End2.jpg"));
+	storyDiedEins[1].Load(_T("res\\ETCONG_Die1.jpg"));
+	storyDiedEins[2].Load(_T("res\\ETCONG_End2.jpg"));
 
 	storyDiedZwei[0].Load(_T("res\\ETCONG_Die2.jpg"));
-	storyDiedZwei[1].Load(_T("res\\ETCONG_End2.jpg"));
+	storyDiedZwei[1].Load(_T("res\\ETCONG_Die2.jpg"));
+	storyDiedZwei[2].Load(_T("res\\ETCONG_End2.jpg"));
 }
 
 SCREEN_STORY::~SCREEN_STORY()
@@ -84,11 +87,18 @@ void SCREEN_STORY::Dump(CDumpContext& dc) const
 void SCREEN_STORY::OnBnClickedButtonSkip()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
-	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
-	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
-	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1002, 2001);
+	if (nStoryType == STORY_START) {
+		CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+		CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
+		CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
+		CView *pView = (CView*)pChild->GetActiveView();
+		pView = pApp->SwitchView(1002, 2001);
+	}
+	else {
+		AfxMessageBox(_T("끝났다!"));
+		exit(0);
+	}
+
 }
 
 void SCREEN_STORY::OnInitialUpdate()
@@ -110,17 +120,17 @@ void SCREEN_STORY::drawBG()
 		break;
 
 	case STORY_CLEAR:
-		nStorySize = 8;
+		nStorySize = 9;
 		pStory = storyEnd;
 		break;
 
 	case STORY_DIE_EINS:
-		nStorySize = 2;
+		nStorySize = 3;
 		pStory = storyDiedEins;
 		break;
 
 	case STORY_DIE_ZWEI:
-		nStorySize = 2;
+		nStorySize = 3;
 		pStory = storyDiedZwei;
 		break;
 	
@@ -152,7 +162,7 @@ void SCREEN_STORY::drawBG()
 
 	CDC* pDC = GetDC();
 	m_ImgBackground = pStory[m_nStoryScene++];
-	m_ImgBackground.BitBlt(pDC->m_hDC, 0, -20);
+	m_ImgBackground.StretchBlt(pDC->m_hDC, 0, 0, 1270, 685);
 
 	if (!inited) {
 		m_btnNext.AutoLoad(IDC_BUTTON_NEXT, this);
