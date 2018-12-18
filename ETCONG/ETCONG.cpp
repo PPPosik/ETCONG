@@ -225,6 +225,8 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 		m_pStoryScreen->StoryChanged(story);
 		pNewView = m_pStoryScreen;
 		m_nCurrentView = VIEW_STORY;
+		//m_pGameScreen->OnDestroy();
+		m_pGameScreen->m_sound.stop();
 		break;
 	default:
 		AfxMessageBox(_T("Invalid value"));
@@ -245,8 +247,9 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 	//CView *pView = (CView*)pFrame->GetActiveView();
 	pActiveView->ShowWindow(SW_HIDE);
 	pNewView->ShowWindow(SW_SHOW);
-
-	((CFrameWnd*)m_pMainWnd)->SetActiveView(pNewView);
+	printf("후루꾸루꾸\n");
+	((CFrameWnd*)m_pMainWnd)->SetActiveView(pNewView, FALSE);
+	printf("결국 여기야?\n");
 	((CFrameWnd*)m_pMainWnd)->RecalcLayout();
 	pNewView->Invalidate();
 	return pActiveView;
@@ -270,13 +273,13 @@ void CETCONGApp::setCurrentView(int value)
 void CETCONGApp::CallDeath(bool bWho) {
 
 	if (bWho) {
-		m_pGameScreen->MusicStop();
+		//m_pGameScreen->StopMember();
 		printf("CALL DEATH RUN\n");
 		SwitchView(VIEW_GAME, 2004);
 	}
 	else {
-		m_pGameScreen->MusicStop();
+		//m_pGameScreen->StopMember();
 		printf("CALL DEATH RUN IN BOSS\n");
-		SwitchView(VIEW_GAME, 2003);
+		SwitchView(VIEW_GAME, 2002);
 	}
 }

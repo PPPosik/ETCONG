@@ -30,8 +30,6 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnEnChangeEdit1();
-	afx_msg void OnBnClickedButtonGoback();
 	afx_msg void OnBnClickedButtonStartGame();
 	//	CString m_strName;
 	CString m_strName;
