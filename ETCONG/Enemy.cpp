@@ -11,7 +11,7 @@
 
 CEnemy::CEnemy()
 {
-	m_nLife = 1;
+	m_nLife = 30;
 	m_nWidth = 300;
 	m_nHeight = 300;
 	IsAlive = true;
@@ -48,22 +48,9 @@ void CEnemy::Ouchhurt(LPVOID view)
 void CEnemy::ImageInit()
 {
 	IsAlive = true;
-	m_imgDefault.Load(_T("res\\히오스명언.PNG"));
 	m_pPos = CPoint(1090, 610);
 }
 
-
-
-
-void CEnemy::Imageprint()
-{
-	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
-
-	CDC* pDC = pView->GetDC();
-
-	m_imgDefault.BitBlt(pDC->m_hDC, m_pPos.x, m_pPos.y);
-}
 
 
 void CEnemy::AttackTimer(LPVOID view)

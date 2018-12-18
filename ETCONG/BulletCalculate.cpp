@@ -90,7 +90,8 @@ void CBulletCalculate::PlayerBulletThread(UINT nChar)
 	if (pPlayerAttack == NULL) {
 		AfxMessageBox(L"Error");
 	}
-	CloseHandle(pPlayerAttack);
+	CloseHandle(pPlayerAttack->m_hThread);
+	pPlayerAttack->m_hThread = NULL;
 }
 
 
@@ -115,6 +116,8 @@ void CBulletCalculate::shootBullet(LPVOID View, UINT nChar, int player_x, int pl
 	enemy_y = pView->m_aEnemy.m_pPos.y;
 	enemy_w = pView->m_aEnemy.m_nWidth;
 	enemy_h = pView->m_aEnemy.m_nHeight;
+
+	bool flag = true;
 	
 
 	//m_imgBulletPlayer.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
@@ -122,7 +125,7 @@ void CBulletCalculate::shootBullet(LPVOID View, UINT nChar, int player_x, int pl
 	//m_imgBulletPlayer.Load(_T("res\\bullet.png"));
 	//AfxMessageBox(_T("shooted"));
 	//printf("yes6");
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 15 && flag; i++) {
 
 		//pOldBitmap = (CBitmap*)memDC.SelectObject(&bmp);
 		switch (KeyInput) {
@@ -151,10 +154,15 @@ void CBulletCalculate::shootBullet(LPVOID View, UINT nChar, int player_x, int pl
 			//pView->m_ImgBackground.BitBlt(pDC->m_hDC, pView->m_pBackgroundPos.x, pView->m_pBackgroundPos.y);
 			//pView->m_aEnemy.Imageprint();
 			break;
-		
+		default:
+			flag = false;
+			break;
 		}
 
-		pView->m_display.ActiveBulletAnimation(launch_X, launch_Y);
+		if (flag) 
+		{
+			pView->m_display.ActiveBulletAnimation(launch_X, launch_Y);
+		}
 		//printf("\n++%d++%d", launch_X, launch_Y);
 		pView->Invalidate(TRUE);
 		
@@ -245,7 +253,8 @@ void CBulletCalculate::EnemyThread(LPVOID view)
 	if (pEnemyAttack == NULL) {
 		AfxMessageBox(L"Error");
 	}
-	CloseHandle(pEnemyAttack);
+	CloseHandle(pEnemyAttack->m_hThread);
+	pEnemyAttack->m_hThread = NULL;
 }
 
 

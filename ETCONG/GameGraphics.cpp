@@ -10,7 +10,6 @@
 #define AFTER_ATTACK 103
 
 
-
 struct GAMESTRUCT {
 	CETCONGView *pView;
 	CGameGraphics *self;
@@ -42,11 +41,6 @@ void CGameGraphics::DisplayThread()
 	if (pDisplay == NULL) {
 		AfxMessageBox(L"Error");
 		
-	}
-	if (pDisplay != NULL) {
-		//pDisplay->SuspendThread();
-		//DWORD dwResult;
-		//::GetExitCodeThread(pDisplay->m_hThread, &dwResult);
 	}
 	CloseHandle(pDisplay->m_hThread);
 	pDisplay->m_hThread = NULL;

@@ -18,8 +18,6 @@ public:
 	CPoint m_pPos;
 	bool IsAlive;
 	void ImageInit();
-	CImage m_imgDefault;
-	void Imageprint();
 	void AttackTimer(LPVOID view);
 	CBulletCalculate newtwo;
 };

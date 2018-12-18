@@ -26,38 +26,18 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
 	CDC *pDC = pView->GetDC();
-	CImage move, attack;
-	HRESULT hResultMove = move.Load(_T("res\\player.png"));
-	HRESULT hResultAttack = attack.Load(_T("res\\attack.png"));
 	int beat = 0;
 	
 
 	while (1)
-	{
-		//Sleep(pView->m_nTime);
-		/*
-		Sleep(10);
-		beat += 10;
-		//pView->m_display.DisplayThread();
-		
-		if (beat == pView->m_nTime) {
-			beat = 0;
-			if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
-				pView->m_nTimerFlag = MOVE;
-			else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
-				pView->m_nTimerFlag = ATTACK;
-		}
-		pView->Invalidate();
-		*/
-		
+	{		
 		if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
 			pView->m_nTimerFlag = MOVE;
 		else if (pView->m_nTimerFlag == AFTER_MOVE || pView->m_nTimerFlag == MOVE)
 			pView->m_nTimerFlag = ATTACK;
 		
 		pView->Invalidate();
-		Sleep(400);
-
+		Sleep(pView->m_nTime);
 	}
 
 	return 0;
@@ -91,12 +71,14 @@ void CCustomThread::StartThread()
 	if (pClick == NULL) {
 		AfxMessageBox(L"Error");
 	}
-	CloseHandle(pClick);
+	CloseHandle(pClick->m_hThread);
+	pClick->m_hThread = NULL;
 
 	if (pAbsolute == NULL) {
 		AfxMessageBox(L"Error");
 	}
-	CloseHandle(pAbsolute);
+	CloseHandle(pAbsolute->m_hThread);
+	pAbsolute->m_hThread = NULL;
 }
 
 void CCustomThread::StopThread()

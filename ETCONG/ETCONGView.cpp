@@ -142,14 +142,21 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CDC* pDC = GetDC();
 	int x = m_pBackgroundPos.x;
 	int y = m_pBackgroundPos.y;
-	int widthBias = m_player.getWidth();
-	int heightBias = m_player.getHeight();
+	int widthBias = 100;
+	int heightBias = 100;
 	int playerPosX = m_player.getPos().x;
 	int playerPosY = m_player.getPos().y;
 	int enemyPosX = m_aEnemy.m_pPos.x;
 	int enemyPosY = m_aEnemy.m_pPos.y;
 
 	if (m_bClickable) {
+		if (nChar == VK_LEFT) {
+			m_display.LeftPlayer();
+		}
+		else if (nChar == VK_RIGHT) {
+			m_display.RightPlayer();
+		}
+
 		if (m_nTimerFlag == MOVE) {
 			switch (nChar) {
 			case VK_LEFT:
@@ -159,7 +166,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				m_display.LeftPlayer();
 				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
@@ -171,7 +177,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
 				//m_display.ActiveMoveAnimation();
-				m_display.RightPlayer();
 				m_animation.StartThread();
 				break;
 			case VK_UP:
@@ -206,7 +211,8 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			default:
 				// disadvantage
 				// m_player.drawError(pDC);
-				m_bError = true;
+				// m_bError = true;
+				;
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
@@ -219,47 +225,12 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_nTimerFlag = AFTER_ATTACK;
 			m_bClickable = false;
 		}
-		else {
-			// disadvantage
-			m_bError = true;
-			m_player.drawError(pDC);
-		}
-	}
-	else {
-		// m_player.drawError(pDC);
-		m_bError = true;
 	}
 	printf("%d %d\n", m_pBackgroundPos.x, m_pBackgroundPos.y);
 
 	ReleaseDC(pDC);
 	Invalidate(TRUE);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
-}
-
-
-void CETCONGView::drawBackground()
-{
-	CDC* pDC = GetDC();
-
-	m_ImgBackground.BitBlt(pDC->m_hDC, m_pBackgroundPos.x, m_pBackgroundPos.y);
-	if (m_aEnemy.IsAlive) {
-		m_aEnemy.Imageprint();
-	}
-	
-	if (m_bError) {
-		m_player.drawError(pDC);
-	}
-	else if (m_nTimerFlag == AFTER_MOVE || m_nTimerFlag == MOVE) {
-		m_player.drawMove(pDC);
-	}
-	else if (m_nTimerFlag == AFTER_ATTACK || m_nTimerFlag == ATTACK) {
-		m_player.drawAttack(pDC);
-	}
-	m_bError = false;
-	
-	// printf("///////////// %d\n", m_nTimerFlag);
-
-	ReleaseDC(pDC);
 }
 
 
@@ -273,7 +244,6 @@ void CETCONGView::OnDestroy()
 	m_display.pDisplay = NULL;
 	
 }
-
 
 
 void CETCONGView::OnInitialUpdate()
@@ -293,7 +263,6 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 	return TRUE;
 	// return CView::OnEraseBkgnd(pDC);
 }
-
 
 
 

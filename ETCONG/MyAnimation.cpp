@@ -114,5 +114,6 @@ void CMyAnimation::StartThread()
 	if (pAnimation == NULL) {
 		AfxMessageBox(L"Error");
 	}
-	CloseHandle(pAnimation);
+	CloseHandle(pAnimation->m_hThread);
+	pAnimation->m_hThread = NULL;
 }
