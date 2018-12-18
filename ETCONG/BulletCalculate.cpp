@@ -400,14 +400,12 @@ void CBulletCalculate::disableVoid(LPVOID view)
 
 void CBulletCalculate::stopThread()
 {
-	pEnemyAttack->SuspendThread();
-
 	DWORD dwResult;
-	::GetExitCodeThread(pEnemyAttack->m_hThread, &dwResult);
-	
-
-	
-	delete pEnemyAttack;
+	if (pEnemyAttack->m_hThread != NULL) {
+		pEnemyAttack->SuspendThread();
+		::GetExitCodeThread(pEnemyAttack->m_hThread, &dwResult);
+		delete pEnemyAttack;
+	}
 }
 
 

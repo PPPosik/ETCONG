@@ -82,13 +82,17 @@ void CCustomThread::StartThread()
 
 void CCustomThread::StopThread()
 {
-	pClick->SuspendThread();
-	pAbsolute->SuspendThread();
-
 	DWORD dwResult;
-	::GetExitCodeThread(pClick->m_hThread, &dwResult);
-	::GetExitCodeThread(pAbsolute->m_hThread, &dwResult);
 
-	delete pClick;
-	delete pAbsolute;
+	if (pAbsolute->m_hThread != NULL) {
+		pAbsolute->SuspendThread();
+		::GetExitCodeThread(pAbsolute->m_hThread, &dwResult);
+		delete pAbsolute;
+	}
+
+	if (pClick->m_hThread != NULL) {
+		pClick->SuspendThread();
+		::GetExitCodeThread(pClick->m_hThread, &dwResult);
+		delete pClick;
+	}
 }
