@@ -8,7 +8,6 @@
 #ifndef SHARED_HANDLERS
 #include "ETCONG.h"
 #endif
-//#include "ETCONG.h"
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
 
@@ -20,8 +19,6 @@
 #define ATTACK 101
 #define AFTER_MOVE 102
 #define AFTER_ATTACK 103
-
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 // CETCONGView
 
@@ -166,7 +163,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
 			case VK_RIGHT:
@@ -176,7 +172,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
 			case VK_UP:
@@ -186,7 +181,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
 			case VK_DOWN:
@@ -196,12 +190,10 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				}
 				m_bClickable = false;
 				m_nTimerFlag = AFTER_MOVE;
-				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
 			case VK_ADD:
 			{	//시연용
-				//m_sound.stop();
 				CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
 				CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 				CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
@@ -209,10 +201,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				pView = pApp->SwitchView(1003, 2003);
 			}
 			default:
-				// disadvantage
-				// m_player.drawError(pDC);
-				// m_bError = true;
-				;
+				break;
 			}
 			m_pBackgroundPos.x = x;
 			m_pBackgroundPos.y = y;
@@ -226,8 +215,6 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_bClickable = false;
 		}
 	}
-	printf("%d %d\n", m_pBackgroundPos.x, m_pBackgroundPos.y);
-
 	ReleaseDC(pDC);
 	Invalidate(TRUE);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
@@ -251,8 +238,6 @@ void CETCONGView::OnInitialUpdate()
 	CView::OnInitialUpdate();
 
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	//m_sound.stage1Play();
-	//m_customThread.StartThread();
 	
 }
 
@@ -261,12 +246,5 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	return TRUE;
-	// return CView::OnEraseBkgnd(pDC);
 }
 
-
-void CETCONGView::StopMember()
-{
-	m_sound.stop();
-	m_customThread.StopThread();
-}

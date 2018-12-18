@@ -26,7 +26,6 @@ public:
 	virtual BOOL InitInstance();
 
 // 구현입니다.
-	CView* m_pNewView;
 	CView* SwitchView(int CurrentView, int story);
 	CView* m_pStartScreen;
 	CView* m_pNameScreen;
@@ -39,6 +38,7 @@ public:
 	bool m_bInited;
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+	bool bViewInit;
 };
 
 extern CETCONGApp theApp;

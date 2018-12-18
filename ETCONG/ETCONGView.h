@@ -77,7 +77,6 @@ public:
 	CEnemy m_aEnemy;
 	CGameGraphics m_display;
 
-	void StopMember();
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전
