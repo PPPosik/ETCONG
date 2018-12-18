@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "GameGraphics.h"
-
+#include "ETCONG.h"
 
 CPlayer::CPlayer()
 {
@@ -112,5 +112,8 @@ void CPlayer::OuchHurt()
 	{
 		IsAlive = false;
 		printf("\nYOUDEAD\n");
+		CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+		pApp->CallDeath(true);
+		
 	}
 }

@@ -204,12 +204,12 @@ void CGameGraphics::Init()
 	m_imgMineAttack[1].Load(_T("res\\sundat.png"));
 	m_imgMineAttack[2].Load(_T("res\\deleteday.png"));
 	m_imgBlind.Load(_T("res\\Blind2.png"));
-	m_imgWIld[0].Load(_T("res\\bullet.png"));
-	m_imgWIld[1].Load(_T("res\\bullet.png"));
-	m_imgWIld[2].Load(_T("res\\bullet.png"));
-	m_imgWIld[3].Load(_T("res\\bullet.png"));
-	m_imgWIld[4].Load(_T("res\\bullet.png"));
-	m_imgWIld[5].Load(_T("res\\bullet.png"));
+	m_imgWIld[0].Load(_T("res\\1추석.png"));
+	m_imgWIld[1].Load(_T("res\\2어린이날.png"));
+	m_imgWIld[2].Load(_T("res\\3광복절.png"));
+	m_imgWIld[3].Load(_T("res\\4신정.png"));
+	m_imgWIld[4].Load(_T("res\\5한글날.png"));
+	m_imgWIld[5].Load(_T("res\\6크리스마스.png"));
 	
 
 

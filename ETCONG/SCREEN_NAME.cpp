@@ -82,13 +82,13 @@ void SCREEN_NAME::OnBnClickedButtonGoback()
 void SCREEN_NAME::OnBnClickedButtonStartGame()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//UpdateData(TRUE);
-	//if (m_strName.IsEmpty()) {
-	//	AfxMessageBox(_T("없습니다 당신의 이름!"));
-	//	m_strName = _T("그치만..이렇게라도 하지 않으면...");
-	//	UpdateData(FALSE);
-	//	return;
-	//}
+	UpdateData(TRUE);
+	if (m_strName.IsEmpty()) {
+		AfxMessageBox(_T("없습니다 당신의 이름!"));
+		m_strName = _T("그치만..이렇게라도 하지 않으면...");
+		UpdateData(FALSE);
+		return;
+	}
 
 	m_strName.Empty();
 	UpdateData(FALSE);
@@ -97,7 +97,7 @@ void SCREEN_NAME::OnBnClickedButtonStartGame()
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1001);
+	pView = pApp->SwitchView(1001, 2001);
 }
 
 
@@ -111,9 +111,8 @@ void SCREEN_NAME::OnDraw(CDC* pDC)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	m_btnStarts.AutoLoad(IDC_BUTTON_START_GAME, this);
-	m_btnStarts.LoadBitmaps(IDB_PNG9, IDB_PNG9, IDB_PNG9, IDB_PNG9);
+	m_btnStarts.LoadBitmaps(IDB_BITMAP_OK, IDB_BITMAP_OK, IDB_BITMAP_OK, IDB_BITMAP_OK);
 	m_btnStarts.SizeToContent();
-
 	pDC = GetDC();
 
 	m_ImageBackground.BitBlt(pDC->m_hDC, 0, -20);

@@ -5,13 +5,13 @@
 #include "ETCONGDoc.h"
 #include "ETCONGView.h"
 #include "Enemy.h"
-
+#include "ETCONG.h"
 
 
 
 CEnemy::CEnemy()
 {
-	m_nLife = 10;
+	m_nLife = 1;
 	m_nWidth = 300;
 	m_nHeight = 300;
 	IsAlive = true;
@@ -36,6 +36,8 @@ void CEnemy::Ouchhurt(LPVOID view)
 	if (m_nLife == 0)
 	{
 		IsAlive = false;
+		CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+		pApp->CallDeath(FALSE);
 	}
 	
 	
@@ -48,9 +50,6 @@ void CEnemy::ImageInit()
 	IsAlive = true;
 	m_imgDefault.Load(_T("res\\히오스명언.PNG"));
 	m_pPos = CPoint(1090, 610);
-	
-	
-	
 }
 
 

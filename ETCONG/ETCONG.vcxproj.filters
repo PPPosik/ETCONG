@@ -256,6 +256,21 @@
     <Image Include="res\button_next.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\heardt.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\button_skip.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap_s.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bmp00001.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bmp00002.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\testMusic.mp3" />

@@ -194,6 +194,15 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				//m_display.ActiveMoveAnimation();
 				m_animation.StartThread();
 				break;
+			case VK_ADD:
+			{	//½Ã¿¬¿ë
+				MusicStop();
+				CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+				CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
+				CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
+				CView *pView = (CView*)pChild->GetActiveView();
+				pView = pApp->SwitchView(1003, 2003);
+			}
 			default:
 				// disadvantage
 				// m_player.drawError(pDC);
@@ -286,3 +295,9 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 }
 
 
+
+
+void CETCONGView::MusicStop()
+{
+	m_sound.stop();
+}
