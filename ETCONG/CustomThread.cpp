@@ -29,7 +29,7 @@ UINT CCustomThread::ThreadAbsolute(LPVOID _mothod)
 	int beat = 0;
 	
 
-	while (1)
+	while (pView->m_aEnemy.IsAlive && pView->m_player.IsAlive)
 	{		
 		if (pView->m_nTimerFlag == AFTER_ATTACK || pView->m_nTimerFlag == ATTACK)
 			pView->m_nTimerFlag = MOVE;
@@ -48,7 +48,7 @@ UINT CCustomThread::ThreadClickDelay(LPVOID _mothod)
 {
 	CETCONGView *pView = (CETCONGView*)_mothod;
 
-	while (1) {
+	while (pView->m_aEnemy.IsAlive && pView->m_player.IsAlive) {
 		pView->m_bClickable = true;
 		Sleep(pView->m_nClick);
 		pView->m_bClickable = false;

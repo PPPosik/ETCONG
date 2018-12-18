@@ -5,11 +5,10 @@
 class CPlayer {
 private:
 	int m_nLife;
-	bool IsAlive;
 	CPoint m_pPos;
 
 public:
-
+	bool IsAlive;
 
 public:
 	CPlayer();
