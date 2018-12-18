@@ -111,8 +111,8 @@ BOOL CETCONGApp::InitInstance()
 	m_pNewView = (CView*) new NewView();
 	m_pStartScreen = (CView*) new SCREEN_START();
 	m_pNameScreen = (CView*) new SCREEN_NAME();
-	m_pStoryScreen = (CView*) new SCREEN_STORY();
-	m_pGameScreen = (CView*) new CETCONGView();
+	m_pStoryScreen = (SCREEN_STORY*) new SCREEN_STORY();
+	m_pGameScreen = (CETCONGView*) new CETCONGView();
 	CDocument* pCurrentDoc = ((CFrameWnd*)m_pMainWnd)->GetActiveDocument();
 
 	// Initialize a CCreateContext to point to the active document.
@@ -200,21 +200,19 @@ void CETCONGApp::OnAppAbout()
 
 
 
-CView* CETCONGApp::SwitchView(int CurrentView)
+CView* CETCONGApp::SwitchView(int CurrentView, int story)
 {
 	CView* pActiveView =
 		((CFrameWnd*)m_pMainWnd)->GetActiveView();
 	CView* pNewView = NULL;
-	//if (pActiveView == m_pOldView)
-	//	pNewView = m_pNewView;
-	//else
-	//	pNewView = m_pOldView;
+
 	switch (CurrentView) {
 	case VIEW_START:
 		pNewView = m_pNameScreen;
 		m_nCurrentView = VIEW_NAME;
 		break;
 	case VIEW_NAME:
+		m_pStoryScreen->StoryChanged(story);
 		pNewView = m_pStoryScreen;
 		m_nCurrentView = VIEW_STORY;
 		break;
@@ -224,11 +222,12 @@ CView* CETCONGApp::SwitchView(int CurrentView)
 		m_pGameScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
 		break;
 	case VIEW_GAME:
-		pNewView = m_pStartScreen;
-		m_nCurrentView = VIEW_START;
+		m_pStoryScreen->StoryChanged(story);
+		pNewView = m_pStoryScreen;
+		m_nCurrentView = VIEW_STORY;
 		break;
 	default:
-		AfxMessageBox(_T("미구현"));
+		AfxMessageBox(_T("Invalid value"));
 		break;
 	}
 	// Exchange view window IDs so RecalcLayout() works.
@@ -242,12 +241,11 @@ CView* CETCONGApp::SwitchView(int CurrentView)
 
 	::SetWindowLong(pNewView->m_hWnd, GWL_ID, temp);
 #endif
-	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	CETCONGView *pView = (CETCONGView*)pFrame->GetActiveView();
-	//	printf("스뤠드 : %d\n", pView->GetDlgCtrlID());
-
+	//CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd(););
+	//CView *pView = (CView*)pFrame->GetActiveView();
 	pActiveView->ShowWindow(SW_HIDE);
 	pNewView->ShowWindow(SW_SHOW);
+
 	((CFrameWnd*)m_pMainWnd)->SetActiveView(pNewView);
 	((CFrameWnd*)m_pMainWnd)->RecalcLayout();
 	pNewView->Invalidate();
@@ -269,4 +267,16 @@ void CETCONGApp::setCurrentView(int value)
 	m_nCurrentView = value;
 }
 
+void CETCONGApp::CallDeath(bool bWho) {
 
+	if (bWho) {
+		m_pGameScreen->MusicStop();
+		printf("CALL DEATH RUN\n");
+		SwitchView(VIEW_GAME, 2004);
+	}
+	else {
+		m_pGameScreen->MusicStop();
+		printf("CALL DEATH RUN IN BOSS\n");
+		SwitchView(VIEW_GAME, 2003);
+	}
+}

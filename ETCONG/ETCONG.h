@@ -8,8 +8,9 @@
 #endif
 
 #include "resource.h"       // 주 기호입니다.
-
-
+#include "ETCONGDoc.h"
+#include "ETCONGView.h"
+#include "SCREEN_STORY.h"
 // CETCONGApp:
 // 이 클래스의 구현에 대해서는 ETCONG.cpp을 참조하십시오.
 //
@@ -26,14 +27,15 @@ public:
 
 // 구현입니다.
 	CView* m_pNewView;
-	CView* SwitchView(int CurrentView);
+	CView* SwitchView(int CurrentView, int story);
 	CView* m_pStartScreen;
 	CView* m_pNameScreen;
-	CView* m_pStoryScreen;
-	CView* m_pGameScreen;
+	SCREEN_STORY* m_pStoryScreen;
+	CETCONGView* m_pGameScreen;
 	int m_nCurrentView;
 	int getCurrentView();
 	void setCurrentView(int value);
+	void CallDeath(bool bWho);
 	bool m_bInited;
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()

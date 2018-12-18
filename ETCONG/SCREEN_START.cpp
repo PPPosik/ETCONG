@@ -59,7 +59,7 @@ void SCREEN_START::OnBnClickedButtonStart()
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1002);
+	pView = pApp->SwitchView(1000, 0);
 }
 
 
@@ -68,9 +68,9 @@ void SCREEN_START::OnInitialUpdate()
 	CFormView::OnInitialUpdate();
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 //	m_btnStart.AutoLoad(IDC_BUTTON_START, this);
-	m_btnStart.LoadBitmaps(IDB_BITMAP1, IDB_BITMAP1, IDB_BITMAP1, IDB_BITMAP1);
+	AfxGetApp()->GetMainWnd()->SetWindowTextW(_T("Enter The Crypt Of Necro Gungeon"));
+	m_btnStart.LoadBitmaps(IDB_BITMAP_START, IDB_BITMAP_START, IDB_BITMAP_START, IDB_BITMAP_START);
 	m_btnStart.SizeToContent();
-	printf("size err\n");
 }
 
 

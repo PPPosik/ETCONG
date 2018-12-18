@@ -88,7 +88,7 @@ void SCREEN_STORY::OnBnClickedButtonSkip()
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1002);
+	pView = pApp->SwitchView(1002, 0);
 }
 
 void SCREEN_STORY::OnInitialUpdate()
@@ -134,20 +134,22 @@ void SCREEN_STORY::drawBG()
 			CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 			CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 			CView *pView = (CView*)pChild->GetActiveView();
-			pView = pApp->SwitchView(1002);
+			pView = pApp->SwitchView(1002, 0);
 			return;
 		}
 		else {
-			CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
-			CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
-			CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
-			CView *pView = (CView*)pChild->GetActiveView();
-			pView = pApp->SwitchView(1003);
+			//CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
+			//CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
+			//CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
+			//CView *pView = (CView*)pChild->GetActiveView();
+			//pView = pApp->SwitchView(1003, STORY_START);
+
+			AfxMessageBox(_T("끝"));
+			exit(0);
 			return;
 		}
 	}
 
-	ReleaseDC(GetDC());
 	CDC* pDC = GetDC();
 	m_ImgBackground = pStory[m_nStoryScene++];
 	m_ImgBackground.BitBlt(pDC->m_hDC, 0, -20);
@@ -157,9 +159,9 @@ void SCREEN_STORY::drawBG()
 		m_btnSkip.AutoLoad(IDC_BUTTON_SKIP, this);
 		inited = true;
 	}
-	m_btnNext.LoadBitmaps(IDB_PNG10, IDB_PNG10, IDB_PNG10, IDB_PNG10);
+	m_btnNext.LoadBitmaps(IDB_BITMAP_NEXT, IDB_BITMAP_NEXT, IDB_BITMAP_NEXT, IDB_BITMAP_NEXT);
 	m_btnNext.SizeToContent();
-	m_btnSkip.LoadBitmaps(IDB_PNG11, IDB_PNG11, IDB_PNG11, IDB_PNG11);
+	m_btnSkip.LoadBitmaps(IDB_BITMAP_SKIP, IDB_BITMAP_SKIP, IDB_BITMAP_SKIP, IDB_BITMAP_SKIP);
 	m_btnSkip.SizeToContent();
 
 } 
@@ -185,4 +187,12 @@ void SCREEN_STORY::StoryChanged(int Scene)
 {
 	m_nStoryScene = 0;
 	nStoryType = Scene;
+}
+
+
+BOOL SCREEN_STORY::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+
+	return CFormView::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
 }
