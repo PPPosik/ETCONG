@@ -19,6 +19,8 @@ void CSoundPlayer::stage1Play() {
 	PlaySound(_T("res\\testMusic.wav"), AfxGetInstanceHandle(), SND_ASYNC);
 }
 
+
 void CSoundPlayer::stop() {
 	sndPlaySound(NULL, SND_ASYNC);
 }
+
