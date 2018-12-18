@@ -39,6 +39,7 @@ public:
 	bool m_bInited;
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+	bool bViewInit;
 };
 
 extern CETCONGApp theApp;

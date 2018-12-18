@@ -213,13 +213,16 @@ UINT CBulletCalculate::ThreadEnemyBullet(LPVOID _mothod)
 		if (!(pView->m_aEnemy.IsAlive)) {
 			break;
 		}
-		Sleep((pView->m_nTime) * 8);
-		
+		Sleep((pView->m_nTime)*4);
+
+		if (!(pView->m_aEnemy.IsAlive)) {
+			break;
+		}
 		shootMine(pDC, pView);
 		if (!(pView->m_aEnemy.IsAlive)) {
 			break;
 		}
-		Sleep( (pView->m_nTime)*8 );
+		Sleep( (pView->m_nTime)*4);
 		
 	}
 

@@ -46,6 +46,7 @@ CETCONGApp::CETCONGApp() :
 , m_pStartScreen(NULL)
 , m_pNameScreen(NULL)
 , m_nCurrentView(VIEW_START)
+, bViewInit(false)
 {
 	// TODO: 아래 응용 프로그램 ID 문자열을 고유 ID 문자열로 바꾸십시오(권장).
 	// 문자열에 대한 서식: CompanyName.ProductName.SubProduct.VersionInformation
@@ -219,9 +220,11 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 	case VIEW_STORY:
 		pNewView = m_pGameScreen;
 		m_nCurrentView = VIEW_GAME;
+
 		m_pGameScreen->SendMessage(WM_INITIALUPDATE, 0, 0);
 		break;
 	case VIEW_GAME:
+		bViewInit = true;
 		m_pStoryScreen->StoryChanged(story);
 		pNewView = m_pStoryScreen;
 		m_nCurrentView = VIEW_STORY;
@@ -247,9 +250,13 @@ CView* CETCONGApp::SwitchView(int CurrentView, int story)
 	//CView *pView = (CView*)pFrame->GetActiveView();
 	pActiveView->ShowWindow(SW_HIDE);
 	pNewView->ShowWindow(SW_SHOW);
-	printf("후루꾸루꾸\n");
-	((CFrameWnd*)m_pMainWnd)->SetActiveView(pNewView, FALSE);
-	printf("결국 여기야?\n");
+
+	if (bViewInit) {
+		((CFrameWnd*)m_pMainWnd)->SetActiveView(pNewView, FALSE);
+	}
+	else {
+		((CFrameWnd*)m_pMainWnd)->SetActiveView(pNewView);
+	}
 	((CFrameWnd*)m_pMainWnd)->RecalcLayout();
 	pNewView->Invalidate();
 	return pActiveView;

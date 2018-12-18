@@ -11,7 +11,7 @@
 
 CEnemy::CEnemy()
 {
-	m_nLife = 15;
+	m_nLife = 20;
 	m_nWidth = 300;
 	m_nHeight = 300;
 	IsAlive = true;

@@ -15,6 +15,10 @@ public:
 	CImage m_ImgAttack;
 	CImage m_ImgError;
 	CImage m_imgEnemyDefault;
+	CImage m_imgEnemyDefault2;
+	CImage m_imgEnemyDefault3;
+	CImage m_imgEnemyDefault4;
+	CImage m_imgEnemyDefault5;
 	CImage m_ImgMoveAni[9];
 	CImage m_imgBulletfromUser;
 	CImage m_imgMineAttack[3];

@@ -77,6 +77,19 @@ UINT CGameGraphics::Display(LPVOID _mothod)
 		}
 
 		if (pView->m_aEnemy.IsAlive) {
+			if (pView->m_aEnemy.m_nLife == 15) {
+				m_imgEnemyDefault = m_imgEnemyDefault2;
+			}
+			else if (pView->m_aEnemy.m_nLife == 10) {
+				m_imgEnemyDefault = m_imgEnemyDefault3;
+			}
+			else if (pView->m_aEnemy.m_nLife == 5) {
+				m_imgEnemyDefault = m_imgEnemyDefault4;
+			}
+			m_imgEnemyDefault.TransparentBlt(memDC.m_hDC, pView->m_aEnemy.m_pPos.x, pView->m_aEnemy.m_pPos.y, 300, 300, RGB(255, 0, 0));
+		}
+		else {
+			m_imgEnemyDefault = m_imgEnemyDefault5;
 			m_imgEnemyDefault.TransparentBlt(memDC.m_hDC, pView->m_aEnemy.m_pPos.x, pView->m_aEnemy.m_pPos.y, 300, 300, RGB(255, 0, 0));
 		}
 
@@ -193,6 +206,10 @@ void CGameGraphics::Init()
 	m_ImgAttack.Load(_T("res\\playerrightatt.png"));
 	m_ImgError.Load(_T("res\\mine3.png"));
 	m_imgEnemyDefault.Load(_T("res\\boss.png"));
+	m_imgEnemyDefault2.Load(_T("res\\boss2.png"));
+	m_imgEnemyDefault3.Load(_T("res\\boss3.png"));
+	m_imgEnemyDefault4.Load(_T("res\\boss4.png"));
+	m_imgEnemyDefault5.Load(_T("res\\boss5.png"));
 	m_imgBulletfromUser.Load(_T("res\\bullet.png"));
 	m_imgMineAttack[0].Load(_T("res\\saturdat.png"));
 	m_imgMineAttack[1].Load(_T("res\\sundat.png"));
