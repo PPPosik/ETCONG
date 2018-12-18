@@ -51,7 +51,6 @@ void SCREEN_START::Dump(CDumpContext& dc) const
 
 // SCREEN_START 메시지 처리기입니다.
 
-
 void SCREEN_START::OnBnClickedButtonStart()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -67,7 +66,6 @@ void SCREEN_START::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-//	m_btnStart.AutoLoad(IDC_BUTTON_START, this);
 	AfxGetApp()->GetMainWnd()->SetWindowTextW(_T("Enter The Crypt Of Necro Gungeon"));
 	m_btnStart.LoadBitmaps(IDB_BITMAP_START, IDB_BITMAP_START, IDB_BITMAP_START, IDB_BITMAP_START);
 	m_btnStart.SizeToContent();
@@ -78,7 +76,5 @@ void SCREEN_START::OnDraw(CDC* pDC)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	pDC = GetDC();
-
 	m_ImgBackground.BitBlt(pDC->m_hDC, 0, 0);
-
 }

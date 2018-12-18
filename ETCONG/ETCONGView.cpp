@@ -201,7 +201,7 @@ void CETCONGView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				break;
 			case VK_ADD:
 			{	//½Ã¿¬¿ë
-				MusicStop();
+				//m_sound.stop();
 				CETCONGApp *pApp = (CETCONGApp*)AfxGetApp();
 				CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 				CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
@@ -265,8 +265,8 @@ BOOL CETCONGView::OnEraseBkgnd(CDC* pDC)
 }
 
 
-
-void CETCONGView::MusicStop()
+void CETCONGView::StopMember()
 {
 	m_sound.stop();
+	m_customThread.StopThread();
 }

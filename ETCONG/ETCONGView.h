@@ -57,8 +57,6 @@ public:
 	CSoundPlayer m_sound;
 	CCustomThread m_customThread;
 	CBulletCalculate m_newone;
-
-	void drawBackground();
 	
 	int m_nTimerFlag;
 	int m_nTime;
@@ -79,7 +77,7 @@ public:
 	CEnemy m_aEnemy;
 	CGameGraphics m_display;
 
-	void MusicStop();
+	void StopMember();
 };
 
 #ifndef _DEBUG  // ETCONGView.cpp의 디버그 버전

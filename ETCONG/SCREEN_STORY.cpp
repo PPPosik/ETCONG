@@ -88,7 +88,7 @@ void SCREEN_STORY::OnBnClickedButtonSkip()
 	CMDIFrameWnd *pFrame = (CMDIFrameWnd*)AfxGetApp()->GetMainWnd();
 	CMDIChildWnd *pChild = (CMDIChildWnd*)pFrame->GetActiveFrame();
 	CView *pView = (CView*)pChild->GetActiveView();
-	pView = pApp->SwitchView(1002, 0);
+	pView = pApp->SwitchView(1002, 2001);
 }
 
 void SCREEN_STORY::OnInitialUpdate()
