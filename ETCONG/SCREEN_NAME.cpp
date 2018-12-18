@@ -90,5 +90,5 @@ void SCREEN_NAME::OnDraw(CDC* pDC)
 	m_btnStarts.SizeToContent();
 	pDC = GetDC();
 
-	m_ImageBackground.BitBlt(pDC->m_hDC, 0, -20);
+	m_ImageBackground.StretchBlt(pDC->m_hDC, 0, 0, 1270, 685);
 }

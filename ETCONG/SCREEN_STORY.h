@@ -25,11 +25,11 @@ public:
 #ifndef _WIN32_WCE
 	virtual void Dump(CDumpContext& dc) const;
 #endif
-#endif
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
+#endif
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonSkip();
@@ -49,9 +49,9 @@ public:
 	
 	CImage m_ImgBackground;
 	CImage storySet[4];
-	CImage storyEnd[8];
-	CImage storyDiedEins[2];
-	CImage storyDiedZwei[2];
+	CImage storyEnd[9];
+	CImage storyDiedEins[3];
+	CImage storyDiedZwei[3];
 	void StoryChanged(int Scene);
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
 };
